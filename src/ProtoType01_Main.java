@@ -280,5 +280,6 @@ public class ProtoType01_Main extends JFrame{
 	public static void main(String[] args) {
 		ProtoType01_Main frame = new ProtoType01_Main();
 		frame.setVisible(true);
+		System.out.println("Hello world");
 	}
 }
