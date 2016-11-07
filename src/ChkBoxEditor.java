@@ -11,9 +11,9 @@ class ChkBoxEditor extends DefaultCellEditor implements ItemListener {
 
 	JTable desk;
 	JCheckBox chkbox;
-	SettingToField field;
+	ChkBoxField field;
 	int col;
-	public ChkBoxEditor(JCheckBox arg0, SettingToField field) {
+	public ChkBoxEditor(JCheckBox arg0, ChkBoxField field) {
 		super(arg0);
 		this.field = field;
 	}

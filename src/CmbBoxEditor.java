@@ -7,9 +7,13 @@ import javax.swing.JTable;
 
 public class CmbBoxEditor extends DefaultCellEditor implements ItemListener {
 
+	JTable desk;
 	JComboBox combo;
-	public CmbBoxEditor(JComboBox comboBox) {
+	CmbBoxField field;
+	int col;
+	public CmbBoxEditor(JComboBox comboBox, CmbBoxField field) {
 		super(comboBox);
+		this.field = field;
 	}
 	public Component getTableCellEditorComponent
 	(JTable table, Object value, boolean isSelected, int row, int column)
@@ -19,7 +23,8 @@ public class CmbBoxEditor extends DefaultCellEditor implements ItemListener {
 		
 		combo = (JComboBox)value;
 		combo.addItemListener(this);
-		
+		desk = table;
+		col = column;
 		return (Component)value;
 	}
 	@Override
@@ -29,6 +34,11 @@ public class CmbBoxEditor extends DefaultCellEditor implements ItemListener {
 	}
 	@Override
 	public void itemStateChanged(ItemEvent arg0) {
+		if(field != null)
+		{
+			field.addColumn(col);
+			field.setCellOption(desk);
+		}
 		
 	}
 }
