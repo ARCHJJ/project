@@ -291,7 +291,7 @@ public class ProtoType01_Main extends JFrame{
 		contentPane.add(btn_playBank2);	
 
 	}
-
+//
 	public int setup()
 	{
 		int BPM = Integer.parseInt(BPMSet.getText()); 
