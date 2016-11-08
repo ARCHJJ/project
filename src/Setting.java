@@ -1,7 +1,7 @@
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-class Setting {
+abstract class Setting {
 	protected DefaultTableModel tablemodel;
 	public Setting()
 	{
