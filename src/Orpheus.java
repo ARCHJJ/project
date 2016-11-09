@@ -27,7 +27,7 @@ import java.util.StringTokenizer;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
-public class ProtoType01_Main extends JFrame{
+public class Orpheus extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table_Field, table_Kind, table_Beat;
@@ -57,7 +57,7 @@ public class ProtoType01_Main extends JFrame{
 	
 	private File keyboardfile[], drumfile[];
 	
-	public ProtoType01_Main() {
+	public Orpheus() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1024, 480);
 		contentPane = new JPanel();
@@ -314,7 +314,7 @@ public class ProtoType01_Main extends JFrame{
         return result; 
     }
 	public static void main(String[] args) {
-		ProtoType01_Main frame = new ProtoType01_Main();
+		Orpheus frame = new Orpheus();
 		frame.setVisible(true);
 	}
 }
