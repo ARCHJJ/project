@@ -31,7 +31,7 @@ public class ProtoType01_Main extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table_Field, table_Kind, table_Beat;
-	private JScrollPane scrollPane_Desk, scrollPane_Kind, scrollPane_Beat;
+	private JScrollPane scrollPane_Field, scrollPane_Kind, scrollPane_Beat;
 	private JComboBox BeatSet;
 	private JTextField BPMSet;
 	
@@ -118,9 +118,9 @@ public class ProtoType01_Main extends JFrame{
 		table_Field.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		STF_keyboard.setCellOption(table_Field);
 		contentPane.add(table_Field);
-		scrollPane_Desk = new JScrollPane(table_Field);
-		scrollPane_Desk.setBounds(72, 200, 640, 200);
-		contentPane.add(scrollPane_Desk);
+		scrollPane_Field = new JScrollPane(table_Field);
+		scrollPane_Field.setBounds(72, 200, 640, 200);
+		contentPane.add(scrollPane_Field);
 		
 		//STK = Setting to Title
 		STK_keyboard = new SettingToKind(keyboard_fname);
