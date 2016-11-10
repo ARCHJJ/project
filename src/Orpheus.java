@@ -11,7 +11,6 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.UnsupportedAudioFileException;
-import javax.swing.ComboBoxModel;
 import javax.swing.DefaultCellEditor;
 import javax.swing.DropMode;
 import javax.swing.JButton;
@@ -28,30 +27,26 @@ import java.util.StringTokenizer;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextField;
 
-public class Orpheus extends JFrame implements ActionListener{
+public class Orpheus extends JFrame{
 
 	private JPanel contentPane;
 	private JTable table_Field, table_Kind, table_Beat;
-	private JTable table_TaskKeyboard, table_TaskDrum, table_TaskGuitar, table_TaskBase;
 	private JScrollPane scrollPane_Field, scrollPane_Kind, scrollPane_Beat;
-	private JScrollPane scrollPane_TaskKeyboard, scrollPane_TaskKeyDrum, scrollPane_TaskGuitar, scrollPane_TaskBase;
-	private JComboBox BeatSet, BankChoice, RhythmChoice, RootChord, ChildChord;
+	private JComboBox BeatSet;
 	private JTextField BPMSet;
 	
 	private JLabel lbl_SelectInstrument, lbl_SelectBPM, lbl_SelectBeatSet;
 	private JButton btn_start, btn_erase, btn_SelectTokeyboard, btn_SelectTodrum, btn_SelectToguitar, btn_SelectTobase;
-	private JButton BankSave, BankListen, RhythmInsert, RhythmListen, ChordInsert, ChordListen;
-	private JButton Mute1, Mute2, Mute3, Mute4;
+	private JButton btn_playBank1, btn_playBank2, Bank1, Bank2;
+	
 	private LinkedList<Note> PlayBank1, PlayBank2;
+	private SaveBank SaveBank1, SaveBank2;
 
 	private SettingToKind STK_keyboard, STK_drum, STK_guitar, STK_base;
 	private SettingToField STF_keyboard, STF_drum, STF_guitar, STF_base;
 	private BeatField STB_keyboard, STB_drum, STB_guitar, STB_base;
 	
-	private String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
-	private String[] RhythmList = {"1","2","3","4"};
-	private String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
-	private String[] ChildChordList = {"X", "M", "m", "7", "M7", "m7", "sus4", "dim"};
+	private String[] BeatList = {"4/4"};	//박자는 더 추가될 예정
 	
 	private String[] keyboard_fname = {"쉼표", "도.wav","레.wav", "미.wav", "파.wav", "솔.wav","라.wav", "시.wav", "도(높은).wav"};
 	private String[] drum_fname = {"쉼표", "K.wav", "H.wav", "S.wav", "HH.wav"};
@@ -64,7 +59,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	
 	public Orpheus() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 20, 1024, 768);
+		setBounds(100, 100, 1024, 480);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -86,26 +81,9 @@ public class Orpheus extends JFrame implements ActionListener{
 		contentPane.add(lbl_SelectBeatSet);
 
 		BeatSet = new JComboBox(BeatList);
-		BeatSet.setSelectedItem("4/4");
-		BeatSet.setBounds(735, 6, 55, 23);
+		BeatSet.setBounds(735, 6, 60, 23);
 		contentPane.add(BeatSet);		
-
-		BankChoice = new JComboBox(RhythmList);
-		BankChoice.setBounds(12, 85, 100, 23);
-		contentPane.add(BankChoice);
 		
-		RhythmChoice = new JComboBox();
-		RhythmChoice.setBounds(234, 85, 100, 23);
-		contentPane.add(RhythmChoice);
-		
-		RootChord = new JComboBox(RootChordList);
-		RootChord.setBounds(480, 85, 100, 23);
-		contentPane.add(RootChord);
-
-		ChildChord = new JComboBox(ChildChordList);
-		ChildChord.setBounds(480, 122, 100, 23);
-		contentPane.add(ChildChord);
-	
 		lbl_SelectBPM = new JLabel("BPM : ");
 		lbl_SelectBPM.setBounds(829, 10, 57, 15);
 		contentPane.add(lbl_SelectBPM);
@@ -114,16 +92,20 @@ public class Orpheus extends JFrame implements ActionListener{
 		BPMSet.setBounds(873, 6, 60, 23);
 		contentPane.add(BPMSet);
 		
+		
 		//STB = Setting to Beat
 		STB_keyboard = new BeatField();
 		STB_drum = new BeatField();
 		STB_guitar = new BeatField();
 		STB_base = new BeatField();
 		
-		table_Beat = new JTable();
+		table_Beat = new JTable(STB_keyboard.getModel());
 		table_Beat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		table_Beat.getColumnModel().getColumn(0).setPreferredWidth(60);
+		STB_keyboard.setCellOption(table_Beat);
+		contentPane.add(table_Beat);
 		scrollPane_Beat = new JScrollPane(table_Beat);
-		scrollPane_Beat.setBounds(12, 155, 700, 65);
+		scrollPane_Beat.setBounds(12, 135, 700, 65);
 		contentPane.add(scrollPane_Beat);
 		
 		//STF = Setting to Field
@@ -132,10 +114,12 @@ public class Orpheus extends JFrame implements ActionListener{
 		STF_guitar = new CmbBoxField(STB_guitar, table_Beat, guitar_fname.length, guitar_tones);
 		STF_base = new CmbBoxField(STB_base, table_Beat, base_fname.length, guitar_tones);
 		
-		table_Field = new JTable();
+		table_Field = new JTable(STF_keyboard.getModel());
 		table_Field.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
+		STF_keyboard.setCellOption(table_Field);
+		contentPane.add(table_Field);
 		scrollPane_Field = new JScrollPane(table_Field);
-		scrollPane_Field.setBounds(72, 220, 640, 200);
+		scrollPane_Field.setBounds(72, 200, 640, 200);
 		contentPane.add(scrollPane_Field);
 		
 		//STK = Setting to Title
@@ -144,211 +128,191 @@ public class Orpheus extends JFrame implements ActionListener{
 		STK_guitar = new SettingToKind(guitar_fname);
 		STK_base = new SettingToKind(base_fname);
 		
-		table_Kind = new JTable();
+		table_Kind = new JTable(STK_keyboard.getModel());
+		contentPane.add(table_Kind);
 		scrollPane_Kind = new JScrollPane(table_Kind);
-		scrollPane_Kind.setBounds(12, 220, 60, 200);
+		scrollPane_Kind.setBounds(12, 200, 60, 200);
 		contentPane.add(scrollPane_Kind);
 
-		table_TaskKeyboard = new JTable();
-		scrollPane_TaskKeyboard = new JScrollPane(table_TaskKeyboard);
-		scrollPane_TaskKeyboard.setBounds(72, 416, 640, 65);
-		contentPane.add(scrollPane_TaskKeyboard);
-		
-		table_TaskDrum = new JTable();
-		scrollPane_TaskKeyDrum = new JScrollPane(table_TaskDrum);
-		scrollPane_TaskKeyDrum.setBounds(72, 479, 640, 65);
-		contentPane.add(scrollPane_TaskKeyDrum);
-		
-		table_TaskGuitar = new JTable();
-		scrollPane_TaskGuitar = new JScrollPane(table_TaskGuitar);
-		scrollPane_TaskGuitar.setBounds(72, 542, 640, 65);
-		contentPane.add(scrollPane_TaskGuitar);
-		
-		table_TaskBase = new JTable();
-		scrollPane_TaskBase = new JScrollPane(table_TaskBase);
-		scrollPane_TaskBase.setBounds(72, 605, 640, 65);
-		contentPane.add(scrollPane_TaskBase);
+				
+		btn_start = new JButton("연주시작");
+		btn_start.setBounds(12, 410, 99, 25);
+		contentPane.add(btn_start);
 		
 		
+		btn_erase = new JButton("지우기");
+		btn_erase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				DefaultTableModel dm = (DefaultTableModel)table_Field.getModel();
+				JCheckBox chk;
+				System.out.println(dm.getRowCount());
+				System.out.println(dm.getColumnCount());
+				for(int i=0; i<dm.getRowCount(); i++)
+					for(int j=1; j<dm.getColumnCount(); j++)
+					{
+						chk = (JCheckBox)dm.getValueAt(i, j);
+						chk.setSelected(false);
+//						if(chk.isSelected())
+//						{
+//							//chk.setSelected(false);
+//							System.out.println(i +", "+ j);
+//						}
+//							//System.out.println(i +", "+ j);
+					}
+				
+			}
+		});
+		btn_erase.setBounds(123, 410, 99, 25);
+		contentPane.add(btn_erase);
+		
+		
+		JButton CheckTest = new JButton("Check Test");
+		CheckTest.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				JCheckBox chk = new JCheckBox();
+				for(int i=0; i<8; i++)
+				{
+					for(int j=1; j<33; j++)
+					{
+						chk = (JCheckBox)table_Field.getValueAt(i, j);
+						if(chk.isSelected())
+							System.out.println("Select : "+ i +", " + j);
+					}
+				}
+			}
+		});
+		CheckTest.setBounds(237, 410, 99, 25);
+		contentPane.add(CheckTest);
+		
+
 		lbl_SelectInstrument = new JLabel("악기선택");
 		lbl_SelectInstrument.setBounds(12, 10, 57, 15);
 		contentPane.add(lbl_SelectInstrument);
 		
 		btn_SelectTokeyboard = new JButton("키보드");
-		btn_SelectTokeyboard.addActionListener(this);
-		btn_SelectTokeyboard.setBounds(12, 40, 99, 25);
+		btn_SelectTokeyboard.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				table_Kind.setModel(STK_keyboard.getModel());
+				table_Field.setModel(STF_keyboard.getModel());
+				STF_keyboard.setCellOption(table_Field);
+				
+				table_Beat.setModel(STB_keyboard.getModel());
+				STB_keyboard.setCellOption(table_Beat);
+			}
+		});
+		btn_SelectTokeyboard.setBounds(10, 40, 99, 25);
 		contentPane.add(btn_SelectTokeyboard);
 		
 		btn_SelectTodrum = new JButton("드럼");
-		btn_SelectTodrum.addActionListener(this);
+		btn_SelectTodrum.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				table_Kind.setModel(STK_drum.getModel());
+				table_Field.setModel(STF_drum.getModel());
+				STF_drum.setCellOption(table_Field);
+				
+				table_Beat.setModel(STB_drum.getModel());
+				STB_drum.setCellOption(table_Beat);
+			}
+		});
 		btn_SelectTodrum.setBounds(123, 40, 99, 25);
 		contentPane.add(btn_SelectTodrum);
 		
 		btn_SelectToguitar = new JButton("기타");
-		btn_SelectToguitar.addActionListener(this);
-		btn_SelectToguitar.setBounds(234, 40, 99, 25);
+		btn_SelectToguitar.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				table_Kind.setModel(STK_guitar.getModel());
+				table_Field.setModel(STF_guitar.getModel());
+				STF_guitar.setCellOption(table_Field);
+				
+				table_Beat.setModel(STB_guitar.getModel());
+				STB_guitar.setCellOption(table_Beat);
+			}
+		});
+		btn_SelectToguitar.setBounds(237, 40, 99, 25);
 		contentPane.add(btn_SelectToguitar);
 		
 		btn_SelectTobase = new JButton("베이스");
-		btn_SelectTobase.addActionListener(this);
-		btn_SelectTobase.setBounds(345, 40, 99, 25);
+		btn_SelectTobase.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				table_Kind.setModel(STK_base.getModel());
+				table_Field.setModel(STF_base.getModel());
+				STF_base.setCellOption(table_Field);
+				
+				table_Beat.setModel(STB_base.getModel());
+				STB_base.setCellOption(table_Beat);
+			}
+		});
+		btn_SelectTobase.setBounds(348, 40, 99, 25);
 		contentPane.add(btn_SelectTobase);
 		
-
-		btn_start = new JButton("연주시작");
-		btn_start.setBounds(12, 706, 99, 25);
-		contentPane.add(btn_start);
-		
-		btn_erase = new JButton("지우기");
-		btn_erase.setBounds(123, 706, 99, 25);
-		contentPane.add(btn_erase);
-	
-		BankSave = new JButton("뱅크 저장");
-		BankSave.setBounds(123, 85, 100, 23);
-		contentPane.add(BankSave);
-		
-		BankListen = new JButton("뱅크 듣기");
-		BankListen.setBounds(123, 120, 100, 25);
-		contentPane.add(BankListen);
-		
-		RhythmListen = new JButton("리듬 듣기");
-		RhythmListen.setBounds(345, 84, 120, 25);
-		contentPane.add(RhythmListen);
-		
-		RhythmInsert = new JButton("리듬 입력");
-		RhythmInsert.setBounds(345, 121, 120, 25);
-		contentPane.add(RhythmInsert);
-		
-		ChordListen = new JButton("코드 듣기");
-		ChordListen.setBounds(592, 84, 120, 25);
-		contentPane.add(ChordListen);
-		
-		ChordInsert = new JButton("코드 입력");
-		ChordInsert.setBounds(592, 121, 120, 25);
-		contentPane.add(ChordInsert);
-		
-		Mute1 = new JButton("M");
-		Mute1.setBounds(12, 438, 55, 25);
-		contentPane.add(Mute1);
-		
-		Mute2 = new JButton("M");
-		Mute2.setBounds(12, 497, 55, 25);
-		contentPane.add(Mute2);
-		
-		Mute3 = new JButton("M");
-		Mute3.setBounds(12, 563, 55, 25);
-		contentPane.add(Mute3);
-		
-		Mute4 = new JButton("M");
-		Mute4.setBounds(12, 628, 55, 25);
-		contentPane.add(Mute4);
 		
 		PlayBank1 = new LinkedList<Note>();
 		PlayBank2 = new LinkedList<Note>();
-
+		
+		int restTime = setup();
+		//SaveBank1 = new SaveBank(PlayBank1, table_Field, STB.getTable(), keyboard_fname.length, restTime);
+	//	SaveBank2 = new SaveBank(PlayBank2, table_Field, STB.getTable(), drum_fname.length, restTime);
+		
+		Bank1 = new JButton("1번 뱅크(비었음)");
+		//Bank1.addActionListener(SaveBank1);
+		Bank1.setBounds(12, 75, 150, 25);
+		contentPane.add(Bank1);
+		
+		Bank2 = new JButton("2번 뱅크(비었음)");
+		//Bank2.addActionListener(SaveBank2);
+		Bank2.setBounds(174, 75, 150, 25);
+		contentPane.add(Bank2);
+		
 		Play test = new Play(PlayBank1, keyboardfile);
 		Play test2 = new Play(PlayBank2, drumfile);
+				
+		btn_playBank1 = new JButton("1번 뱅크 재생");
+		btn_playBank1.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!PlayBank1.isEmpty())
+					test.playtest();
+			}
+		});
+		btn_playBank1.setBounds(12, 103, 150, 25);
+		contentPane.add(btn_playBank1);
+		
+		btn_playBank2 = new JButton("2번 뱅크 재생");
+		btn_playBank2.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				if(!PlayBank2.isEmpty())
+					test2.playtest();
+			}
+		});
+		btn_playBank2.setBounds(174, 103, 150, 25);
+		contentPane.add(btn_playBank2);	
 
-		setKeyboard();
 	}
-
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		JButton source = (JButton)e.getSource();
-		
-		switch(source.getText())
-		{
-		case "키보드" :
-			setKeyboard();
-			break;
-			
-		case "드럼" :
-			setDrum();
-			break;
-			
-		case "기타" :
-			setGuitar();
-			break;
-			
-		case "베이스" :
-			setBase();
-			break;
-		}
-	}
-	public void setKeyboard()
+//
+	public int setup()
 	{
-		table_Kind.setModel(STK_keyboard.getModel());
-		table_Field.setModel(STF_keyboard.getModel());
-		STF_keyboard.setCellOption(table_Field);
-		
-		table_Beat.setModel(STB_keyboard.getModel());
-		STB_keyboard.setCellOption(table_Beat);
-		
-		RootChord.setEnabled(false);
-		ChildChord.setEnabled(false);
-		
-		RhythmInsert.setEnabled(false);
-		RhythmListen.setEnabled(false);
-		
-		ChordInsert.setEnabled(false);
-		ChordListen.setEnabled(false);
-	}
-	public void setDrum()
-	{
-		table_Kind.setModel(STK_drum.getModel());
-		table_Field.setModel(STF_drum.getModel());
-		STF_drum.setCellOption(table_Field);
-		
-		table_Beat.setModel(STB_drum.getModel());
-		STB_drum.setCellOption(table_Beat);
-		
-		RootChord.setEnabled(false);
-		ChildChord.setEnabled(false);
-		
-		RhythmInsert.setEnabled(true);
-		RhythmListen.setEnabled(true);
-		
-		ChordInsert.setEnabled(false);
-		ChordListen.setEnabled(false);
-	}
-	public void setGuitar()
-	{
-		table_Kind.setModel(STK_guitar.getModel());
-		table_Field.setModel(STF_guitar.getModel());
-		STF_guitar.setCellOption(table_Field);
-		
-		table_Beat.setModel(STB_guitar.getModel());
-		STB_guitar.setCellOption(table_Beat);
-		
-		RootChord.setEnabled(true);
-		ChildChord.setEnabled(true);
-		
-		RhythmInsert.setEnabled(false);
-		RhythmListen.setEnabled(false);
-		
-		ChordInsert.setEnabled(true);
-		ChordListen.setEnabled(true);
-	}
-	public void setBase()
-	{
-		table_Kind.setModel(STK_base.getModel());
-		table_Field.setModel(STF_base.getModel());
-		STF_base.setCellOption(table_Field);
-		
-		table_Beat.setModel(STB_base.getModel());
-		STB_base.setCellOption(table_Beat);
-		
-		RootChord.setEnabled(false);
-		ChildChord.setEnabled(false);
-		
-		RhythmInsert.setEnabled(true);
-		RhythmListen.setEnabled(true);
-		
-		ChordInsert.setEnabled(false);
-		ChordListen.setEnabled(false);
-	}
-	
-	
+		int BPM = Integer.parseInt(BPMSet.getText()); 
+        int time_signature_denominator, time_signature_numerator, result; 
+        
+        double BPN;
+        double thirty_second_note;
+        
+        
+        
+        StringTokenizer st = new StringTokenizer((String)BeatSet.getSelectedItem(),"/");
+        
+        time_signature_numerator = Integer.parseInt(st.nextToken());
+        time_signature_denominator = Integer.parseInt(st.nextToken());
+        
+        BPN = 60.0/BPM;
+        
+        thirty_second_note = BPN/(32/time_signature_denominator);
+        result = (int)(thirty_second_note*1000.0);
+        return result; 
+    }
 	public static void main(String[] args) {
 		Orpheus frame = new Orpheus();
 		frame.setVisible(true);
