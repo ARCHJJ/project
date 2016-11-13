@@ -6,9 +6,9 @@ class SettingToKind extends Setting{
 	{
 		super();
 		kinds = fileNames.length;
-		String[] blank = {"¾Ç±â"};				
-		Object[][] data = new Object[kinds][1];
-		data[0][0] = fileNames[0];
+		header = new String[]{"¾Ç±â"};
+		field = new Object[kinds][1];
+		field[0][0] = fileNames[0];
 		for(int i=0; i<kinds; i++)
 		{
 			String str;
@@ -17,8 +17,8 @@ class SettingToKind extends Setting{
 			else
 				str = fileNames[i];
 			
-			data[i][0] = str;
+			field[i][0] = str;
 		}
-		tablemodel.setDataVector(data, blank);
+		tablemodel.setDataVector(field, header);
 	}
 }

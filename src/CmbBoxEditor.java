@@ -9,9 +9,9 @@ public class CmbBoxEditor extends DefaultCellEditor implements ItemListener {
 
 	JTable desk;
 	JComboBox combo;
-	CmbBoxField field;
+	SettingToField field;
 	int col;
-	public CmbBoxEditor(JComboBox comboBox, CmbBoxField field) {
+	public CmbBoxEditor(JComboBox comboBox, SettingToField field) {
 		super(comboBox);
 		this.field = field;
 	}

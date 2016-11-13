@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
@@ -8,6 +10,7 @@ class ChkBoxField extends SettingToField{
 	private BeatField BeatField;
 	private JTable table_Beat;
 	private int kinds, rowcnt = 1;
+	
 	public ChkBoxField(BeatField BeatField, JTable table_Beat, int kinds)
 	{
 		super();
@@ -18,15 +21,16 @@ class ChkBoxField extends SettingToField{
 		chkboxRenderer = new ChkBoxRenderer();
 		chkboxEditor = new ChkBoxEditor(new JCheckBox(), this);
 		
+		header = new String[]{"1"};
 		field = new Object[kinds][rowcnt];
 		for(int i=0; i<kinds; i++)
 			field[i][0] = new JCheckBox();
 		
-		tablemodel.setDataVector(field, new String[]{"1"});
+		tablemodel.setDataVector(field, header);
 	}
 	
 	@Override
-	void addColumn(int idx) {
+	public void addColumn(int idx) {
 		if(bulb.get(idx))
 		{
 			Object[] newData = new Object[kinds];
@@ -42,12 +46,28 @@ class ChkBoxField extends SettingToField{
 		}
 	}
 	@Override
-	void setCellOption(JTable Desk) {
+	public void setCellOption(JTable Desk) {
 		for(int i=0; i<Desk.getModel().getColumnCount(); i++)
 		{
 			Desk.getColumnModel().getColumn(i).setPreferredWidth(50);
 			Desk.getColumnModel().getColumn(i).setCellRenderer(chkboxRenderer);
 			Desk.getColumnModel().getColumn(i).setCellEditor(chkboxEditor);
 		}
+	}
+	@Override
+	public void Init() {
+		bulb.clear();
+		bulb.add(true);
+		rowcnt = 1;
+		header = new String[]{"1"};
+		field = new Object[kinds][rowcnt];
+		for(int i=0; i<kinds; i++)
+			field[i][0] = new JCheckBox();
+		
+		tablemodel.setDataVector(field, header);
+	}
+	public int getKinds()
+	{
+		return kinds;
 	}
 }
