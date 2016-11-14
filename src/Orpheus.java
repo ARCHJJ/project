@@ -213,6 +213,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("지우기");
+		btn_erase.addActionListener(this);
 		btn_erase.setBounds(123, 706, 99, 25);
 		contentPane.add(btn_erase);
 	
@@ -290,6 +291,10 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case "뱅크 저장":
 			saveBank();
+			break;
+			
+		case "지우기":
+			init();
 			break;
 		}
 	}
@@ -462,6 +467,27 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 		}
 		
+	}
+	public void init()
+	{
+		switch(direction)
+		{
+		case 1:
+			initKeyboard();
+			break;
+			
+		case 2:
+			initDrum();
+			break;
+			
+		case 3:
+			initGuitar();
+			break;
+			
+		case 4:
+			initBase();
+			break;
+		}
 	}
 	
 	public static void main(String[] args) {
