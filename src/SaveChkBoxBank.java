@@ -7,10 +7,10 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
-class ChkBoxBank extends SaveBank{
+class SaveChkBoxBank extends SaveBank{
 
 	SettingToField field;
-	ChkBoxBank(SettingToField field, int restTime) {
+	SaveChkBoxBank(SettingToField field, int restTime) {
 		super();
 		this.field = field;
 		this.kind = field.getKinds();

@@ -5,9 +5,9 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
-class CmbBoxBank extends SaveBank{
+class SaveCmbBoxBank extends SaveBank{
 	SettingToField field;
-	CmbBoxBank(SettingToField field, int restTime) {
+	SaveCmbBoxBank(SettingToField field, int restTime) {
 		super();
 		this.field = field;
 		this.kind = field.getKinds();

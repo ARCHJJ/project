@@ -15,4 +15,6 @@ abstract class SaveBank{
 	{
 		bank = new LinkedList<Note>();
 	}
+	
+	abstract public LinkedList<Note> getBank(LinkedList<Integer> beatList);
 }

@@ -33,8 +33,9 @@ public class Orpheus extends JFrame implements ActionListener{
 	private BeatField STB_keyboard, STB_drum, STB_guitar, STB_base;
 	private TaskField STT_keyboard, STT_drum, STT_guitar, STT_base; 
 	
-	private CmbBoxBank Bank_keyboard, Bank_guitar, Bank_base;
-	private ChkBoxBank Bank_drum;
+	private SaveBank Bank_keyboard, Bank_drum, Bank_guitar, Bank_base;
+	//private CmbBoxBank Bank_keyboard, Bank_guitar, Bank_base;
+	//private ChkBoxBank Bank_drum;
 	
 	private String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
 	private String[] RhythmList = {"1","2","3","4"};
@@ -146,10 +147,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		//뱅크저장영역
 		int restTime = RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		Bank_keyboard = new CmbBoxBank(STF_keyboard, restTime);
-		Bank_drum = new ChkBoxBank(STF_drum, restTime);
-		Bank_guitar = new CmbBoxBank(STF_guitar, restTime);
-		Bank_base = new CmbBoxBank(STF_base, restTime);
+		Bank_keyboard = new SaveCmbBoxBank(STF_keyboard, restTime);
+		Bank_drum = new SaveChkBoxBank(STF_drum, restTime);
+		Bank_guitar = new SaveCmbBoxBank(STF_guitar, restTime);
+		Bank_base = new SaveCmbBoxBank(STF_base, restTime);
 
 		
 		

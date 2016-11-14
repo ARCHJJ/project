@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -6,12 +8,15 @@ class TaskField extends SettingToField{
 	private CmbBoxEditor cmbboxEditor;
 	private CmbBoxRenderer cmbboxRenderer;
 	private JComboBox BankList;
-	private String[] itemList;
+	private Object[] itemList;
+	private LinkedList<String> items;
 	private int rowcnt = 1;
 	public TaskField(String instrument)
 	{
 		super();
-		itemList = new String[]{""};
+		items = new LinkedList<String>();
+		items.add("");
+		itemList = items.toArray();
 		BankList = new JComboBox(itemList);
 		
 		cmbboxEditor = new CmbBoxEditor(BankList, this);
@@ -56,19 +61,16 @@ class TaskField extends SettingToField{
 	}
 	public void reflash(int size)
 	{
-		String[] newList = new String[size+1];
 		JComboBox temp;
 		for(int i=1; i<tablemodel.getColumnCount(); i++)
 		{
 			temp = (JComboBox)tablemodel.getValueAt(0, i);
 			temp.addItem(Integer.toString(size));
 		}
-		
-		System.arraycopy(itemList, 0, newList, 0, itemList.length);
-		newList[itemList.length] = Integer.toString(size);
-		itemList = newList;
+		items.add(Integer.toString(size));
+		itemList = items.toArray();
 	}
-	public String[] getItemList()
+	public Object[] getItemList()
 	{
 		return itemList;
 	}
