@@ -11,7 +11,6 @@ class SaveChkBoxBank extends SaveBank{
 
 	SettingToField field;
 	SaveChkBoxBank(SettingToField field, int restTime) {
-		super();
 		this.field = field;
 		this.kind = field.getKinds();
 		this.restTime = restTime;
@@ -22,8 +21,8 @@ class SaveChkBoxBank extends SaveBank{
 		boolean isfirst = false;
 		int i, j;
 		JCheckBox chk;
-		bank.clear();
 		
+		LinkedList<Note> newBank = new LinkedList<Note>();
 		Note temp = null;
 		DefaultTableModel tablemodel = field.getModel();
 		for(i=0; i<tablemodel.getColumnCount(); i++)
@@ -46,14 +45,14 @@ class SaveChkBoxBank extends SaveBank{
 					
 			}
 			if(temp!=null)
-				bank.add(temp);
+				newBank.add(temp);
 	
 			isfirst = false;
 		}
-		return bank;
+		return newBank;
 	}
 	
-	public void bankPrint()	//테스트용 메소드
+	public void bankPrint(LinkedList<Note> bank)	//테스트용 메소드
 	{
 		Iterator<Note> itNote = bank.iterator();
 		Iterator<Integer> itPlay;

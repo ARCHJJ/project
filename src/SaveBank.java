@@ -9,12 +9,6 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 abstract class SaveBank{
-	protected LinkedList<Note> bank;
 	protected int kind, restTime;
-	public SaveBank()
-	{
-		bank = new LinkedList<Note>();
-	}
-	
 	abstract public LinkedList<Note> getBank(LinkedList<Integer> beatList);
 }

@@ -8,7 +8,6 @@ import javax.swing.table.DefaultTableModel;
 class SaveCmbBoxBank extends SaveBank{
 	SettingToField field;
 	SaveCmbBoxBank(SettingToField field, int restTime) {
-		super();
 		this.field = field;
 		this.kind = field.getKinds();
 		this.restTime = restTime;
@@ -19,40 +18,40 @@ class SaveCmbBoxBank extends SaveBank{
 		boolean isfirst = false;
 		int i, j;
 		JComboBox combo;
-		String tmp;
-		bank.clear();
+		int tmp;
 		
-		Note temp = null;
+		LinkedList<Note> newBank = new LinkedList<Note>();
+		Note newNote = null;
 		DefaultTableModel tablemodel = field.getModel();
 		for(i=0; i<tablemodel.getColumnCount(); i++)
 		{
-			temp = null;
+			newNote = null;
 			for(j=0; j<kind; j++)
 			{
 				combo = (JComboBox)tablemodel.getValueAt(j, i);
-				tmp = (String)combo.getSelectedItem();
-				if(!tmp.isEmpty() && !isfirst)
+				tmp = combo.getSelectedIndex();
+				if(tmp!=0 && !isfirst)
 				{
-					temp = new Note();
+					newNote = new Note();
 					if(j!=0)
-						temp.fileidx.add((Integer.parseInt(tmp)*10)+j);
+						newNote.fileidx.add((tmp)*100+j);
 					
-					temp.rest = (32/beatList.get(i))*restTime;
+					newNote.rest = (32/beatList.get(i))*restTime;
 					isfirst = true;
 				}
-				else if(!tmp.isEmpty())
-					temp.fileidx.add((Integer.parseInt(tmp)*10)+j);
+				else if(tmp!=0)
+					newNote.fileidx.add((tmp)*100+j);
 					
 			}
-			if(temp!=null)
-				bank.add(temp);
+			if(newNote!=null)
+				newBank.add(newNote);
 	
 			isfirst = false;
 		}
-		return bank;
+		return newBank;
 	}
 	
-	public void bankPrint()	//테스트용 메소드
+	public void bankPrint(LinkedList<Note> bank)	//테스트용 메소드
 	{
 		Iterator<Note> itNote = bank.iterator();
 		Iterator<Integer> itPlay;

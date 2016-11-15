@@ -5,11 +5,11 @@ import javax.swing.JTable;
 
 abstract class SettingToField extends Setting{
 	protected LinkedList<Boolean> bulb;
-	protected LinkedList<LinkedList<Note>> PlayList;
+	protected LinkedList<LinkedList<Note>> BankList;
 	public SettingToField(){
 		super();
-		PlayList = new LinkedList<LinkedList<Note>>();
-		PlayList.add(null);
+		BankList = new LinkedList<LinkedList<Note>>();
+		BankList.add(null);
 		bulb = new LinkedList<Boolean>();
 		bulb.add(true);
 	}
