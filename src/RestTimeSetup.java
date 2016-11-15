@@ -1,14 +1,16 @@
 import java.util.StringTokenizer;
 
 class RestTimeSetup {
+	
+	static int music_score, result;
 
 	RestTimeSetup()
 	{}
 	
-	public static int getRestTime(String BPMSet, String BeatSet)
+	public static void getRestTime(String BPMSet, String BeatSet)
 	{
 		int BPM = Integer.parseInt(BPMSet); 
-        int time_signature_denominator, time_signature_numerator, result; 
+        int time_signature_denominator, time_signature_numerator; 
         
         double BPN, thirty_second_note;
         
@@ -22,6 +24,5 @@ class RestTimeSetup {
         thirty_second_note = BPN/(32/time_signature_denominator);
         result = (int)(thirty_second_note*1000.0);
         
-        return result; 
     }
 }
