@@ -54,7 +54,7 @@ class BeatField extends SettingToField{
 			
 			temp = (JComboBox)Desk.getModel().getValueAt(0, i);
 			item = (String)temp.getSelectedItem();
-			max += Integer.parseInt(item);
+			max += (32/Integer.parseInt(item));
 		}
 	}
 	public LinkedList<Integer> getBeatResult()
