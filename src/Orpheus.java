@@ -133,11 +133,11 @@ public class Orpheus extends JFrame implements ActionListener{
 		contentPane.add(scrollPane_Kind);
 
 		//桂农历厘康开
-		int restTime = RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		Bank_Piano = new SaveCmbBoxBank(STF_Piano, restTime);
-		Bank_Drum = new SaveChkBoxBank(STF_Drum, restTime);
-		Bank_Guitar = new SaveCmbBoxBank(STF_Guitar, restTime);
-		Bank_Base = new SaveCmbBoxBank(STF_Base, restTime);
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		Bank_Piano = new SaveCmbBoxBank(STF_Piano, RestTimeSetup.result);
+		Bank_Drum = new SaveChkBoxBank(STF_Drum, RestTimeSetup.result);
+		Bank_Guitar = new SaveCmbBoxBank(STF_Guitar, RestTimeSetup.result);
+		Bank_Base = new SaveCmbBoxBank(STF_Base, RestTimeSetup.result);
 
 		//桂农佃扁
 		play = new Play();
