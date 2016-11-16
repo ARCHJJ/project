@@ -40,9 +40,9 @@ class FileOpen {
 			  , {"A#_4.wav", "A#_5.wav", "A#_6.wav"}
 			  , {"B_4.wav" , "B_5.wav" , "B_6.wav" }
 		};
-		for(int i=0; i<3; i++)
-			for(int j=0; j<12; j++)
-				PianoFiles[j][i] = new File(PianoFolder[i]+PianoFnames[j][i]);	
+		for(int i=0; i<12; i++)
+			for(int j=0; j<3; j++)
+				PianoFiles[i][j] = new File(PianoFolder[j]+PianoFnames[i][j]);	
 		
 		DrumFolder = new String[] {"C:\\workspace\\project\\drum\\"};
 		DrumFiles = new File[1][7];
