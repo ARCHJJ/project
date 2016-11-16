@@ -1,5 +1,3 @@
-import javax.swing.JTable;
-
 class SettingToKind extends Setting{
 	private int kinds;
 	public SettingToKind(String[] fileNames)

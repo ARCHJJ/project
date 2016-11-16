@@ -9,7 +9,7 @@ class FileOpen {
 	FileOpen()
 	{
 		PianoSoundNames = new String[]{"쉼표", "도", "도#", "레", "레#", "미", "파", "파#", "솔", "솔#", "라", "라#", "시"};
-		DrumSoundNames = new String[]{"쉼표", "베이스", "하이헷", "스네어", "라이드", "크래시", "스몰 탐", "하이 탐"};
+		DrumSoundNames = new String[]{"쉼표", "베이스", "하이헷", "스네어", "라이드", "크래시", "스몰탐", "하이탐"};
 		GuitarSoundNames = new String[]{"쉼표", "6", "5", "4", "3", "2", "1"};
 		BaseSoundNames = new String[]{"쉼표", "4", "3", "2", "1"};
 		

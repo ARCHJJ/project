@@ -45,7 +45,7 @@ class BeatField extends SettingToField{
 		JComboBox temp;
 		String item;
 		max = 0;
-		Desk.getColumnModel().getColumn(0).setPreferredWidth(60);	
+		Desk.getColumnModel().getColumn(0).setPreferredWidth(63);	
 		for(int i=1; i<Desk.getModel().getColumnCount(); i++)
 		{
 			Desk.getColumnModel().getColumn(i).setPreferredWidth(50);			

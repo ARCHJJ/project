@@ -118,7 +118,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		table_Field = new JTable();
 		table_Field.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_Field = new JScrollPane(table_Field);
-		scrollPane_Field.setBounds(72, 220, 640, 251);
+		scrollPane_Field.setBounds(75, 220, 640, 251);
 		contentPane.add(scrollPane_Field);
 		
 		//STK = Setting to Title
@@ -128,8 +128,9 @@ public class Orpheus extends JFrame implements ActionListener{
 		STK_Base = new SettingToKind(files.getBaseSoundNames());
 		
 		table_Kind = new JTable();
+		table_Kind.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	
 		scrollPane_Kind = new JScrollPane(table_Kind);
-		scrollPane_Kind.setBounds(12, 220, 66, 251);
+		scrollPane_Kind.setBounds(12, 220, 63, 251);
 		contentPane.add(scrollPane_Kind);
 
 		//뱅크저장영역
@@ -293,6 +294,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void setPiano()
 	{
 		table_Kind.setModel(STK_Piano.getModel());
+		table_Kind.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table_Field.setModel(STF_Piano.getModel());
 		STF_Piano.setCellOption(table_Field);
 		
@@ -315,6 +317,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void setDrum()
 	{
 		table_Kind.setModel(STK_Drum.getModel());
+		table_Kind.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table_Field.setModel(STF_Drum.getModel());
 		STF_Drum.setCellOption(table_Field);
 		
@@ -337,6 +340,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void setGuitar()
 	{
 		table_Kind.setModel(STK_Guitar.getModel());
+		table_Kind.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table_Field.setModel(STF_Guitar.getModel());
 		STF_Guitar.setCellOption(table_Field);
 		
@@ -359,6 +363,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void setBase()
 	{
 		table_Kind.setModel(STK_Base.getModel());
+		table_Kind.getColumnModel().getColumn(0).setPreferredWidth(60);
 		table_Field.setModel(STF_Base.getModel());
 		STF_Base.setCellOption(table_Field);
 		

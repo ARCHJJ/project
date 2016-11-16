@@ -42,7 +42,7 @@ class TaskField extends SettingToField{
 		}
 	}
 	public void setCellOption(JTable Desk) {
-		Desk.getColumnModel().getColumn(0).setPreferredWidth(60);	
+		Desk.getColumnModel().getColumn(0).setPreferredWidth(63);	
 		for(int i=1; i<Desk.getModel().getColumnCount(); i++)
 		{
 			Desk.getColumnModel().getColumn(i).setPreferredWidth(50);			
