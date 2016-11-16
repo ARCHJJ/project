@@ -98,7 +98,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		STB_Guitar = new BeatField();
 		STB_Base = new BeatField();
 		
-		STT_Piano = new TaskField("키보드");
+		STT_Piano = new TaskField("피아노");
 		STT_Drum = new TaskField("드럼");
 		STT_Guitar = new TaskField("기타");
 		STT_Base = new TaskField("베이스");
@@ -135,10 +135,10 @@ public class Orpheus extends JFrame implements ActionListener{
 
 		//뱅크저장영역
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		Bank_Piano = new SaveCmbBoxBank(STF_Piano, RestTimeSetup.result);
-		Bank_Drum = new SaveChkBoxBank(STF_Drum, RestTimeSetup.result);
-		Bank_Guitar = new SaveCmbBoxBank(STF_Guitar, RestTimeSetup.result);
-		Bank_Base = new SaveCmbBoxBank(STF_Base, RestTimeSetup.result);
+		Bank_Piano = new SaveCmbBoxBank(STF_Piano);
+		Bank_Drum = new SaveChkBoxBank(STF_Drum);
+		Bank_Guitar = new SaveCmbBoxBank(STF_Guitar);
+		Bank_Base = new SaveCmbBoxBank(STF_Base);
 
 		//뱅크듣기
 		play = new Play();
@@ -176,7 +176,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		lbl_SelectInstrument.setBounds(12, 10, 57, 15);
 		contentPane.add(lbl_SelectInstrument);
 		
-		btn_SelectToPiano = new JButton("키보드");
+		btn_SelectToPiano = new JButton("피아노");
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToPiano.setBounds(12, 40, 99, 25);
 		contentPane.add(btn_SelectToPiano);
@@ -263,7 +263,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		switch(source.getText())
 		{
-		case "키보드" :
+		case "피아노" :
 			setPiano();
 			break;
 			
@@ -425,11 +425,12 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	public void saveBank()
 	{
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 		switch(direction)
 		{
 		case 1:
-			STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult()));
-			//((SaveCmbBoxBank) Bank_Piano).bankPrint(STF_Piano.BankList.getLast());
+			STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
+			((SaveCmbBoxBank) Bank_Piano).bankPrint(STF_Piano.BankList.getLast());
 			
 			initPiano();
 			setBankList(STF_Piano.BankList.size()-1);
@@ -437,7 +438,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 			
 		case 2:
-			STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult()));
+			STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
 			//Bank_Drum.bankPrint();
 			
 			initDrum();
@@ -446,7 +447,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 			
 		case 3:
-			STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult()));
+			STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
 			//Bank_Piano.bankPrint();
 			
 			initGuitar();
@@ -455,7 +456,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 			
 		case 4:
-			STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult()));
+			STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult(), RestTimeSetup.result));
 			//Bank_Piano.bankPrint();
 			
 			initBase();

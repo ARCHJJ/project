@@ -7,13 +7,12 @@ import javax.swing.table.DefaultTableModel;
 
 class SaveCmbBoxBank extends SaveBank{
 	SettingToField field;
-	SaveCmbBoxBank(SettingToField field, int restTime) {
+	SaveCmbBoxBank(SettingToField field) {
 		this.field = field;
 		this.kind = field.getKinds();
-		this.restTime = restTime;
 	}
 
-	public LinkedList<Note> getBank(LinkedList<Integer> beatList)
+	public LinkedList<Note> getBank(LinkedList<Integer> beatList, int restTime)
 	{
 		boolean isfirst = false;
 		int i, j;

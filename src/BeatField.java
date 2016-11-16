@@ -61,6 +61,7 @@ class BeatField extends SettingToField{
 	{
 		JComboBox temp;
 		String item;
+		beatResult.clear();
 		for(int i=1; i<tablemodel.getColumnCount(); i++)
 		{
 			temp = (JComboBox)tablemodel.getValueAt(0, i);
