@@ -19,15 +19,30 @@ class FileOpen {
 			, "C:\\workspace\\project\\piano\\1\\"
 			, "C:\\workspace\\project\\piano\\2\\"
 		};
-		PianoFiles = new File[3][12];
+//		PianoFiles = new File[3][12];
+//		PianoFnames = new String[][]{
+//			  {"C_4.wav", "C#_4.wav", "D_4.wav", "D#_4.wav", "E_4.wav", "F_4.wav", "F#_4.wav", "G_4.wav", "G#_4.wav", "A_4.wav", "A#_4.wav", "B_4.wav"}
+//			, {"C_5.wav", "C#_5.wav", "D_5.wav", "D#_5.wav", "E_5.wav", "F_5.wav", "F#_5.wav", "G_5.wav", "G#_5.wav", "A_5.wav", "A#_5.wav", "B_5.wav"}
+//			, {"C_6.wav", "C#_6.wav", "D_6.wav", "D#_6.wav", "E_6.wav", "F_6.wav", "F#_6.wav", "G_6.wav", "G#_6.wav", "A_6.wav", "A#_6.wav", "B_6.wav"}
+//		};
+		PianoFiles = new File[12][3];
 		PianoFnames = new String[][]{
-			  {"C_4.wav", "C#_4.wav", "D_4.wav", "D#_4.wav", "E_4.wav", "F_4.wav", "F#_4.wav", "G_4.wav", "G#_4.wav", "A_4.wav", "A#_4.wav", "B_4.wav"}
-			, {"C_5.wav", "C#_5.wav", "D_5.wav", "D#_5.wav", "E_5.wav", "F_5.wav", "F#_5.wav", "G_5.wav", "G#_5.wav", "A_5.wav", "A#_5.wav", "B_5.wav"}
-			, {"C_6.wav", "C#_6.wav", "D_6.wav", "D#_6.wav", "E_6.wav", "F_6.wav", "F#_6.wav", "G_6.wav", "G#_6.wav", "A_6.wav", "A#_6.wav", "B_6.wav"}
+				{"C_4.wav" , "C_5.wav" , "C_6.wav" }
+			  , {"C#_4.wav", "C#_5.wav", "C#_6.wav"}
+			  , {"D_4.wav" , "D_5.wav" , "D_6.wav" }
+			  , {"D#_4.wav", "D#_5.wav", "D#_6.wav"}
+			  , {"E_4.wav" , "E_5.wav" , "E_6.wav" }
+			  , {"F_4.wav" , "F_5.wav" , "F_6.wav" }
+			  , {"F#_4.wav", "F#_5.wav", "F#_6.wav"}
+			  , {"G_4.wav" , "G_5.wav" , "G_6.wav" }
+			  , {"G#_4.wav", "G#_5.wav", "G#_6.wav"}
+			  , {"A_4.wav" , "A_5.wav" , "A_6.wav" }
+			  , {"A#_4.wav", "A#_5.wav", "A#_6.wav"}
+			  , {"B_4.wav" , "B_5.wav" , "B_6.wav" }
 		};
 		for(int i=0; i<3; i++)
 			for(int j=0; j<12; j++)
-				PianoFiles[i][j] = new File(PianoFolder[i]+PianoFnames[i][j]);	
+				PianoFiles[j][i] = new File(PianoFolder[i]+PianoFnames[j][i]);	
 		
 		DrumFolder = new String[] {"C:\\workspace\\project\\drum\\"};
 		DrumFiles = new File[1][7];
@@ -37,7 +52,8 @@ class FileOpen {
 		
 		GuitarFolder = new String[] {"C:\\workspace\\project\\guitar\\"};
 		GuitarFiles = new File[6][25];
-		GuitarFnames = new String[][]{{"0.wav", "1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav"
+		GuitarFnames = new String[][]{
+									{"0.wav", "1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav"
 										, "13.wav", "14.wav", "15.wav", "16.wav", "17.wav", "18.wav", "19.wav", "20.wav", "21.wav", "22.wav", "23.wav", "24.wav"}         
 		
 									, {"5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav", "13.wav", "14.wav", "15.wav", "16.wav", "17.wav"

@@ -33,13 +33,15 @@ class SaveCmbBoxBank extends SaveBank{
 				{
 					newNote = new Note();
 					if(j!=0)
-						newNote.fileidx.add((tmp)*100+j);
+						//newNote.fileidx.add(((tmp-1)*100)+(j-1));
+						newNote.fileidx.add(((j-1)*100)+(tmp-1));
 					
 					newNote.rest = (32/beatList.get(i))*restTime;
 					isfirst = true;
 				}
 				else if(tmp!=0)
-					newNote.fileidx.add((tmp)*100+j);
+					//newNote.fileidx.add(((tmp-1)*100)+(j-1));
+					newNote.fileidx.add(((j-1)*100)+(tmp-1));
 					
 			}
 			if(newNote!=null)

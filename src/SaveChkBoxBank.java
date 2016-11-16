@@ -34,13 +34,13 @@ class SaveChkBoxBank extends SaveBank{
 				{
 					temp = new Note();
 					if(j!=0)
-						temp.fileidx.add(j);
+						temp.fileidx.add(j-1);
 					
 					temp.rest = (32/beatList.get(i))*restTime;
 					isfirst = true;
 				}
 				else if(chk.isSelected())
-					temp.fileidx.add(j);
+					temp.fileidx.add(j-1);
 					
 			}
 			if(temp!=null)
