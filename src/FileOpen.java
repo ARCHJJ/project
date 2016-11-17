@@ -15,9 +15,9 @@ class FileOpen {
 		
 		//PianoFolder= new String[3];
 		PianoFolder = new String[]{
-			  "C:\\workspace\\project\\piano\\0\\"	
-			, "C:\\workspace\\project\\piano\\1\\"
-			, "C:\\workspace\\project\\piano\\2\\"
+			  "piano\\0\\"	
+			, "piano\\1\\"
+			, "piano\\2\\"
 		};
 //		PianoFiles = new File[3][12];
 //		PianoFnames = new String[][]{
@@ -44,13 +44,13 @@ class FileOpen {
 			for(int j=0; j<3; j++)
 				PianoFiles[i][j] = new File(PianoFolder[j]+PianoFnames[i][j]);	
 		
-		DrumFolder = new String[] {"C:\\workspace\\project\\drum\\"};
+		DrumFolder = new String[] {"drum\\"};
 		DrumFiles = new File[1][7];
 		DrumFnames = new String[][]{{"º£ÀÌ½º.wav", "ÇÏÀÌÇò.wav", "½º³×¾î.wav", "¶óÀÌµå.wav", "Å©·¡½Ã.wav", "½º¸ôÅ½.wav", "ÇÏÀÌÅ½.wav"}};
 		for(int i=0; i<7; i++)
 			DrumFiles[0][i] = new File(DrumFolder[0]+DrumFnames[0][i]);	
 		
-		GuitarFolder = new String[] {"C:\\workspace\\project\\guitar\\"};
+		GuitarFolder = new String[] {"guitar\\"};
 		GuitarFiles = new File[6][25];
 		GuitarFnames = new String[][]{
 									{"0.wav", "1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav"
