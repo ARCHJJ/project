@@ -31,10 +31,8 @@ class Play extends Thread
 				itPlay = temp.fileidx.iterator();
 				while(itPlay.hasNext())
 				{
-					//System.out.println(itPlay.next());
 					idx = itPlay.next();
-					//sound = AudioSystem.getAudioInputStream(SoundFiles[idx/100-1][idx%100-1]);
-					sound = AudioSystem.getAudioInputStream(SoundFiles[idx/100][idx%10]);
+					sound = AudioSystem.getAudioInputStream(SoundFiles[idx/100][idx%100]);
 					clip = AudioSystem.getClip();
 					clip.open(sound);
 					

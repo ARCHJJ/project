@@ -431,7 +431,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case 2:
 			STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
-			Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
+			//Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
 			
 			initDrum();
 			setBankList(STF_Drum.BankList.size()-1);
