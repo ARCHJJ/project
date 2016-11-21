@@ -21,6 +21,8 @@ class RestTimeSetup {
         
         BPN = 60.0/BPM;
         
+        music_score = (32/time_signature_denominator)*time_signature_numerator;
+        
         thirty_second_note = BPN/(32/time_signature_denominator);
         result = (int)(thirty_second_note*1000.0);
         
