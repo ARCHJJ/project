@@ -52,8 +52,46 @@ public class Orpheus extends JFrame implements ActionListener{
 	private String[] Guitar_tones = {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 	
 	private FileOpen files;
-	private Play play;
+	
 	private int direction;
+	private boolean wait = true;
+	private static Orpheus ui;
+	private static Play bankPlay;
+	private static Play[] taskPlay;
+	public static void main(String[] args) {
+		ui = new Orpheus();
+		
+		//¹ðÅ©µè±â
+		bankPlay = new Play(ui);
+		taskPlay = new Play[4];
+		for(int i=0; i<4; i++)
+			taskPlay[i] = new Play(ui);
+		
+		bankPlay.start();
+//		taskPlay[0].start();
+//		taskPlay[1].start();
+//		taskPlay[2].start();
+//		taskPlay[3].start();
+		
+	}
+	public synchronized Play stopThread() throws InterruptedException
+	{
+		while(wait)
+			wait();
+	
+		wait = true;
+		return Orpheus.bankPlay;
+	}
+	
+	public synchronized void goThread()
+	{
+		wait = false;
+		notify();
+	}
+	public JButton getBankListenButton()
+	{
+		return BankListen;
+	}
 	public Orpheus() {
 		setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
 		setForeground(Color.WHITE);
@@ -163,9 +201,6 @@ public class Orpheus extends JFrame implements ActionListener{
 		Bank_Guitar = new SaveCmbBoxBank(STF_Guitar);
 		Bank_Base = new SaveCmbBoxBank(STF_Base);
 
-		//¹ðÅ©µè±â
-		play = new Play();
-		
 		//ÀÛ¾÷´ë±âÁÙ ¿µ¿ª
 		table_TaskPiano = new JTable(STT_Piano.getModel());
 		table_TaskPiano.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
@@ -237,83 +272,90 @@ public class Orpheus extends JFrame implements ActionListener{
 		btn_SelectToBase.setBounds(345, 40, 99, 25);
 		contentPane.add(btn_SelectToBase);
 		
-
+		//ÆùÆ®
+		Font headline = new Font("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ", Font.PLAIN, 12);
+		Font godic = new Font("¸¼Àº °íµñ", Font.PLAIN, 12);
+		Color bgcolor = new Color(255, 255, 255);
+		
 		btn_start = new JButton("¿¬ÁÖ½ÃÀÛ");
-		btn_start.setBackground(new Color(255, 255, 255));
-		btn_start.setFont(new Font("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ", Font.PLAIN, 12));
+		btn_start.setBackground(bgcolor);
+		btn_start.setFont(headline);
+		btn_start.addActionListener(this);
 		btn_start.setBounds(505, 737, 99, 33);
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("Áö¿ì±â");
-		btn_erase.setBackground(new Color(255, 255, 255));
-		btn_erase.setFont(new Font("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ", Font.PLAIN, 12));
+		btn_erase.setBackground(bgcolor);
+		btn_erase.setFont(headline);
 		btn_erase.addActionListener(this);
 		btn_erase.setBounds(616, 737, 99, 33);
 		contentPane.add(btn_erase);
 	
 		BankSave = new JButton("¹ðÅ© ÀúÀå");
 		BankSave.setBackground(Color.WHITE);
-		BankSave.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		BankSave.setFont(godic);
 		BankSave.addActionListener(this);
 		BankSave.setBounds(124, 83, 100, 25);
 		contentPane.add(BankSave);
 		
 		BankListen = new JButton("¹ðÅ© µè±â");
 		BankListen.setBackground(Color.WHITE);
-		BankListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		BankListen.setFont(godic);
 		BankListen.addActionListener(this);
 		BankListen.setBounds(123, 120, 100, 25);
 		contentPane.add(BankListen);
 		
 		RhythmListen = new JButton("¸®µë µè±â");
 		RhythmListen.setBackground(Color.WHITE);
-		RhythmListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		RhythmListen.setFont(godic);
 		RhythmListen.setBounds(345, 84, 120, 25);
 		contentPane.add(RhythmListen);
 		
 		RhythmInsert = new JButton("¸®µë ÀÔ·Â");
 		RhythmInsert.setBackground(Color.WHITE);
-		RhythmInsert.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		RhythmInsert.setFont(godic);
 		RhythmInsert.setBounds(345, 121, 120, 25);
 		contentPane.add(RhythmInsert);
 		
 		ChordListen = new JButton("ÄÚµå µè±â");
 		ChordListen.setBackground(Color.WHITE);
-		ChordListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		ChordListen.setFont(godic);
 		ChordListen.setBounds(595, 84, 120, 25);
 		contentPane.add(ChordListen);
 		
 		ChordInsert = new JButton("ÄÚµå ÀÔ·Â");
 		ChordInsert.setBackground(Color.WHITE);
-		ChordInsert.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		ChordInsert.setFont(godic);
 		ChordInsert.setBounds(595, 121, 120, 25);
 		contentPane.add(ChordInsert);
 		
 		Mute1 = new JButton("M");
 		Mute1.setBackground(SystemColor.window);
-		Mute1.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute1.setFont(godic);
 		Mute1.setBounds(718, 481, 48, 42);
 		contentPane.add(Mute1);
 		
 		Mute2 = new JButton("M");
 		Mute2.setBackground(SystemColor.window);
-		Mute2.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute2.setFont(godic);
 		Mute2.setBounds(718, 546, 48, 42);
 		contentPane.add(Mute2);
 		
 		Mute3 = new JButton("M");
 		Mute3.setBackground(SystemColor.window);
-		Mute3.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute3.setFont(godic);
 		Mute3.setBounds(718, 608, 48, 45);
 		contentPane.add(Mute3);
 		
 		Mute4 = new JButton("M");
 		Mute4.setBackground(SystemColor.window);
-		Mute4.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute4.setFont(godic);
 		Mute4.setBounds(718, 673, 48, 42);
 		contentPane.add(Mute4);
 
 		setPiano();
+		
+		setVisible(true);
 	}
 
 	@Override
@@ -345,6 +387,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		case "¹ðÅ© µè±â":
 			ListenBank();
 			break;
+		
+		case "¿¬ÁÖ½ÃÀÛ":
+			musicQ();
+			break;
 		case "Áö¿ì±â":
 			init();
 			break;
@@ -365,6 +411,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		RootChord.setEnabled(false);
 		ChildChord.setEnabled(false);
 		
+		RhythmChoice.setEnabled(false);
 		RhythmInsert.setEnabled(false);
 		RhythmListen.setEnabled(false);
 		
@@ -388,6 +435,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		RootChord.setEnabled(false);
 		ChildChord.setEnabled(false);
 		
+		RhythmChoice.setEnabled(true);
 		RhythmInsert.setEnabled(true);
 		RhythmListen.setEnabled(true);
 		
@@ -411,6 +459,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		RootChord.setEnabled(true);
 		ChildChord.setEnabled(true);
 		
+		RhythmChoice.setEnabled(false);
 		RhythmInsert.setEnabled(false);
 		RhythmListen.setEnabled(false);
 		
@@ -431,9 +480,11 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		setBankList(STT_Base.getItemList().length-1);
 		
+		
 		RootChord.setEnabled(false);
 		ChildChord.setEnabled(false);
 		
+		RhythmChoice.setEnabled(true);
 		RhythmInsert.setEnabled(true);
 		RhythmListen.setEnabled(true);
 		
@@ -489,7 +540,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		{
 		case 1:
 			STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
-			Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
+			//Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
 			
 			initPiano();
 			setBankList(STF_Piano.BankList.size()-1);
@@ -507,7 +558,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case 3:
 			STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
-			Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
+			//Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
 			
 			initGuitar();
 			setBankList(STF_Guitar.BankList.size()-1);
@@ -528,25 +579,29 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void ListenBank()
 	{
 		int BankNum = BankChoice.getSelectedIndex();
-		System.out.println(BankNum);
 		switch(direction)
 		{
 		case 1:
-			play.playtest(STF_Piano.BankList.get(BankNum), files.getPianoFiles());
+			bankPlay.setBank(STF_Piano.BankList.get(BankNum), files.getPianoFiles());
 			break;
 			
 		case 2:
-			play.playtest(STF_Drum.BankList.get(BankNum), files.getDrumFiles());
+			bankPlay.setBank(STF_Drum.BankList.get(BankNum), files.getDrumFiles());
 			break;
 			
 		case 3:
-			play.playtest(STF_Guitar.BankList.get(BankNum), files.getGuitarFiles());
+			bankPlay.setBank(STF_Guitar.BankList.get(BankNum), files.getGuitarFiles());
 			break;
 			
 		case 4:
-	
+			//º£ÀÌ½º µé¾î°¥ °÷
 			break;
-		}		
+		}
+		goThread();
+	}
+	public void musicQ()
+	{
+		//¿¬ÁÖ½ÃÀÛ ¸Þ¼Òµå
 	}
 	public void init()
 	{
@@ -569,9 +624,5 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 		}
 	}
-	
-	public static void main(String[] args) {
-		Orpheus frame = new Orpheus();
-		frame.setVisible(true);
-	}
+
 }
