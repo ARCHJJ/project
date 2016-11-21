@@ -1,14 +1,21 @@
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JButton;
-import javax.swing.JTable;
-import javax.swing.JScrollPane;
-import javax.swing.JLabel;
-import javax.swing.JComboBox;
-import java.awt.event.ActionListener;
+import java.awt.Color;
+import java.awt.Font;
+import java.awt.SystemColor;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.imageio.ImageIO;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
 public class Orpheus extends JFrame implements ActionListener{
 
@@ -48,20 +55,27 @@ public class Orpheus extends JFrame implements ActionListener{
 	private Play play;
 	private int direction;
 	public Orpheus() {
+		setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
+		setForeground(Color.WHITE);
+		setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 20, 1024, 800);
+		setBounds(100, 20, 835, 819);
 		contentPane = new JPanel();
+		contentPane.setBackground(new Color(245, 245, 245));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		//setContentPane(new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/Images/about.png")))));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 			
 		lbl_SelectBeatSet = new JLabel("¹ÚÀÚ : ");
-		lbl_SelectBeatSet.setBounds(694, 10, 57, 15);
+		lbl_SelectBeatSet.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		lbl_SelectBeatSet.setBounds(595, 10, 57, 15);
 		contentPane.add(lbl_SelectBeatSet);
 
 		BeatSet = new JComboBox(BeatList);
+		BeatSet.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		BeatSet.setSelectedItem("4/4");
-		BeatSet.setBounds(735, 6, 55, 23);
+		BeatSet.setBounds(634, 6, 55, 23);
 		contentPane.add(BeatSet);		
 
 		BankChoice = new JComboBox();
@@ -81,11 +95,13 @@ public class Orpheus extends JFrame implements ActionListener{
 		contentPane.add(ChildChord);
 	
 		lbl_SelectBPM = new JLabel("BPM : ");
-		lbl_SelectBPM.setBounds(829, 10, 57, 15);
+		lbl_SelectBPM.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		lbl_SelectBPM.setBounds(701, 10, 57, 15);
 		contentPane.add(lbl_SelectBPM);
 		
 		BPMSet = new JTextField("100");
-		BPMSet.setBounds(873, 6, 60, 23);
+		BPMSet.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		BPMSet.setBounds(742, 6, 60, 23);
 		contentPane.add(BPMSet);
 		
 		//FileOpen
@@ -103,9 +119,13 @@ public class Orpheus extends JFrame implements ActionListener{
 		STT_Base = new TaskField("º£ÀÌ½º");
 		
 		table_Beat = new JTable();
+		table_Beat.setBackground(Color.WHITE);
+		table_Beat.setForeground(new Color(0, 0, 0));
+		table_Beat.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_Beat.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_Beat = new JScrollPane(table_Beat);
 		scrollPane_Beat.setBounds(12, 155, 703, 65);
+		scrollPane_Beat.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_Beat);
 		
 		//STF = Setting to Field
@@ -115,9 +135,12 @@ public class Orpheus extends JFrame implements ActionListener{
 		STF_Base = new CmbBoxField(STB_Base, table_Beat, files.getBaseSoundNames().length, Guitar_tones);
 		
 		table_Field = new JTable();
+		table_Field.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		table_Field.setForeground(new Color(0, 0, 0));
 		table_Field.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		scrollPane_Field = new JScrollPane(table_Field);
 		scrollPane_Field.setBounds(75, 220, 640, 251);
+		scrollPane_Field.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_Field);
 		
 		//STK = Setting to Title
@@ -127,9 +150,11 @@ public class Orpheus extends JFrame implements ActionListener{
 		STK_Base = new SettingToKind(files.getBaseSoundNames());
 		
 		table_Kind = new JTable();
+		table_Kind.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_Kind.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);	
 		scrollPane_Kind = new JScrollPane(table_Kind);
 		scrollPane_Kind.setBounds(12, 220, 63, 251);
+		scrollPane_Kind.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_Kind);
 
 		//¹ðÅ©ÀúÀå¿µ¿ª
@@ -143,107 +168,149 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		//ÀÛ¾÷´ë±âÁÙ ¿µ¿ª
 		table_TaskPiano = new JTable(STT_Piano.getModel());
+		table_TaskPiano.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_TaskPiano.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		STT_Piano.setCellOption(table_TaskPiano);
 		scrollPane_TaskPiano = new JScrollPane(table_TaskPiano);
-		scrollPane_TaskPiano.setBounds(12, 469, 640, 65);
+		scrollPane_TaskPiano.setBounds(12, 469, 703, 65);
+		scrollPane_TaskPiano.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_TaskPiano);
 		
 		table_TaskDrum = new JTable(STT_Drum.getModel());
+		table_TaskDrum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_TaskDrum.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		STT_Drum.setCellOption(table_TaskDrum);
 		scrollPane_TaskKeyDrum = new JScrollPane(table_TaskDrum);
-		scrollPane_TaskKeyDrum.setBounds(12, 533, 640, 65);
+		scrollPane_TaskKeyDrum.setBounds(12, 533, 703, 65);
+		scrollPane_TaskKeyDrum.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_TaskKeyDrum);
 		
 		table_TaskGuitar = new JTable(STT_Guitar.getModel());
+		table_TaskGuitar.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_TaskGuitar.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		STT_Guitar.setCellOption(table_TaskGuitar);
 		scrollPane_TaskGuitar = new JScrollPane(table_TaskGuitar);
-		scrollPane_TaskGuitar.setBounds(12, 598, 640, 65);
+		scrollPane_TaskGuitar.setBounds(12, 598, 703, 65);
+		scrollPane_TaskGuitar.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_TaskGuitar);
 		
 		table_TaskBase = new JTable(STT_Base.getModel());
+		table_TaskBase.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		table_TaskBase.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 		STT_Base.setCellOption(table_TaskBase);
 		scrollPane_TaskBase = new JScrollPane(table_TaskBase);
-		scrollPane_TaskBase.setBounds(12, 662, 640, 65);
+		scrollPane_TaskBase.setBounds(12, 662, 703, 65);
+		scrollPane_TaskBase.getViewport().setBackground(Color.WHITE);
 		contentPane.add(scrollPane_TaskBase);
 		
 		lbl_SelectInstrument = new JLabel("¾Ç±â¼±ÅÃ");
-		lbl_SelectInstrument.setBounds(12, 10, 57, 15);
+		lbl_SelectInstrument.setFont(new Font("ÈÞ¸Õ¿¾Ã¼", Font.PLAIN, 12));
+		lbl_SelectInstrument.setBounds(12, 12, 57, 15);
 		contentPane.add(lbl_SelectInstrument);
 		
 		btn_SelectToPiano = new JButton("ÇÇ¾Æ³ë");
+		btn_SelectToPiano.setBackground(Color.WHITE);
+		btn_SelectToPiano.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		btn_SelectToPiano.setForeground(Color.BLACK);
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToPiano.setBounds(12, 40, 99, 25);
 		contentPane.add(btn_SelectToPiano);
 		
 		btn_SelectToDrum = new JButton("µå·³");
+		btn_SelectToDrum.setBackground(Color.WHITE);
+		btn_SelectToDrum.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToDrum.setBounds(123, 40, 99, 25);
 		contentPane.add(btn_SelectToDrum);
 		
 		btn_SelectToGuitar = new JButton("±âÅ¸");
+		btn_SelectToGuitar.setBackground(Color.WHITE);
+		btn_SelectToGuitar.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		btn_SelectToGuitar.addActionListener(this);
 		btn_SelectToGuitar.setBounds(234, 40, 99, 25);
 		contentPane.add(btn_SelectToGuitar);
 		
 		btn_SelectToBase = new JButton("º£ÀÌ½º");
+		btn_SelectToBase.setBackground(Color.WHITE);
+		btn_SelectToBase.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		btn_SelectToBase.addActionListener(this);
 		btn_SelectToBase.setBounds(345, 40, 99, 25);
 		contentPane.add(btn_SelectToBase);
 		
 
 		btn_start = new JButton("¿¬ÁÖ½ÃÀÛ");
-		btn_start.setBounds(12, 738, 99, 25);
+		btn_start.setBackground(new Color(255, 255, 255));
+		btn_start.setFont(new Font("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ", Font.PLAIN, 12));
+		btn_start.setBounds(505, 737, 99, 33);
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("Áö¿ì±â");
+		btn_erase.setBackground(new Color(255, 255, 255));
+		btn_erase.setFont(new Font("ÈÞ¸ÕµÕ±ÙÇìµå¶óÀÎ", Font.PLAIN, 12));
 		btn_erase.addActionListener(this);
-		btn_erase.setBounds(123, 738, 99, 25);
+		btn_erase.setBounds(616, 737, 99, 33);
 		contentPane.add(btn_erase);
 	
 		BankSave = new JButton("¹ðÅ© ÀúÀå");
+		BankSave.setBackground(Color.WHITE);
+		BankSave.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		BankSave.addActionListener(this);
-		BankSave.setBounds(123, 85, 100, 23);
+		BankSave.setBounds(124, 83, 100, 25);
 		contentPane.add(BankSave);
 		
 		BankListen = new JButton("¹ðÅ© µè±â");
+		BankListen.setBackground(Color.WHITE);
+		BankListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		BankListen.addActionListener(this);
 		BankListen.setBounds(123, 120, 100, 25);
 		contentPane.add(BankListen);
 		
 		RhythmListen = new JButton("¸®µë µè±â");
+		RhythmListen.setBackground(Color.WHITE);
+		RhythmListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		RhythmListen.setBounds(345, 84, 120, 25);
 		contentPane.add(RhythmListen);
 		
 		RhythmInsert = new JButton("¸®µë ÀÔ·Â");
+		RhythmInsert.setBackground(Color.WHITE);
+		RhythmInsert.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		RhythmInsert.setBounds(345, 121, 120, 25);
 		contentPane.add(RhythmInsert);
 		
 		ChordListen = new JButton("ÄÚµå µè±â");
+		ChordListen.setBackground(Color.WHITE);
+		ChordListen.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		ChordListen.setBounds(595, 84, 120, 25);
 		contentPane.add(ChordListen);
 		
 		ChordInsert = new JButton("ÄÚµå ÀÔ·Â");
+		ChordInsert.setBackground(Color.WHITE);
+		ChordInsert.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
 		ChordInsert.setBounds(595, 121, 120, 25);
 		contentPane.add(ChordInsert);
 		
 		Mute1 = new JButton("M");
-		Mute1.setBounds(657, 496, 55, 25);
+		Mute1.setBackground(SystemColor.window);
+		Mute1.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute1.setBounds(718, 481, 48, 42);
 		contentPane.add(Mute1);
 		
 		Mute2 = new JButton("M");
-		Mute2.setBounds(657, 559, 55, 25);
+		Mute2.setBackground(SystemColor.window);
+		Mute2.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute2.setBounds(718, 546, 48, 42);
 		contentPane.add(Mute2);
 		
 		Mute3 = new JButton("M");
-		Mute3.setBounds(657, 620, 55, 25);
+		Mute3.setBackground(SystemColor.window);
+		Mute3.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute3.setBounds(718, 608, 48, 45);
 		contentPane.add(Mute3);
 		
 		Mute4 = new JButton("M");
-		Mute4.setBounds(657, 688, 55, 25);
+		Mute4.setBackground(SystemColor.window);
+		Mute4.setFont(new Font("¸¼Àº °íµñ", Font.PLAIN, 12));
+		Mute4.setBounds(718, 673, 48, 42);
 		contentPane.add(Mute4);
 
 		setPiano();
