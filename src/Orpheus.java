@@ -15,6 +15,7 @@ import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
+import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
 public class Orpheus extends JFrame implements ActionListener{
@@ -539,39 +540,78 @@ public class Orpheus extends JFrame implements ActionListener{
 		switch(direction)
 		{
 		case 1:
-			STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
-			//Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
 			
-			initPiano();
-			setBankList(STF_Piano.BankList.size()-1);
-			STT_Piano.reflash(STF_Piano.BankList.size()-1);
+			if(STB_Piano.out_max(table_Beat) != RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else
+			{
+				STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
+				//Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
+				
+				initPiano();
+				setBankList(STF_Piano.BankList.size()-1);
+				STT_Piano.reflash(STF_Piano.BankList.size()-1);
+			}
+			
 			break;
 			
 		case 2:
-			STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
-			//Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
 			
-			initDrum();
-			setBankList(STF_Drum.BankList.size()-1);
-			STT_Drum.reflash(STF_Drum.BankList.size()-1);
+			if(STB_Drum.out_max(table_Beat) != RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else
+			{
+				STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
+				//Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
+				
+				initDrum();
+				setBankList(STF_Drum.BankList.size()-1);
+				STT_Drum.reflash(STF_Drum.BankList.size()-1);
+			}
+			
 			break;
 			
 		case 3:
-			STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
-			//Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
 			
-			initGuitar();
-			setBankList(STF_Guitar.BankList.size()-1);
-			STT_Guitar.reflash(STF_Guitar.BankList.size()-1);
+			if(STB_Guitar.out_max(table_Beat) != RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else
+			{
+				STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
+				//Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
+				
+				initGuitar();
+				setBankList(STF_Guitar.BankList.size()-1);
+				STT_Guitar.reflash(STF_Guitar.BankList.size()-1);
+			}
+			
 			break;
 			
 		case 4:
-			STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult(), RestTimeSetup.result));
-			//Bank_Piano.bankPrint();
+			if(STB_Base.out_max(table_Beat) != RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
 			
-			initBase();
-			setBankList(STF_Base.BankList.size()-1);
-			STT_Base.reflash(STF_Base.BankList.size()-1);
+			else
+			{
+				STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult(), RestTimeSetup.result));
+				//Bank_Piano.bankPrint();
+				
+				initBase();
+				setBankList(STF_Base.BankList.size()-1);
+				STT_Base.reflash(STF_Base.BankList.size()-1);
+			}
+			
 			break;
 		}
 		
