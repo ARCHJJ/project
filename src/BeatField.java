@@ -43,8 +43,8 @@ class BeatField extends SettingToField{
 	@Override
 	public void setCellOption(JTable Desk) {
 		JComboBox temp;
-		String item;
-		max = 0;
+		String item = null;
+		
 		Desk.getColumnModel().getColumn(0).setPreferredWidth(63);	
 		for(int i=1; i<Desk.getModel().getColumnCount(); i++)
 		{
@@ -54,8 +54,28 @@ class BeatField extends SettingToField{
 			
 			temp = (JComboBox)Desk.getModel().getValueAt(0, i);
 			item = (String)temp.getSelectedItem();
-			max += (32/Integer.parseInt(item));
+			max += 32/(Integer.parseInt(item));
 		}
+		
+	}
+	public int out_max(JTable Desk)
+	{
+		JComboBox temp;
+		String item = null;
+		max = 0;
+		
+		for(int i=1; i<Desk.getModel().getColumnCount()-1; i++)
+		{
+			Desk.getColumnModel().getColumn(i).setPreferredWidth(50);			
+			Desk.getColumnModel().getColumn(i).setCellRenderer(cmbboxRenderer);
+			Desk.getColumnModel().getColumn(i).setCellEditor(cmbboxEditor);
+			
+			temp = (JComboBox)Desk.getModel().getValueAt(0, i);
+			item = (String)temp.getSelectedItem();
+			max += 32/(Integer.parseInt(item));
+		}
+		
+		return max;
 	}
 	public LinkedList<Integer> getBeatResult()
 	{
