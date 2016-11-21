@@ -32,6 +32,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	private JButton btn_start, btn_erase, btn_SelectToPiano, btn_SelectToDrum, btn_SelectToGuitar, btn_SelectToBase;
 	private JButton BankSave, BankListen, RhythmInsert, RhythmListen, ChordInsert, ChordListen;
 	private JButton Mute1, Mute2, Mute3, Mute4;
+	private JButton Keyboard;
 
 	private SettingToKind STK_Piano, STK_Drum, STK_Guitar, STK_Base;
 	private SettingToField STF_Piano, STF_Drum, STF_Guitar, STF_Base;
@@ -345,7 +346,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		Mute3 = new JButton("M");
 		Mute3.setBackground(SystemColor.window);
 		Mute3.setFont(godic);
-		Mute3.setBounds(718, 608, 48, 45);
+		Mute3.setBounds(718, 608, 48, 42);
 		contentPane.add(Mute3);
 		
 		Mute4 = new JButton("M");
@@ -354,6 +355,18 @@ public class Orpheus extends JFrame implements ActionListener{
 		Mute4.setBounds(718, 673, 48, 42);
 		contentPane.add(Mute4);
 
+		Keyboard = new JButton("Å°º¸µå");
+		Keyboard.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				Keyboard kb = new Keyboard();
+				Keyboard.addActionListener(kb);
+			}
+		});
+		Keyboard.setBackground(SystemColor.window);
+		Keyboard.setFont(godic);
+		Keyboard.setBounds(718,100,48,42);
+		contentPane.add(Keyboard);
+		
 		setPiano();
 		
 		setVisible(true);
