@@ -70,6 +70,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		//¹ðÅ©µè±â
 		bankPlay = new Play(ui);
 		bankPlay.MuteDisable();
+		bankPlay.singleSet();
 		
 		taskPlay = new Play[4];
 		for(int i=0; i<4; i++)
@@ -689,7 +690,6 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void ListenBank()
 	{
 		int BankNum = BankChoice.getSelectedIndex();
-		bankPlay.singleSet();
 		switch(direction)
 		{
 		case 1:
