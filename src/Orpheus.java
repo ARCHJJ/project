@@ -1,4 +1,5 @@
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -48,13 +49,15 @@ public class Orpheus extends JFrame implements ActionListener{
 	private String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
 	private String[] RhythmList = {"1","2","3","4"};
 	private String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
-	private String[] ChildChordList = {"X", "M", "m", "7", "M7", "m7", "sus4", "dim"};
+	private String[] ChildChordList = {"M", "m", "7", "M7", "m7", "sus4", "dim"};
 	
 	private String[] Piano_tones = {"", "1", "2", "3"};
 	private String[] Guitar_tones = {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 	
 	private FileOpen files;
 	
+	private input_GuitarCode Code;
+	private PlayCode CodePlay;
 	private int direction;
 	private boolean wait = true;
 	private static Orpheus ui;
@@ -146,6 +149,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		//FileOpen
 		files = new FileOpen();
+		
+		Code = new input_GuitarCode(files.getGuitarCode());
+		
+		CodePlay = new PlayCode(files.getGuitarCode(), files.getGuitarFiles());
 		
 		//STB = Setting to Beat
 		STB_Piano = new BeatField();
@@ -322,12 +329,14 @@ public class Orpheus extends JFrame implements ActionListener{
 		ChordListen = new JButton("코드 듣기");
 		ChordListen.setBackground(Color.WHITE);
 		ChordListen.setFont(godic);
+		ChordListen.addActionListener(this);
 		ChordListen.setBounds(595, 84, 120, 25);
 		contentPane.add(ChordListen);
 		
 		ChordInsert = new JButton("코드 입력");
 		ChordInsert.setBackground(Color.WHITE);
 		ChordInsert.setFont(godic);
+		ChordInsert.addActionListener(this);
 		ChordInsert.setBounds(595, 121, 120, 25);
 		contentPane.add(ChordInsert);
 		
@@ -354,7 +363,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		Mute4.setFont(godic);
 		Mute4.setBounds(718, 673, 48, 42);
 		contentPane.add(Mute4);
-
+		
 		Keyboard = new JButton("키보드");
 		Keyboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -366,7 +375,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		Keyboard.setFont(godic);
 		Keyboard.setBounds(718,100,48,42);
 		contentPane.add(Keyboard);
-		
+
 		setPiano();
 		
 		setVisible(true);
@@ -405,11 +414,34 @@ public class Orpheus extends JFrame implements ActionListener{
 		case "연주시작":
 			musicQ();
 			break;
+			
 		case "지우기":
 			init();
 			break;
+			
+		case "코드 입력":
+			inputCode();
+			break;
+			
+		case "코드 듣기":
+			playCode();
+			break;
 		}
 	}
+	
+	public void inputCode()
+	{
+		Code.addCode(table_Field, RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
+		STF_Guitar.addColumn(table_Field.getModel().getColumnCount()-1);
+		STF_Guitar.setCellOption(table_Field);
+	}
+	
+	public void playCode()
+	{
+		CodePlay.playCode(RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
+		
+	}
+	
 	public void setPiano()
 	{
 		table_Kind.setModel(STK_Piano.getModel());
@@ -554,9 +586,14 @@ public class Orpheus extends JFrame implements ActionListener{
 		{
 		case 1:
 			
-			if(STB_Piano.out_max(table_Beat) != RestTimeSetup.music_score)
+			if(STB_Piano.out_max(table_Beat) < RestTimeSetup.music_score)
 			{
 				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else if(STB_Piano.out_max(table_Beat) > RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
 			}
 			
 			else
@@ -573,9 +610,14 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case 2:
 			
-			if(STB_Drum.out_max(table_Beat) != RestTimeSetup.music_score)
+			if(STB_Drum.out_max(table_Beat) < RestTimeSetup.music_score)
 			{
 				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else if(STB_Drum.out_max(table_Beat) > RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
 			}
 			
 			else
@@ -592,9 +634,14 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case 3:
 			
-			if(STB_Guitar.out_max(table_Beat) != RestTimeSetup.music_score)
+			if(STB_Guitar.out_max(table_Beat) < RestTimeSetup.music_score)
 			{
 				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else if(STB_Guitar.out_max(table_Beat) > RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
 			}
 			
 			else
@@ -610,9 +657,14 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 			
 		case 4:
-			if(STB_Base.out_max(table_Beat) != RestTimeSetup.music_score)
+			if(STB_Base.out_max(table_Beat) < RestTimeSetup.music_score)
 			{
 				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			}
+			
+			else if(STB_Base.out_max(table_Beat) > RestTimeSetup.music_score)
+			{
+				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
 			}
 			
 			else
