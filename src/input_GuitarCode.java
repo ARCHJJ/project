@@ -3,10 +3,10 @@ import java.util.StringTokenizer;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
-public class input_GuitarCode {
+public class Input_GuitarCode {
 	private String[][] Code;
 	
-	public input_GuitarCode(String[][] Code_File)
+	public Input_GuitarCode(String[][] Code_File)
 	{
 		Code = Code_File;
 	}

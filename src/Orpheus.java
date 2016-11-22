@@ -1,5 +1,4 @@
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
@@ -18,6 +17,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JCheckBox;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
 public class Orpheus extends JFrame implements ActionListener{
 
@@ -30,6 +30,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	private JTextField BPMSet;
 	
 	private JLabel lbl_SelectInstrument, lbl_SelectBPM, lbl_SelectBeatSet;
+	private JCheckBox Mute1, Mute2, Mute3, Mute4;
 	private JButton btn_start, btn_erase, btn_SelectToPiano, btn_SelectToDrum, btn_SelectToGuitar, btn_SelectToBase;
 	private JButton btn_BankSave, btn_BankListen, btn_RhythmInsert, btn_RhythmListen, btn_ChordInsert, btn_ChordListen;
 	private JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo;
@@ -59,15 +60,17 @@ public class Orpheus extends JFrame implements ActionListener{
 	private Input_GuitarCode Code;
 	private PlayCode CodePlay;
 	private int direction;
-	//private boolean wait = true;
 	private static Orpheus ui;
 	private static Play bankPlay;
 	private static Play[] taskPlay;
+
 	public static void main(String[] args) {
 		ui = new Orpheus();
 		
 		//뱅크듣기
 		bankPlay = new Play(ui);
+		bankPlay.MuteDisable();
+		
 		taskPlay = new Play[4];
 		for(int i=0; i<4; i++)
 			taskPlay[i] = new Play(ui);
@@ -333,26 +336,56 @@ public class Orpheus extends JFrame implements ActionListener{
 		btn_PianoSolo = new JButton("피아노솔로");
 		btn_PianoSolo.setBackground(SystemColor.window);
 		btn_PianoSolo.setFont(PureGothic);
-		btn_PianoSolo.setBounds(718, 481, 48, 42);
+		btn_PianoSolo.addActionListener(this);
+		btn_PianoSolo.setBounds(718, 470, 97, 23);
 		contentPane.add(btn_PianoSolo);
 		
 		btn_DrumSolo = new JButton("드럼솔로");
 		btn_DrumSolo.setBackground(SystemColor.window);
 		btn_DrumSolo.setFont(PureGothic);
-		btn_DrumSolo.setBounds(718, 546, 48, 42);
+		btn_DrumSolo.addActionListener(this);
+		btn_DrumSolo.setBounds(718, 533, 97, 23);
 		contentPane.add(btn_DrumSolo);
 		
 		btn_GuitarSolo = new JButton("기타솔로");
 		btn_GuitarSolo.setBackground(SystemColor.window);
 		btn_GuitarSolo.setFont(PureGothic);
-		btn_GuitarSolo.setBounds(718, 608, 48, 42);
+		btn_GuitarSolo.addActionListener(this);
+		btn_GuitarSolo.setBounds(718, 600, 97, 23);
 		contentPane.add(btn_GuitarSolo);
 		
 		btn_BaseSolo = new JButton("베이스솔로");
 		btn_BaseSolo.setBackground(SystemColor.window);
 		btn_BaseSolo.setFont(PureGothic);
-		btn_BaseSolo.setBounds(718, 673, 48, 42);
+		btn_BaseSolo.addActionListener(this);
+		btn_BaseSolo.setBounds(718, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
+		
+		Mute1 = new JCheckBox("키보드뮤트");
+		Mute1.setBackground(SystemColor.window);
+		Mute1.setFont(PureGothic);
+		Mute1.setBounds(718, 497, 97, 23);
+		contentPane.add(Mute1);
+		
+		Mute2 = new JCheckBox("드럼뮤트");
+		Mute2.setBackground(SystemColor.window);
+		Mute2.setFont(PureGothic);
+		Mute2.setBounds(718, 561, 97, 23);
+		contentPane.add(Mute2);
+		
+		Mute3 = new JCheckBox("기타뮤트");
+		Mute3.setBackground(SystemColor.window);
+		Mute3.setFont(PureGothic);
+		Mute3.setBounds(718, 629, 97, 23);
+		contentPane.add(Mute3);
+		
+		Mute4 = new JCheckBox("베이스뮤트");
+		Mute4.setBackground(SystemColor.window);
+		Mute4.setFont(PureGothic);
+		Mute4.setBounds(718, 692, 97, 23);
+		contentPane.add(Mute4);
+	
+		
 		/*
 		Keyboard = new JButton("키보드");
 		Keyboard.addActionListener(new ActionListener() {
@@ -401,6 +434,22 @@ public class Orpheus extends JFrame implements ActionListener{
 			ListenBank();
 			break;
 		
+		case "피아노솔로":
+			ListenSolo(0);
+			break;
+			
+		case "드럼솔로":
+			ListenSolo(1);
+			break;
+			
+		case "기타솔로":
+			ListenSolo(2);
+			break;
+			
+		case "베이스솔로":
+			ListenSolo(3);
+			break;
+			
 		case "연주시작":
 			musicQ();
 			break;
@@ -429,7 +478,6 @@ public class Orpheus extends JFrame implements ActionListener{
 	public void playCode()
 	{
 		CodePlay.playCode(RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
-		
 	}
 	
 	public void setPiano()
@@ -569,111 +617,79 @@ public class Orpheus extends JFrame implements ActionListener{
 		for(int i=1; i<=size; i++)
 			BankChoice.addItem(Integer.toString(i));
 	}
+	public boolean OutofBeat(BeatField BeatField)
+	{
+		if(BeatField.out_max(table_Beat) < RestTimeSetup.music_score)
+		{
+			JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
+			return false;
+		}
+		if(BeatField.out_max(table_Beat) > RestTimeSetup.music_score)
+		{
+			JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
+			return false;
+		}
+		return true;
+	}
 	public void saveBank()
 	{
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 		switch(direction)
 		{
 		case 1:
+			if(!OutofBeat(STB_Piano))
+				return;
 			
-			if(STB_Piano.out_max(table_Beat) < RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
-			}
-			
-			else if(STB_Piano.out_max(table_Beat) > RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
-			}
-			
-			else
-			{
-				STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
-				//Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
+			STF_Piano.BankList.add(Bank_Piano.getBank(STB_Piano.getBeatResult(), RestTimeSetup.result));
+			//Bank_Piano.bankPrint(STF_Piano.BankList.getLast());
 				
-				initPiano();
-				setBankList(STF_Piano.BankList.size()-1);
-				STT_Piano.reflash(STF_Piano.BankList.size()-1);
-			}
-			
+			initPiano();
+			setBankList(STF_Piano.BankList.size()-1);
+			STT_Piano.reflash(STF_Piano.BankList.size()-1);	
 			break;
 			
 		case 2:
+			if(!OutofBeat(STB_Drum))
+				return;
 			
-			if(STB_Drum.out_max(table_Beat) < RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
-			}
-			
-			else if(STB_Drum.out_max(table_Beat) > RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
-			}
-			
-			else
-			{
-				STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
-				//Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
+			STF_Drum.BankList.add(Bank_Drum.getBank(STB_Drum.getBeatResult(), RestTimeSetup.result));
+			//Bank_Drum.bankPrint(STF_Drum.BankList.getLast());
 				
-				initDrum();
-				setBankList(STF_Drum.BankList.size()-1);
-				STT_Drum.reflash(STF_Drum.BankList.size()-1);
-			}
-			
+			initDrum();
+			setBankList(STF_Drum.BankList.size()-1);
+			STT_Drum.reflash(STF_Drum.BankList.size()-1);
+
 			break;
 			
 		case 3:
+			if(!OutofBeat(STB_Guitar))
+				return;
 			
-			if(STB_Guitar.out_max(table_Beat) < RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
-			}
+			STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
+			//Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
 			
-			else if(STB_Guitar.out_max(table_Beat) > RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
-			}
-			
-			else
-			{
-				STF_Guitar.BankList.add(Bank_Guitar.getBank(STB_Guitar.getBeatResult(), RestTimeSetup.result));
-				//Bank_Guitar.bankPrint(STF_Guitar.BankList.getLast());
-				
-				initGuitar();
-				setBankList(STF_Guitar.BankList.size()-1);
-				STT_Guitar.reflash(STF_Guitar.BankList.size()-1);
-			}
-			
+			initGuitar();
+			setBankList(STF_Guitar.BankList.size()-1);
+			STT_Guitar.reflash(STF_Guitar.BankList.size()-1);
 			break;
 			
 		case 4:
-			if(STB_Base.out_max(table_Beat) < RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
-			}
+			if(!OutofBeat(STB_Base))
+				return;
 			
-			else if(STB_Base.out_max(table_Beat) > RestTimeSetup.music_score)
-			{
-				JOptionPane.showMessageDialog(null, "설정한 박자가 초과하였습니다.");
-			}
+			STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult(), RestTimeSetup.result));
+			//Bank_Piano.bankPrint();
 			
-			else
-			{
-				STF_Base.BankList.add(Bank_Base.getBank(STB_Base.getBeatResult(), RestTimeSetup.result));
-				//Bank_Piano.bankPrint();
-				
-				initBase();
-				setBankList(STF_Base.BankList.size()-1);
-				STT_Base.reflash(STF_Base.BankList.size()-1);
-			}
-			
+			initBase();
+			setBankList(STF_Base.BankList.size()-1);
+			STT_Base.reflash(STF_Base.BankList.size()-1);
 			break;
 		}
-		
 	}
 	public void ListenBank()
 	{
 		int BankNum = BankChoice.getSelectedIndex();
+		bankPlay.singleSet();
 		switch(direction)
 		{
 		case 1:
@@ -692,11 +708,42 @@ public class Orpheus extends JFrame implements ActionListener{
 			//베이스 들어갈 곳
 			break;
 		}
-		//goThread();
+		bankPlay.action();
 	}
+	public void ListenSolo(int idx)
+	{
+		switch(idx)
+		{
+		case 0:
+			taskPlay[0].multySet(table_TaskPiano, STF_Piano.BankList, files.getPianoFiles(), Mute1);
+			break;
+		
+		case 1:
+			taskPlay[1].multySet(table_TaskDrum, STF_Drum.BankList, files.getDrumFiles(), Mute2);
+			break;
+		
+		case 2:
+			taskPlay[2].multySet(table_TaskGuitar, STF_Guitar.BankList, files.getGuitarFiles(), Mute3);
+			break;
+			
+		case 3:
+			//taskPlay[3].multySet(table_TaskBase, STF_Base.BankList, files.getBaseFiles());
+			break;
+		}
+		taskPlay[idx].action();
+	}
+	
 	public void musicQ()
 	{
 		//연주시작 메소드
+		taskPlay[0].multySet(table_TaskPiano, STF_Piano.BankList, files.getPianoFiles(), Mute1);
+		taskPlay[1].multySet(table_TaskDrum, STF_Drum.BankList, files.getDrumFiles(), Mute2);
+		taskPlay[2].multySet(table_TaskGuitar, STF_Guitar.BankList, files.getGuitarFiles(), Mute3);
+		//taskPlay[3].multySet(table_TaskBase, STF_Base.BankList, files.getBaseFiles());
+		taskPlay[0].action();
+		taskPlay[1].action();
+		taskPlay[2].action();
+		//taskPlay[3].action();
 	}
 	public void init()
 	{

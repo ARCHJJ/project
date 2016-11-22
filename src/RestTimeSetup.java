@@ -25,6 +25,5 @@ class RestTimeSetup {
         
         thirty_second_note = BPN/8;
         result = (int)(thirty_second_note*1000.0);
-        System.out.println(music_score*thirty_second_note);
     }
 }
