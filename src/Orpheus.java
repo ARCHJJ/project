@@ -341,7 +341,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		btn_BaseSolo.setBounds(718, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
 
-		/*
+		
 		Keyboard = new JButton("Å°º¸µå");
 		Keyboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
@@ -350,10 +350,9 @@ public class Orpheus extends JFrame implements ActionListener{
 			}
 		});
 		Keyboard.setBackground(SystemColor.window);
-		Keyboard.setFont(godic);
 		Keyboard.setBounds(718,100,48,42);
 		contentPane.add(Keyboard);
-*/
+
 		setField(0);
 		
 		setVisible(true);
