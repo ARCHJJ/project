@@ -15,18 +15,11 @@ class FileOpen {
 		GuitarSoundNames = new String[]{"½°Ç¥", "6", "5", "4", "3", "2", "1"};
 		BaseSoundNames = new String[]{"½°Ç¥", "4", "3", "2", "1"};
 		
-		//PianoFolder= new String[3];
 		PianoFolder = new String[]{
 			  "piano\\0\\"	
 			, "piano\\1\\"
 			, "piano\\2\\"
 		};
-//		PianoFiles = new File[3][12];
-//		PianoFnames = new String[][]{
-//			  {"C_4.wav", "C#_4.wav", "D_4.wav", "D#_4.wav", "E_4.wav", "F_4.wav", "F#_4.wav", "G_4.wav", "G#_4.wav", "A_4.wav", "A#_4.wav", "B_4.wav"}
-//			, {"C_5.wav", "C#_5.wav", "D_5.wav", "D#_5.wav", "E_5.wav", "F_5.wav", "F#_5.wav", "G_5.wav", "G#_5.wav", "A_5.wav", "A#_5.wav", "B_5.wav"}
-//			, {"C_6.wav", "C#_6.wav", "D_6.wav", "D#_6.wav", "E_6.wav", "F_6.wav", "F#_6.wav", "G_6.wav", "G#_6.wav", "A_6.wav", "A#_6.wav", "B_6.wav"}
-//		};
 		PianoFiles = new File[12][3];
 		PianoFnames = new String[][]{
 				{"C_4.wav" , "C_5.wav" , "C_6.wav" }
@@ -82,40 +75,36 @@ class FileOpen {
 									,{"2,2,4,4,4,2", "2,2,4,4,3,2", "x,2,1,2,0,2", "2,2,4,3,4,2", "2,2,4,2,3,2", "2,2,4,4,5,2", "1,2,3,1,3,1"}};
 	}
 	
-	
-	public File[][] getPianoFiles()
+	public File[][] getSoundFiles(int type)
 	{
-		return PianoFiles;
+		switch(type)
+		{
+		case 0:
+			return PianoFiles;
+		case 1:
+			return DrumFiles;
+		case 2:
+			return GuitarFiles;
+		case 3:
+			return BaseFiles;
+		}
+		return null;
 	}
-	public File[][] getDrumFiles()
+	public String[] getSoundNames(int type)
 	{
-		return DrumFiles;
+		switch(type)
+		{
+		case 0:
+			return PianoSoundNames;
+		case 1:
+			return DrumSoundNames;			
+		case 2:
+			return GuitarSoundNames;
+		case 3:
+			return BaseSoundNames;
+		}
+		return null;
 	}
-	public File[][] getGuitarFiles()
-	{
-		return GuitarFiles;
-	}
-	public File[][] getBaseFiles()
-	{
-		return BaseFiles;
-	}	
-	public String[] getPianoSoundNames()
-	{
-		return PianoSoundNames;
-	}
-	public String[] getDrumSoundNames()
-	{
-		return DrumSoundNames;
-	}
-	public String[] getGuitarSoundNames()
-	{
-		return GuitarSoundNames;
-	}
-	public String[] getBaseSoundNames()
-	{
-		return BaseSoundNames;
-	}
-	
 	public String[][] getGuitarCode()
 	{
 		return GuitarCode;
