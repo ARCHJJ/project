@@ -12,9 +12,9 @@ class Playkb extends Thread
 	Iterator<Integer> it;
 	AudioInputStream sound;
 	Clip clip;
-	File[] SoundFiles;
+	File[][] SoundFiles;
 	
-	Playkb(LinkedList<Integer> playlist, File[] SoundFiles)
+	Playkb(LinkedList<Integer> playlist, File[][] SoundFiles)
 	{
 		this.playlist = playlist;
 		this.SoundFiles = SoundFiles;
@@ -28,7 +28,7 @@ class Playkb extends Thread
 			while(it.hasNext())
 			{
 				Thread.sleep(it.next());
-				sound = AudioSystem.getAudioInputStream(SoundFiles[it.next()]);
+				sound = AudioSystem.getAudioInputStream(SoundFiles[it.next()][it.next()]);
 				clip = AudioSystem.getClip();
 				clip.open(sound);
 				

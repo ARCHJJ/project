@@ -19,6 +19,10 @@ public class Keyboard extends JFrame implements ActionListener{
 //	AudioStream sound;
 	AudioInputStream audioin;
 	Clip clip;
+	private String[][] PianoFnames;
+	private String[] PianoFolder;
+	private File[][] PianoFiles;
+
 	String keyboard[] = {"도.wav","레.wav", "미.wav", "파.wav", "솔.wav","라.wav", "시.wav", "도(높은).wav"};
 	String drum[] = {"K.wav", "H.wav", "S.wav", "HH.wav"};
 	boolean rec_piano = false;
@@ -46,20 +50,47 @@ public class Keyboard extends JFrame implements ActionListener{
 		playlist_keyboard = new LinkedList<Integer>();
 		playlist_drum = new LinkedList<Integer>();
 		
-		Playkb pk = new Playkb(playlist_keyboard, keyboardfile);
-		Playkb pd = new Playkb(playlist_drum, drumfile);
 		
-		try{
-			keyboardfile = new File[8];
-			for(int i=0; i<8; i++)
-				keyboardfile[i] = new File(keyboard[i]);
+		
+	    PianoFolder = new String[]{
+	              "piano\\0\\"   
+	            , "piano\\1\\"
+	            , "piano\\2\\"
+	    };
+	    
+	    PianoFiles = new File[12][3];
+        PianoFnames = new String[][]{
+              {"C_4.wav" , "C_5.wav" , "C_6.wav" }
+             , {"C#_4.wav", "C#_5.wav", "C#_6.wav"}
+             , {"D_4.wav" , "D_5.wav" , "D_6.wav" }
+             , {"D#_4.wav", "D#_5.wav", "D#_6.wav"}
+             , {"E_4.wav" , "E_5.wav" , "E_6.wav" }
+             , {"F_4.wav" , "F_5.wav" , "F_6.wav" }
+             , {"F#_4.wav", "F#_5.wav", "F#_6.wav"}
+             , {"G_4.wav" , "G_5.wav" , "G_6.wav" }
+             , {"G#_4.wav", "G#_5.wav", "G#_6.wav"}
+             , {"A_4.wav" , "A_5.wav" , "A_6.wav" }
+             , {"A#_4.wav", "A#_5.wav", "A#_6.wav"}
+             , {"B_4.wav" , "B_5.wav" , "B_6.wav" }
+        };
+        for(int i=0; i<12; i++)
+           for(int j=0; j<3; j++)
+              PianoFiles[i][j] = new File(PianoFolder[j]+PianoFnames[i][j]); 
+        
+        Playkb pk = new Playkb(playlist_keyboard, PianoFiles);
+		//Playkb pd = new Playkb(playlist_drum, drumfile);
+		
+		//try{
+		//	keyboardfile = new File[8];
+		//	for(int i=0; i<8; i++)
+		//		keyboardfile[i] = new File(keyboard[i]);
 			
-			drumfile = new File[4];
-			for(int i=0; i<4; i++)
-				drumfile[i] = new File(drum[i]);
-		}
-		catch(Exception e)
-		{}
+		//	drumfile = new File[4];
+		//	for(int i=0; i<4; i++)
+		//		drumfile[i] = new File(drum[i]);
+		//}
+		//catch(Exception e)
+		//{}
 
 		comboBox = new JComboBox<String>();
 		comboBox.setModel(new DefaultComboBoxModel<String>(new String[]{"피아노", "드럼"}));
@@ -120,7 +151,7 @@ public class Keyboard extends JFrame implements ActionListener{
 		playbutton2.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				if(pk.getState()==Thread.State.NEW){
-					pd.start();
+					//pd.start();
 				}
 				p.requestFocus();
 			}
@@ -143,7 +174,7 @@ public class Keyboard extends JFrame implements ActionListener{
 			public void actionPerformed(ActionEvent e) {
 				if(pk.getState()==Thread.State.NEW){
 					pk.start();
-					pd.start();
+					//pd.start();
 				}
 				p.requestFocus();
 			}
@@ -157,7 +188,7 @@ public class Keyboard extends JFrame implements ActionListener{
 	
 	class KeyPanel extends JPanel {
 		JLabel la = new JLabel("키값이 입력될 위치"); // 레이블 생성
-		int fileidx = 0, comboboxidx = 0;
+		int fileidx = 0,fileidy = 0, comboboxidx = 0;
 		String key;
 		public KeyPanel(){ // 패널 생성자
 			add(la); // 레이블 추가
@@ -187,39 +218,187 @@ public class Keyboard extends JFrame implements ActionListener{
 		{
 			switch(key)
 			{
+			case "1":
+				System.out.print("C_4");
+				fileidx = 0;
+	            fileidy = 0;				
+				break;
+			case "2":
+				System.out.print("C_5");
+				fileidx = 0;
+		        fileidy = 1;
+				break;
+			case "3":
+				System.out.print("C_6");
+				fileidx = 0;
+	            fileidy = 2;
+				break;
+			case "4":
+				System.out.print("C#_4");
+				fileidx = 1;
+		        fileidy = 0;
+				break;
+			case "5":
+				System.out.print("C#_5");
+				fileidx = 1;
+	            fileidy = 1;
+				break;
+			case "6":
+				System.out.print("C#_6");
+				fileidx = 1;
+	            fileidy = 2;
+				break;
+			case "7":
+				System.out.print("D_4");
+				fileidx = 2;
+	            fileidy = 0;
+				break;
+			case "8":
+				System.out.print("D_5");
+				fileidx = 2;
+	            fileidy = 1;
+				break;
+			case "9":
+				System.out.print("D_6");
+				fileidx = 2;
+	            fileidy = 2;
+				break;
+			case "0":
+				System.out.print("D#_4");
+				fileidx = 3;
+	            fileidy = 0;
+				break;
+			case "Q":
+				System.out.print("D#_5");
+				fileidx = 3;
+	            fileidy = 1;
+				break;
+			case "W":
+				System.out.print("D#_6");
+				fileidx = 3;
+	            fileidy = 2;
+				break;
+			case "E":
+				System.out.print("E_4");
+				fileidx = 4;
+	            fileidy = 0;
+				break;
+			case "R":
+				System.out.print("E_5");
+				fileidx = 4;
+	            fileidy = 1;
+				break;
+			case "T":
+				System.out.print("E_6");
+				fileidx = 4;
+	            fileidy = 2;
+				break;
+			case "Y":
+				System.out.print("F_4");
+				fileidx = 5;
+	            fileidy = 0;
+				break;
+			case "U":
+				System.out.print("F_5");
+				fileidx = 5;
+	            fileidy = 1;
+				break;
+			case "I":
+				System.out.print("F_6");
+				fileidx = 5;
+	            fileidy = 2;
+				break;
+			case "O":
+				System.out.print("F#_4");
+				fileidx = 6;
+	            fileidy = 0;
+				break;
+			case "P":
+				System.out.print("F#_5");
+				fileidx = 6;
+	            fileidy = 1;
+				break;
 			case "A":
-				System.out.print("도 ");
-				fileidx = 0;				
+				System.out.print("F#_6");
+				fileidx = 6;
+	            fileidy = 2;
 				break;
 			case "S":
-				System.out.print("레 ");
-				fileidx = 1;
+				System.out.print("G_4");
+				fileidx = 7;
+	            fileidy = 0;
 				break;
 			case "D":
-				System.out.print("미 ");
-				fileidx = 2;
+				System.out.print("G_5");
+				fileidx = 7;
+	            fileidy = 1;
 				break;
 			case "F":
-				System.out.print("파 ");
-				fileidx = 3;
+				System.out.print("G_6");
+				fileidx = 7;
+	            fileidy = 2;
+				break;
+			case "G":
+				System.out.print("G#_4");
+				fileidx = 8;
+	            fileidy = 0;
 				break;
 			case "H":
-				System.out.print("솔 ");
-				fileidx = 4;
+				System.out.print("G#_5");
+				fileidx = 8;
+	            fileidy = 1;
 				break;
 			case "J":
-				System.out.print("라 ");
-				fileidx = 5;
+				System.out.print("G#_6");
+				fileidx = 8;
+	            fileidy = 2;
 				break;
 			case "K":
-				System.out.print("시 ");
-				fileidx = 6;
+				System.out.print("A_4");
+				fileidx = 9;
+	            fileidy = 0;
 				break;
 			case "L":
-				System.out.print("도 ");
-				fileidx = 7;
+				System.out.print("A_5");
+				fileidx = 9;
+	            fileidy = 1;
 				break;
-			
+			case "Z":
+				System.out.print("A_6");
+				fileidx = 9;
+	            fileidy = 2;
+				break;
+			case "X":
+				System.out.print("A#_4");
+				fileidx = 10;
+	            fileidy = 0;
+				break;
+			case "C":
+				System.out.print("A#_5");
+				fileidx = 10;
+	            fileidy = 1;
+				break;
+			case "V":
+				System.out.print("A#_6");
+				fileidx = 10;
+	            fileidy = 2;
+				break;
+			case "B":
+				System.out.print("B_4");
+				fileidx = 11;
+	            fileidy = 0;
+				break;
+			case "N":
+				System.out.print("B_5");
+				fileidx = 11;
+	            fileidy = 1;
+				break;
+			case "M":
+				System.out.print("B_6");
+				fileidx = 11;
+	            fileidy = 2;
+				break;
+				
 			default :
 				fileidx = -1;
 			}
@@ -229,7 +408,7 @@ public class Keyboard extends JFrame implements ActionListener{
 				if(fileidx == -1)
 					return;
 				
-				audioin = AudioSystem.getAudioInputStream(keyboardfile[fileidx]);
+				audioin = AudioSystem.getAudioInputStream(PianoFiles[fileidx][fileidy]);
 				clip = AudioSystem.getClip();
 				clip.open(audioin);
 				
