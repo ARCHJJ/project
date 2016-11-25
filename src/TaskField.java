@@ -4,13 +4,27 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 @SuppressWarnings({ "rawtypes", "unchecked" })
+/**
+ * @brief 
+ */
 class TaskField extends SettingToField{
+	//!
 	private CmbBoxEditor cmbboxEditor;
+	//!
 	private CmbBoxRenderer cmbboxRenderer;
+	//!
 	private JComboBox BankList;
+	//!
 	private Object[] itemList;
+	//!
 	private LinkedList<String> items;
+	//!
 	private int rowcnt = 1;
+	
+	/**
+	 * @brief 
+	 * @param String instrument
+	 */
 	public TaskField(String instrument)
 	{
 		super();
@@ -29,6 +43,11 @@ class TaskField extends SettingToField{
 		
 		tablemodel.setDataVector(field, header);
 	}
+	
+	/**
+	 * @brief 
+	 * @param int idx
+	 */
 	public void addColumn(int idx) {
 		idx--;
 		if(bulb.get(idx))
@@ -41,6 +60,11 @@ class TaskField extends SettingToField{
 			bulb.add(true);
 		}
 	}
+	
+	/**
+	 * @brief 
+	 * @param JTable Desk
+	 */
 	public void setCellOption(JTable Desk) {
 		Desk.getColumnModel().getColumn(0).setPreferredWidth(63);	
 		for(int i=1; i<Desk.getModel().getColumnCount(); i++)
@@ -50,15 +74,28 @@ class TaskField extends SettingToField{
 			Desk.getColumnModel().getColumn(i).setCellEditor(cmbboxEditor);
 		}
 	}
+	
+	/**
+	 * @brief 
+	 */
 	@Override
 	public void Init() {
 				
 	}
 	
+	/**
+	 * @brief 
+	 * @return
+	 */
 	@Override
 	public int getKinds() {
 		return -1;
 	}
+	
+	/**
+	 * @brief 
+	 * @param int size
+	 */
 	public void reflash(int size)
 	{
 		JComboBox temp;
@@ -70,6 +107,11 @@ class TaskField extends SettingToField{
 		items.add(Integer.toString(size));
 		itemList = items.toArray();
 	}
+	
+	/**
+	 * @brief 
+	 * @return
+	 */
 	public Object[] getItemList()
 	{
 		return itemList;

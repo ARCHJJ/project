@@ -1,13 +1,24 @@
 import java.io.File;
 
+/**
+ * @brief 저장되어 음악파일을 오픈해준다.
+ */
 class FileOpen {
-	private File[][] PianoFiles, DrumFiles, GuitarFiles, BaseFiles;
-	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
-	private String[] PianoFolder, DrumFolder, GuitarFolder, BaseFolder;
-	private String[] PianoSoundNames, DrumSoundNames, GuitarSoundNames, BaseSoundNames;
 	
+	//!
+	private File[][] PianoFiles, DrumFiles, GuitarFiles, BaseFiles;
+	//!
+	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
+	//!
+	private String[] PianoFolder, DrumFolder, GuitarFolder, BaseFolder;
+	//!
+	private String[] PianoSoundNames, DrumSoundNames, GuitarSoundNames, BaseSoundNames;
+	//!
 	private String[][] GuitarCode;
 	
+	/**
+	 * @brief 생성자
+	 */
 	FileOpen()
 	{
 		PianoSoundNames = new String[]{"쉼표", "도", "도#", "레", "레#", "미", "파", "파#", "솔", "솔#", "라", "라#", "시"};
@@ -75,6 +86,11 @@ class FileOpen {
 									,{"2,2,4,4,4,2", "2,2,4,4,3,2", "x,2,1,2,0,2", "2,2,4,3,4,2", "2,2,4,2,3,2", "2,2,4,4,5,2", "1,2,3,1,3,1"}};
 	}
 	
+	/**
+	 * @brief 
+	 * @param int type
+	 * return
+	 */
 	public File[][] getSoundFiles(int type)
 	{
 		switch(type)
@@ -90,6 +106,12 @@ class FileOpen {
 		}
 		return null;
 	}
+	
+	/**
+	 * @brief 
+	 * @param int type
+	 * return
+	 */
 	public String[] getSoundNames(int type)
 	{
 		switch(type)
@@ -105,6 +127,11 @@ class FileOpen {
 		}
 		return null;
 	}
+	
+	/**
+	 * @brief 
+	 * return
+	 */
 	public String[][] getGuitarCode()
 	{
 		return GuitarCode;

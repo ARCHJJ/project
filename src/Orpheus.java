@@ -19,62 +19,101 @@ import javax.swing.JOptionPane;
 import javax.swing.border.EmptyBorder;
 import javax.swing.JCheckBox;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
+
+/**
+ * @brief main 함수가 실행되는 클래스. GUI 인터페이스가 정의되는 곳이다.
+ */
 public class Orpheus extends JFrame implements ActionListener{
 
+	//!
 	private JPanel contentPane;
 	//private JTable table_Field, table_Kind, table_Beat;
+	//!
 	private JTable[] table_Field;
 	//private JTable table_TaskPiano, table_TaskDrum, table_TaskGuitar, table_TaskBase;
+	//!
 	private JTable[] table_Task; //
 	//private JScrollPane scrollPane_Field, scrollPane_Kind, scrollPane_Beat;
+	//!
 	private JScrollPane[] scrollPane_Field;
 	//private JScrollPane scrollPane_TaskPiano, scrollPane_TaskKeyDrum, scrollPane_TaskGuitar, scrollPane_TaskBase;
+	//!
 	private JScrollPane[] scrollPane_Task; //
+	//!
 	private JComboBox BeatSet, BankChoice, RhythmChoice, RootChord, ChildChord;
+	//!
 	private JTextField BPMSet;
 	
+	//!
 	private JLabel lbl_SelectInstrument, lbl_SelectBPM, lbl_SelectBeatSet;
 	//private JCheckBox Mute1, Mute2, Mute3, Mute4;
+	//!
 	private JCheckBox[] Mute;
+	//!
 	private JButton btn_start, btn_erase, btn_SelectToPiano, btn_SelectToDrum, btn_SelectToGuitar, btn_SelectToBase;
+	//!
 	private JButton btn_BankSave, btn_BankListen, btn_RhythmInsert, btn_RhythmListen, btn_ChordInsert, btn_ChordListen;
+	//!
 	private JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo;
+	//!
 	private JButton Keyboard;
 
 	//private SettingToKind STK_Piano, STK_Drum, STK_Guitar, STK_Base;
+	//!
 	private SettingToKind[] STK;
 	//private SettingToField STF_Piano, STF_Drum, STF_Guitar, STF_Base;
 	//private CmbBoxField STF_Piano, STF_Guitar, STF_Base;
 	//private ChkBoxField STF_Drum;
+	
+	//!
 	private SettingToField[] STF;
 	//private BeatField STB_Piano, STB_Drum, STB_Guitar, STB_Base;
+	//!
 	private BeatField[] STB;
 	//private TaskField STT_Piano, STT_Drum, STT_Guitar, STT_Base;
+	//!
 	private TaskField[] STT;
 	
 	//private SaveBank Bank_Piano, Bank_Drum, Bank_Guitar, Bank_Base;
+	//!
 	private SaveBank[] Bank;
 	//private CmbBoxBank Bank_Piano, Bank_Guitar, Bank_Base;
 	//private ChkBoxBank Bank_Drum;
 	
+	//!
 	private String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
+	//!
 	private String[] RhythmList = {"1","2","3","4"};
+	//!
 	private String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
+	//!
 	private String[] ChildChordList = {"M", "m", "7", "M7", "m7", "sus4", "dim"};
 	
+	//!
 	private String[] Piano_tones = {"", "1", "2", "3"};
+	//!
 	private String[] Guitar_tones = {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 	
+	//!
 	private FileOpen files;
 	
+	//!
 	private Input_GuitarCode Code;
+	//!
 	private PlayCode CodePlay;
+	//!
 	private static Orpheus ui;
+	//!
 	private static Play bankPlay;
+	//!
 	private static Play[] taskPlay;
 
+	//!
 	private int IDX;
 	
+	/**
+	 * @brief main 함수
+	 */
 	public static void main(String[] args) {
 		ui = new Orpheus();
 		
@@ -95,6 +134,9 @@ public class Orpheus extends JFrame implements ActionListener{
 		}
 	}
 
+	/**
+	 * @brief 생성자
+	 */
 	public Orpheus() {
 		setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
 		setForeground(Color.WHITE);
@@ -358,6 +400,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		setVisible(true);
 	}
 
+	/**
+	 * @brief 
+	 * @param ActionEvent e
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton)e.getSource();
@@ -421,6 +467,10 @@ public class Orpheus extends JFrame implements ActionListener{
 			break;
 		}
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void inputCode()
 	{
 		Code.addCode(table_Field[2], RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
@@ -428,10 +478,18 @@ public class Orpheus extends JFrame implements ActionListener{
 		STF[2].setCellOption(table_Field[2]);
 	}
 	
+	/**
+	 * @brief 
+	 */
 	public void playCode()
 	{
 		CodePlay.playCode(RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
 	}
+	
+	/**
+	 * @brief 
+	 * @param int idx
+	 */
 	public void setField(int idx)
 	{
 		table_Field[0].setModel(STK[idx].getModel());
@@ -485,6 +543,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		IDX = idx;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void init()
 	{
 		STB[IDX].Init();
@@ -493,6 +555,11 @@ public class Orpheus extends JFrame implements ActionListener{
 		STB[IDX].setCellOption(table_Field[1]);
 		STF[IDX].setCellOption(table_Field[2]);
 	}
+	
+	/**
+	 * @brief 
+	 * @param int size
+	 */
 	public void setBankList(int size)
 	{
 		BankChoice.removeAllItems();
@@ -500,6 +567,12 @@ public class Orpheus extends JFrame implements ActionListener{
 		for(int i=1; i<=size; i++)
 			BankChoice.addItem(Integer.toString(i));
 	}
+	
+	/**
+	 * @brief 
+	 * @param BeatField BeatField
+	 * @return
+	 */
 	public boolean OutofBeat(BeatField BeatField)
 	{
 		if(BeatField.out_max(table_Field[1]) < RestTimeSetup.music_score)
@@ -514,6 +587,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		}
 		return true;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void saveBank()
 	{
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
@@ -526,18 +603,30 @@ public class Orpheus extends JFrame implements ActionListener{
 		setBankList(num);
 		JOptionPane.showMessageDialog(null, num+"번 뱅크 저장완료.");
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void ListenBank()
 	{
 		int BankNum = BankChoice.getSelectedIndex();
 		bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundFiles(IDX));
 		bankPlay.action();
 	}
+	
+	/**
+	 * @brief 
+	 * @param int idx
+	 */
 	public void ListenSolo(int idx)
 	{
 		taskPlay[idx].multySet(table_Task[idx], STF[idx].BankList, files.getSoundFiles(idx), Mute[idx]);
 		taskPlay[idx].action();
 	}
 	
+	/**
+	 * @brief 
+	 */
 	public void musicQ()
 	{
 		//연주시작 메소드
@@ -548,6 +637,11 @@ public class Orpheus extends JFrame implements ActionListener{
 			taskPlay[i].action();
 		}
 	}
+	
+	/**
+	 * @brief 
+	 * @return
+	 */
 	public JButton getBankListenButton()
 	{
 		return btn_BankListen;

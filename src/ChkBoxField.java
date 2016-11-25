@@ -3,14 +3,28 @@ import java.util.LinkedList;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
+/**
+ * @brief SettingToField를 상속받는 클래스 체크박스로 구성된 TableModel로서 타악기를 선택할 수 있다.
+ */
 class ChkBoxField extends SettingToField{
 
+	//! 
 	private ChkBoxRenderer chkboxRenderer;
+	//! 
 	private ChkBoxEditor chkboxEditor;
+	//! 
 	private BeatField BeatField;
+	//! 
 	private JTable table_Beat;
+	//! 
 	private int kinds, rowcnt = 1;
 	
+	/**
+	 * @brief 생성자
+	 * @param BeatField BeatField
+	 * @param JTable table_Beat
+	 * @param int kinds
+	 */
 	public ChkBoxField(BeatField BeatField, JTable table_Beat, int kinds)
 	{
 		super();
@@ -29,6 +43,10 @@ class ChkBoxField extends SettingToField{
 		tablemodel.setDataVector(field, header);
 	}
 	
+	/**
+	 * @brief 
+	 * @param int idx
+	 */
 	@Override
 	public void addColumn(int idx) {
 		if(bulb.get(idx))
@@ -45,6 +63,11 @@ class ChkBoxField extends SettingToField{
 			BeatField.setCellOption(table_Beat);
 		}
 	}
+	
+	/**
+	 * @brief 
+	 * @param JTable Desk
+	 */
 	@Override
 	public void setCellOption(JTable Desk) {
 		for(int i=0; i<Desk.getModel().getColumnCount(); i++)
@@ -54,6 +77,10 @@ class ChkBoxField extends SettingToField{
 			Desk.getColumnModel().getColumn(i).setCellEditor(chkboxEditor);
 		}
 	}
+	
+	/**
+	 * @brief 
+	 */
 	@Override
 	public void Init() {
 		bulb.clear();
@@ -66,6 +93,11 @@ class ChkBoxField extends SettingToField{
 		
 		tablemodel.setDataVector(field, header);
 	}
+	
+	/**
+	 * @brief 
+	 * @return
+	 */
 	public int getKinds()
 	{
 		return kinds;

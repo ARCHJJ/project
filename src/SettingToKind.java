@@ -1,5 +1,14 @@
+/**
+ * @brief Setting클래스를 상속받는 클래스. 프로그램 메인에서 특정악기를 선택했을 때 그 악기가 표현할 수 있는 음의 종류를 보여준다.
+ */
 class SettingToKind extends Setting{
+	//!
 	private int kinds;
+	
+	/**
+	 * @brief 
+	 * @param String[] fileNames
+	 */
 	public SettingToKind(String[] fileNames)
 	{
 		super();

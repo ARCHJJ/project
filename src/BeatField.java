@@ -3,6 +3,9 @@ import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+/**
+ * @brief SettingToFeild를 상속받는 클래스로써 N분음표를 선택하게 할수 있는 부분을 표시하는 JTable을 만드는 클래스이다. 
+ */
 class BeatField extends SettingToField{
 	private CmbBoxEditor cmbboxEditor;
 	private CmbBoxRenderer cmbboxRenderer;
@@ -10,6 +13,10 @@ class BeatField extends SettingToField{
 	private String[] beat = {"1", "2", "4", "8", "16", "32"};
 	private LinkedList<Integer> beatResult;
 	private int rowcnt = 1, max = 0;
+	
+	/**
+	 * @brief 생성자
+	 */
 	public BeatField()
 	{
 		super();
@@ -27,6 +34,11 @@ class BeatField extends SettingToField{
 
 		tablemodel.setDataVector(field, header);
 	}
+	
+	/**
+	 * @brief 데이터 입력시 다음 컬럼을 추가하는 메소드
+	 * @param int idx 인덱스 번호
+	 */
 	@Override
 	public void addColumn(int idx) {
 		if(bulb.get(idx))
@@ -40,6 +52,11 @@ class BeatField extends SettingToField{
 			bulb.add(true);
 		}
 	}
+	
+	/**
+	 * @brief 
+	 * @param JTable Desk
+	 */
 	@Override
 	public void setCellOption(JTable Desk) 
 	{
@@ -53,6 +70,11 @@ class BeatField extends SettingToField{
 		
 	}
 	
+	/**
+	 * @brief 
+	 * @param JTable Desk
+	 * @return 
+	 */
 	public int out_max(JTable Desk)
 	{
 		JComboBox temp;
@@ -68,6 +90,11 @@ class BeatField extends SettingToField{
 		
 		return max;
 	}
+	
+	/**
+	 * @brief 
+	 * @return 
+	 */
 	public LinkedList<Integer> getBeatResult()
 	{
 		JComboBox temp;
@@ -81,6 +108,10 @@ class BeatField extends SettingToField{
 		}
 		return beatResult;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	@Override
 	public void Init() {
 		bulb.clear();
@@ -92,6 +123,11 @@ class BeatField extends SettingToField{
 
 		tablemodel.setDataVector(field, new String[]{" ", "1"});
 	}
+	
+	/**
+	 * @brief 
+	 * @return -1 리턴
+	 */
 	@Override
 	public int getKinds() {
 		return -1;

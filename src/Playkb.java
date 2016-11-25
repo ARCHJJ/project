@@ -6,20 +6,36 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * @brief 
+ */
 class Playkb extends Thread
 {
+	//!
 	LinkedList<Integer> playlist;
+	//!
 	Iterator<Integer> it;
+	//!
 	AudioInputStream sound;
+	//!
 	Clip clip;
+	//!
 	File[][] SoundFiles;
 	
+	/**
+	 * @brief 
+	 * @param LinkedList<Integer> playlist
+	 * @param File[][] SoundFiles
+	 */
 	Playkb(LinkedList<Integer> playlist, File[][] SoundFiles)
 	{
 		this.playlist = playlist;
 		this.SoundFiles = SoundFiles;
 	}
 	
+	/**
+	 * @brief 
+	 */
 	public void run()
 	{
 		it = playlist.iterator();

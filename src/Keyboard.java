@@ -11,32 +11,57 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * @brief 사용자가 컴퓨터 키보드를 눌렀을 때 맵핑된 음을 재생시키는 역할을 하는 클래스이다. 
+ */
 public class Keyboard extends JFrame implements ActionListener{
 
+	//!
 	File keyboardfile[];
+	//!
 	File drumfile[];
 //	FileInputStream filestream; 
 //	AudioStream sound;
+	//!
 	AudioInputStream audioin;
+	//!
 	Clip clip;
+	//!
 	private String[][] PianoFnames;
+	//!
 	private String[] PianoFolder;
+	//!
 	private File[][] PianoFiles;
 
+	//!
 	String keyboard[] = {"도.wav","레.wav", "미.wav", "파.wav", "솔.wav","라.wav", "시.wav", "도(높은).wav"};
+	//!
 	String drum[] = {"K.wav", "H.wav", "S.wav", "HH.wav"};
+	//!
 	boolean rec_piano = false;
+	//!
 	boolean rec_drum = false;
+	//!
 	long start = 0, end = 0;
+	//!
 	int rest;
+	//!
 	KeyPanel p;
+	//!
 	LinkedList<Integer> playlist_keyboard;
+	//!
 	LinkedList<Integer> playlist_drum;
+	//!
 	JComboBox<String> comboBox;
 	
+	//!
 	Thread thread_keyboard;
+	//!
 	Thread thread_drum;
 	
+	/**
+	 * @brief 생성자
+	 */
 	public Keyboard(){
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		p = new KeyPanel();
@@ -186,6 +211,9 @@ public class Keyboard extends JFrame implements ActionListener{
 		p.requestFocus(); // 권한 요청
 	}
 	
+	/**
+	 * @brief 
+	 */
 	class KeyPanel extends JPanel {
 		JLabel la = new JLabel("키값이 입력될 위치"); // 레이블 생성
 		int fileidx = 0,fileidy = 0, comboboxidx = 0;
@@ -214,6 +242,9 @@ public class Keyboard extends JFrame implements ActionListener{
 				}
 			});
 		}
+		/**
+		 * @brief 
+		 */
 		void piano()
 		{
 			switch(key)
@@ -432,6 +463,10 @@ public class Keyboard extends JFrame implements ActionListener{
 			catch(Exception exp)
 			{}
 		}
+		
+		/**
+		 * @brief 
+		 */
 		void drum()
 		{
 			switch(key)
@@ -482,12 +517,16 @@ public class Keyboard extends JFrame implements ActionListener{
 		}
 	}
 	
-	
+	/**
+	 * @brief 
+	 */
 	public static void main(String args[]){
 		new Keyboard();
 	}
 
-
+	/**
+	 * @brief 
+	 */
 	@Override
 	public void actionPerformed(ActionEvent arg0) {
 		// TODO Auto-generated method stub

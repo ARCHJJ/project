@@ -5,19 +5,36 @@ import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 
+/**
+ * @brief 
+ */
 public class PlayCode {
+	//!
 	private String[][] Code;
+	//!
 	private File[][] SoundFiles;
 	
+	//!
 	private AudioInputStream sound;
+	//!
 	private Clip clip;
 	
+	/**
+	 * @brief 
+	 * @param String[][] Code_File
+	 * @param File[][] Guitar
+	 */
 	public PlayCode(String[][] Code_File, File[][] Guitar)
 	{
 		Code = Code_File;
 		SoundFiles = Guitar;
 	}
 	
+	/**
+	 * @brief 
+	 * @param int x
+	 * @param int y
+	 */
 	public void playCode(int x, int y)
 	{
 		String Note;

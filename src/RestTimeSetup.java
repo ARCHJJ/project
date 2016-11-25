@@ -1,12 +1,20 @@
 import java.util.StringTokenizer;
 
+/**
+ * @brief 
+ */
 class RestTimeSetup {
-	
+	//!
 	static int music_score, result;
 
 	RestTimeSetup()
 	{}
 	
+	/**
+	 * @brief 
+	 * @param String BPMSet
+	 * @param String BeatSet
+	 */
 	public static void getRestTime(String BPMSet, String BeatSet)
 	{
 		int BPM = Integer.parseInt(BPMSet); 

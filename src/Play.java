@@ -9,64 +9,125 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+/**
+ * @brief 작곡한 뱅크를 재생하는 기능을 담당하는 클래스이다. 
+ */
 class Play implements Runnable
 {
+	//!
 	private Thread thread;
 	
 	//작업대기줄 재생 - MultyPlay
+	//!
 	private JTable table_Task;
+	//!
 	private LinkedList<LinkedList<Note>> BankList;
 	
 	//뱅크듣기 - SinglePlay
+	//!
 	private LinkedList<Note> playlist;
+	//!
 	private Iterator<Note> itNote;
+	//!
 	private Iterator<Integer> itPlay;
+	//!
 	private JCheckBox mute;
 	
+	//!
 	private File[][] SoundFiles;
+	//!
 	private AudioInputStream sound;
+	//!
 	private Clip clip;
+	//!
 	private int idx;
+	//!
 	private Orpheus ui;
 	
+	//!
 	private boolean standby;
+	//!
 	private boolean singleplay;
+	
+	/**
+	 * @brief 
+	 * @param Orpheus ui
+	 */
 	public Play(Orpheus ui)
 	{
 		this.ui = ui;
 		thread = new Thread(this);
 		standby = true;
 	}
+	
+	/**
+	 * @brief 
+	 * @param LinkedList<Note> playlist
+	 * @param File[][] SoundFiles
+	 */
 	public void setBank(LinkedList<Note> playlist, File[][] SoundFiles)
 	{
 		this.playlist = playlist;
 		this.SoundFiles = SoundFiles;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void ThreadStart()
 	{
 		thread.start();
 	}
+	
+	/**
+	 * @brief 
+	 * @param boolean bulb
+	 */
 	public void setDaemon(boolean bulb)
 	{
 		thread.setDaemon(bulb);
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void action()
 	{
 		standby = false;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void ready()
 	{
 		standby = true;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void MuteDisable()
 	{
 		mute = new JCheckBox();
 		mute.setSelected(false);
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void singleSet()
 	{
 		singleplay = true;
 	}
+	
+	/**
+	 * @brief 
+	 * @param JTable table_Task
+	 * @param LinkedList<LinkedList<Note>> BankList
+	 * @param File[][] SoundFiles
+	 * @param JCheckBox mute
+	 */
 	public void multySet(JTable table_Task, LinkedList<LinkedList<Note>> BankList, File[][] SoundFiles, JCheckBox mute)
 	{
 		singleplay = false;
@@ -75,6 +136,10 @@ class Play implements Runnable
 		this.SoundFiles = SoundFiles;
 		this.mute = mute;
 	}
+	
+	/**
+	 * @brief 
+	 */
 	public void single()
 	{
 		try
@@ -111,6 +176,9 @@ class Play implements Runnable
 		ui.getBankListenButton().setEnabled(true);
 	}
 	
+	/**
+	 * @brief 
+	 */
 	public void run()
 	{
 		while(true)

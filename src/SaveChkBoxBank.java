@@ -7,14 +7,29 @@ import javax.swing.JCheckBox;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * @brief 
+ */
 class SaveChkBoxBank extends SaveBank{
 
+	//!
 	SettingToField field;
+	
+	/**
+	 * @brief 
+	 * @param SettingToField field
+	 */
 	SaveChkBoxBank(SettingToField field) {
 		this.field = field;
 		this.kind = field.getKinds();
 	}
 
+	/**
+	 * @brief 
+	 * @param LinkedList<Integer> beatList
+	 * @param int restTime
+	 * @return
+	 */
 	public LinkedList<Note> getBank(LinkedList<Integer> beatList, int restTime)
 	{
 		boolean isfirst = false;
@@ -51,6 +66,10 @@ class SaveChkBoxBank extends SaveBank{
 		return newBank;
 	}
 	
+	/**
+	 * @brief 
+	 * @param LinkedList<Note> bank
+	 */
 	public void bankPrint(LinkedList<Note> bank)	//테스트용 메소드
 	{
 		Iterator<Note> itNote = bank.iterator();
