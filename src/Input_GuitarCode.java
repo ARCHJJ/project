@@ -3,14 +3,28 @@ import java.util.StringTokenizer;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+/**
+ * @brief 
+ */
 public class Input_GuitarCode {
+	//!
 	private String[][] Code;
 	
+	/**
+	 * @brief 
+	 * @param String[][] Code_File
+	 */
 	public Input_GuitarCode(String[][] Code_File)
 	{
 		Code = Code_File;
 	}
 	
+	/**
+	 * @brief 
+	 * @param JTable Desk
+	 * @param int x
+	 * @param int y
+	 */
 	public void addCode(JTable Desk, int x, int y)
 	{
 		String Note;
