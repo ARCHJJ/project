@@ -25,94 +25,121 @@ import javax.swing.JCheckBox;
  */
 public class Orpheus extends JFrame implements ActionListener{
 
-	//!
+	//! GUI에서 메인이 되는 Panel
 	private JPanel contentPane;
-	//private JTable table_Field, table_Kind, table_Beat;
-	//!
+	
+	//! 악기, 박자, 음높이 총 3가지를 설정하는 테이블
 	private JTable[] table_Field;
-	//private JTable table_TaskPiano, table_TaskDrum, table_TaskGuitar, table_TaskBase;
-	//!
+
+	//! 작업대기줄을 보여주는 테이블 차례대로 피아노, 드럼, 기타, 베이스
 	private JTable[] table_Task; //
-	//private JScrollPane scrollPane_Field, scrollPane_Kind, scrollPane_Beat;
-	//!
+	
+	//! table_Field에 스크롤을 추가하는 ScrollPane 
 	private JScrollPane[] scrollPane_Field;
-	//private JScrollPane scrollPane_TaskPiano, scrollPane_TaskKeyDrum, scrollPane_TaskGuitar, scrollPane_TaskBase;
-	//!
-	private JScrollPane[] scrollPane_Task; //
-	//!
+	
+	//! table_Task에 스크롤을 추가하는 ScrollPane
+	private JScrollPane[] scrollPane_Task;
+	
+	//! BeatSet			: 비트를 선택하는 콤보박스
+	//! BankChoice		: 뱅크를 선택하는 콤보박스
+	//! RhythmChoice	: 리듬을 선택하는 콤보박스
+	//! RootChord		: 코드의 근음을 선택하는 콤보박스
+	//! ChildChord		: 근음에서 파생되는음을 선택하는 콤보박스
 	private JComboBox BeatSet, BankChoice, RhythmChoice, RootChord, ChildChord;
-	//!
+	
+	//! BPMSet : BPM을 입력하는 텍스트필드 
 	private JTextField BPMSet;
 	
-	//!
+	//! lbl_SelectInstrument : 악기선택버튼을 안내해주는 레이블
+	//! lbl_SelectBPM		 : BPMSet을 안내해주는 레이블
+	//! lbl_SelectBeatSet	 : BeatSet을 안내해주는 레이블
 	private JLabel lbl_SelectInstrument, lbl_SelectBPM, lbl_SelectBeatSet;
-	//private JCheckBox Mute1, Mute2, Mute3, Mute4;
-	//!
+
+	//! 작업대기줄에서 재생되는 악기를 뮤트시키는 체크박스. 차례대로 피아노, 드럼, 기타, 베이스
 	private JCheckBox[] Mute;
-	//!
+
+	//! btn_start			: 연주시작버튼. 작업대기줄에서 설정한 뱅크를 차례로 재생한다.
+	//! btn_erase			: 지우기버튼. table_Field의 내용을 모두 지운다.
+	//! btn_SelectToPiano	: 피아노선택버튼. table_Field을 피아노로 셋팅한다.
+	//! btn_SelectToDrum	: 드럼선택버튼. table_Field을 드럼으로 셋팅한다.
+	//! btn_SelectToGuitar	: 기타선택버튼. table_Field을 기타로 셋팅한다.
+	//! btn_SelectToBase	: 베이스선택버튼. table_Field을 베이스로 셋팅한다.
 	private JButton btn_start, btn_erase, btn_SelectToPiano, btn_SelectToDrum, btn_SelectToGuitar, btn_SelectToBase;
-	//!
+	
+	//! btn_BankSave		: 뱅크저장버튼. table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
+	//! btn_BankListen		: 뱅크재생버튼. 콤보박스로 선택한 뱅크를 재생한다.
+	//! btn_RhythmInsert	: 리듬삽입버튼. 미리 만들어져 있는 리듬을 table_Field[1], table_Field[2]에 삽입한다.
+	//! btn_RhythmListen	: 리듬듣기버튼. 미리 만들어져 있는 리듬을 들어본다.
+	//! btn_ChordInsert		: 코드삽입버튼. 미리 만들어져 있는 코드를 table_Field[1], table_Field[2]에 삽입한다.
+	//! btn_ChordListen		: 코드듣기버튼. 미리 만들어져 있는 코드를 들어본다.
 	private JButton btn_BankSave, btn_BankListen, btn_RhythmInsert, btn_RhythmListen, btn_ChordInsert, btn_ChordListen;
-	//!
+	
+	//! btn_PianoSolo	: 피아노솔로버튼. 피아노작업대기줄만 재생한다.
+	//! btn_DrumSolo	: 드럼솔로버튼. 드럼작업대기줄만 재생한다.
+	//! btn_GuitarSolo	: 기타솔로버튼. 기타작업대기줄만 재생한다.
+	//! btn_BaseSolo	: 베이스솔로버튼. 베이스작업대기줄만 재생한다.
 	private JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo;
+	
 	//!
 	private JButton Keyboard;
 
-	//private SettingToKind STK_Piano, STK_Drum, STK_Guitar, STK_Base;
-	//!
+	//! table_Field[0]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스 
 	private SettingToKind[] STK;
-	//private SettingToField STF_Piano, STF_Drum, STF_Guitar, STF_Base;
-	//private CmbBoxField STF_Piano, STF_Guitar, STF_Base;
-	//private ChkBoxField STF_Drum;
 	
-	//!
-	private SettingToField[] STF;
-	//private BeatField STB_Piano, STB_Drum, STB_Guitar, STB_Base;
-	//!
+	//! table_Field[1]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스
 	private BeatField[] STB;
-	//private TaskField STT_Piano, STT_Drum, STT_Guitar, STT_Base;
-	//!
+	
+	//! table_Field[2]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스
+	private SettingToField[] STF;
+	
+	//! table_Task를 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스
 	private TaskField[] STT;
 	
-	//private SaveBank Bank_Piano, Bank_Drum, Bank_Guitar, Bank_Base;
-	//!
+	//! 뱅크저장을 위한 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스
 	private SaveBank[] Bank;
-	//private CmbBoxBank Bank_Piano, Bank_Guitar, Bank_Base;
-	//private ChkBoxBank Bank_Drum;
-	
-	//!
+
+	//! BeatSet을 구성하는 String 배열
 	private String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
-	//!
+
+	//! RhythmChoice를 구성하는 String 배열
 	private String[] RhythmList = {"1","2","3","4"};
-	//!
+	
+	//! RootChord를 구성하는 String 배열
 	private String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
-	//!
+	
+	//! ChildChord를 구성하는 String 배열
 	private String[] ChildChordList = {"M", "m", "7", "M7", "m7", "sus4", "dim"};
 	
-	//!
+	//! 피아노의 음높이를 나타내는 String 배열. STF[0]의 생성자로 전달한다.
 	private String[] Piano_tones = {"", "1", "2", "3"};
-	//!
+	
+	//! 기타의 음높이를 나타내는 String 배열. STF[2], STF[3]의 생성자로 전달한다.
 	private String[] Guitar_tones = {"", "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"};
 	
-	//!
+	//! 파일오픈클래스의 객체. 재생에 필요한 소리파일들을 오픈한다.
 	private FileOpen files;
 	
-	//!
+	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	private Input_GuitarCode Code;
-	//!
+	
+	//!	삭제예정
 	private PlayCode CodePlay;
-	//!
+	
+	//! 소리를 재생할 때 UI와의 스레드를 구현하기 위한 메인클래스의 객체.  
 	private static Orpheus ui;
-	//!
+	
+	//! 뱅크미리듣기를 위한 객체
 	private static Play bankPlay;
-	//!
+	
+	//! 솔로듣기를 위한 객체
 	private static Play[] taskPlay;
 
-	//!
+	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	private int IDX;
 	
 	/**
 	 * @brief main 함수
+	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
 	 */
 	public static void main(String[] args) {
 		ui = new Orpheus();
@@ -136,6 +163,7 @@ public class Orpheus extends JFrame implements ActionListener{
 
 	/**
 	 * @brief 생성자
+	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
 	public Orpheus() {
 		setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
@@ -401,8 +429,9 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 
 	/**
-	 * @brief 
+	 * @brief 버튼액션리스너
 	 * @param ActionEvent e
+	 * 버튼이 눌렸을 때 해당 버튼의 이름에 따라 필요한 메소드를 호출한다.
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -469,7 +498,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 현재 보고있는 JTable에 미리 만들어진 코드를 삽입한다.
 	 */
 	public void inputCode()
 	{
@@ -479,7 +508,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 삭제예정
 	 */
 	public void playCode()
 	{
@@ -487,8 +516,8 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
-	 * @param int idx
+	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
+	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
 	 */
 	public void setField(int idx)
 	{
@@ -545,7 +574,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 현재 보고 있는 table_Field[1], table_Field[2]를 지우고 초기상태로 되돌린다.
 	 */
 	public void init()
 	{
@@ -557,8 +586,8 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
-	 * @param int size
+	 * @brief 뱅크가 추가되면 BankChoice에서 선택할 수 있도록 추가한다.
+	 * @param int size : BankChoice의 크기
 	 */
 	public void setBankList(int size)
 	{
@@ -569,8 +598,8 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
-	 * @param BeatField BeatField
+	 * @brief 뱅크를 만들 때 박자규칙을 어겼는지 확인하는 메소드
+	 * @param BeatField BeatField : 박자정보를 가지고 있는 클래스의 객체
 	 * @return
 	 */
 	public boolean OutofBeat(BeatField BeatField)
@@ -589,7 +618,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
 	 */
 	public void saveBank()
 	{
@@ -605,7 +634,8 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief BankChoice를 통해 선택된 뱅크를 재생한다.
+	 * UI와 스레드로 동작한다.
 	 */
 	public void ListenBank()
 	{
@@ -615,8 +645,9 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
-	 * @param int idx
+	 * @brief 작업대기줄에서 특정 악기대기줄만 재생한다.
+	 * UI와 스레드로 동작한다.
+	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
 	 */
 	public void ListenSolo(int idx)
 	{
@@ -625,7 +656,8 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 작업대기줄에 있는 모든 내용을 재생한다.
+	 * taskPlay[0], taskPlay[1], taskPlay[2], taskPlay[3], UI가 스레드로 동작한다.
 	 */
 	public void musicQ()
 	{
@@ -639,8 +671,9 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 	
 	/**
-	 * @brief 
-	 * @return
+	 * @brief 뱅크듣기 버튼을 리턴한다.
+	 * 솔로듣기, 연주시작을 눌렀을 때 중복클릭을 방지하기 위해 해당 클래스에서 btn_BankListen을 Enable(false)시킨다. 
+	 * @return btn_BankListen
 	 */
 	public JButton getBankListenButton()
 	{

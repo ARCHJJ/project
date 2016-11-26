@@ -58,6 +58,7 @@ class Play implements Runnable
 		this.ui = ui;
 		thread = new Thread(this);
 		standby = true;
+		//singleplay = true;
 	}
 	
 	/**
