@@ -218,6 +218,7 @@ public class Keyboard extends JFrame implements ActionListener{
 		JLabel la = new JLabel("키값이 입력될 위치"); // 레이블 생성
 		int fileidx = 0,fileidy = 0, comboboxidx = 0;
 		String key;
+		int mode;
 		public KeyPanel(){ // 패널 생성자
 			add(la); // 레이블 추가
 			
@@ -226,17 +227,41 @@ public class Keyboard extends JFrame implements ActionListener{
 					end = System.currentTimeMillis();
 					rest = (int)(end - start);
 					System.out.println(rest);
-					key = KeyEvent.getKeyText(e.getKeyCode()); // 키값
-					comboboxidx = comboBox.getSelectedIndex();
-					//requestFocus();
-					switch(comboboxidx)
+					
+					key = KeyEvent.getKeyText(e.getKeyCode());// 키값
+					switch(key)
 					{
-					case 0:
-						piano();
+					case "1":
+						mode = 1;
 						break;
-					case 1:
+					case "2":
+						mode = 2;
+						break;
+					case "3":
+						mode = 3;
+						break;
+					}
+					
+					key = KeyEvent.getKeyText(e.getKeyCode());
+					comboboxidx = comboBox.getSelectedIndex();
+					if(comboboxidx==0)
+					{
+						switch(mode)
+						{
+						case 1:
+							piano1();
+							break;
+						case 2:
+							piano2();
+							break;
+						case 3:
+							piano3();
+							break;
+						}
+					}
+					else if(comboboxidx==1)
+					{
 						drum();
-						break;	
 					}
 					start = System.currentTimeMillis();
 				}
@@ -245,195 +270,219 @@ public class Keyboard extends JFrame implements ActionListener{
 		/**
 		 * @brief 
 		 */
-		void piano()
+		
+		void piano1()
 		{
 			switch(key)
 			{
-			case "1":
+			case "A":
 				System.out.print("C_4");
 				fileidx = 0;
 	            fileidy = 0;				
 				break;
-			case "2":
-				System.out.print("C_5");
-				fileidx = 0;
-		        fileidy = 1;
-				break;
-			case "3":
-				System.out.print("C_6");
-				fileidx = 0;
-	            fileidy = 2;
-				break;
-			case "4":
-				System.out.print("C#_4");
+			case "W":
+				System.out.print("C_#4");
 				fileidx = 1;
 		        fileidy = 0;
 				break;
-			case "5":
-				System.out.print("C#_5");
-				fileidx = 1;
-	            fileidy = 1;
-				break;
-			case "6":
-				System.out.print("C#_6");
-				fileidx = 1;
-	            fileidy = 2;
-				break;
-			case "7":
+			case "S":
 				System.out.print("D_4");
 				fileidx = 2;
 	            fileidy = 0;
 				break;
-			case "8":
-				System.out.print("D_5");
-				fileidx = 2;
-	            fileidy = 1;
-				break;
-			case "9":
-				System.out.print("D_6");
-				fileidx = 2;
-	            fileidy = 2;
-				break;
-			case "0":
+			case "E":
 				System.out.print("D#_4");
 				fileidx = 3;
-	            fileidy = 0;
+		        fileidy = 0;
 				break;
-			case "Q":
-				System.out.print("D#_5");
-				fileidx = 3;
-	            fileidy = 1;
-				break;
-			case "W":
-				System.out.print("D#_6");
-				fileidx = 3;
-	            fileidy = 2;
-				break;
-			case "E":
+			case "D":
 				System.out.print("E_4");
 				fileidx = 4;
 	            fileidy = 0;
 				break;
-			case "R":
-				System.out.print("E_5");
-				fileidx = 4;
-	            fileidy = 1;
-				break;
-			case "T":
-				System.out.print("E_6");
-				fileidx = 4;
-	            fileidy = 2;
-				break;
-			case "Y":
+			case "F":
 				System.out.print("F_4");
 				fileidx = 5;
 	            fileidy = 0;
 				break;
-			case "U":
-				System.out.print("F_5");
-				fileidx = 5;
-	            fileidy = 1;
-				break;
-			case "I":
-				System.out.print("F_6");
-				fileidx = 5;
-	            fileidy = 2;
-				break;
-			case "O":
+			case "T":
 				System.out.print("F#_4");
 				fileidx = 6;
 	            fileidy = 0;
 				break;
-			case "P":
-				System.out.print("F#_5");
-				fileidx = 6;
-	            fileidy = 1;
-				break;
-			case "A":
-				System.out.print("F#_6");
-				fileidx = 6;
-	            fileidy = 2;
-				break;
-			case "S":
+			case "G":
 				System.out.print("G_4");
 				fileidx = 7;
 	            fileidy = 0;
 				break;
-			case "D":
-				System.out.print("G_5");
-				fileidx = 7;
-	            fileidy = 1;
-				break;
-			case "F":
-				System.out.print("G_6");
-				fileidx = 7;
-	            fileidy = 2;
-				break;
-			case "G":
-				System.out.print("G#_4");
+			case "Y":
+				System.out.print("G_#4");
 				fileidx = 8;
 	            fileidy = 0;
 				break;
 			case "H":
-				System.out.print("G#_5");
-				fileidx = 8;
-	            fileidy = 1;
-				break;
-			case "J":
-				System.out.print("G#_6");
-				fileidx = 8;
-	            fileidy = 2;
-				break;
-			case "K":
 				System.out.print("A_4");
 				fileidx = 9;
 	            fileidy = 0;
 				break;
-			case "L":
-				System.out.print("A_5");
-				fileidx = 9;
-	            fileidy = 1;
-				break;
-			case "Z":
-				System.out.print("A_6");
-				fileidx = 9;
-	            fileidy = 2;
-				break;
-			case "X":
+			case "U":
 				System.out.print("A#_4");
 				fileidx = 10;
 	            fileidy = 0;
 				break;
-			case "C":
-				System.out.print("A#_5");
-				fileidx = 10;
-	            fileidy = 1;
-				break;
-			case "V":
-				System.out.print("A#_6");
-				fileidx = 10;
-	            fileidy = 2;
-				break;
-			case "B":
+			case "J":
 				System.out.print("B_4");
 				fileidx = 11;
 	            fileidy = 0;
 				break;
-			case "N":
+			default:
+				fileidx = -1;		
+			}
+			pianoPlay(fileidx,fileidy);
+		}
+			
+		void piano2()
+		{
+			switch(key)
+			{
+			case "A":
+				System.out.print("C_5");
+				fileidx = 0;
+	            fileidy = 1;				
+				break;
+			case "W":
+				System.out.print("C_#5");
+				fileidx = 1;
+		        fileidy = 1;
+				break;
+			case "S":
+				System.out.print("D_5");
+				fileidx = 2;
+	            fileidy = 1;
+				break;
+			case "E":
+				System.out.print("D#_5");
+				fileidx = 3;
+		        fileidy = 1;
+				break;
+			case "D":
+				System.out.print("E_5");
+				fileidx = 4;
+	            fileidy = 1;
+				break;
+			case "F":
+				System.out.print("F_5");
+				fileidx = 5;
+	            fileidy = 1;
+				break;
+			case "T":
+				System.out.print("F#_5");
+				fileidx = 6;
+	            fileidy = 1;
+				break;
+			case "G":
+				System.out.print("G_5");
+				fileidx = 7;
+	            fileidy = 1;
+				break;
+			case "Y":
+				System.out.print("G_#5");
+				fileidx = 8;
+	            fileidy = 1;
+				break;
+			case "H":
+				System.out.print("A_5");
+				fileidx = 9;
+	            fileidy = 1;
+				break;
+			case "U":
+				System.out.print("A#_5");
+				fileidx = 10;
+	            fileidy = 1;
+				break;
+			case "J":
 				System.out.print("B_5");
 				fileidx = 11;
 	            fileidy = 1;
 				break;
-			case "M":
+			default:
+				fileidx = -1;	
+			}
+			pianoPlay(fileidx,fileidy);
+		}
+		
+		void piano3()
+		{
+			switch(key)
+			{
+			case "A":
+				System.out.print("C_6");
+				fileidx = 0;
+	            fileidy = 2;				
+				break;
+			case "W":
+				System.out.print("C_#6");
+				fileidx = 1;
+		        fileidy = 2;
+				break;
+			case "S":
+				System.out.print("D_6");
+				fileidx = 2;
+	            fileidy = 2;
+				break;
+			case "E":
+				System.out.print("D#_6");
+				fileidx = 3;
+		        fileidy = 2;
+				break;
+			case "D":
+				System.out.print("E_6");
+				fileidx = 4;
+	            fileidy = 2;
+				break;
+			case "F":
+				System.out.print("F_6");
+				fileidx = 5;
+	            fileidy = 2;
+				break;
+			case "T":
+				System.out.print("F#_6");
+				fileidx = 6;
+	            fileidy = 2;
+				break;
+			case "G":
+				System.out.print("G_6");
+				fileidx = 7;
+	            fileidy = 2;
+				break;
+			case "Y":
+				System.out.print("G_#6");
+				fileidx = 8;
+	            fileidy = 2;
+				break;
+			case "H":
+				System.out.print("A_6");
+				fileidx = 9;
+	            fileidy = 2;
+				break;
+			case "U":
+				System.out.print("A#_6");
+				fileidx = 10;
+	            fileidy = 2;
+				break;
+			case "J":
 				System.out.print("B_6");
 				fileidx = 11;
 	            fileidy = 2;
 				break;
-				
-			default :
-				fileidx = -1;
+			default:
+				fileidx = -1;	
 			}
-			
+			pianoPlay(fileidx,fileidy);
+		}
+		
+		void pianoPlay(int fileidx, int fileidy)
+		{
 			try
 			{
 				if(fileidx == -1)
@@ -442,11 +491,6 @@ public class Keyboard extends JFrame implements ActionListener{
 				audioin = AudioSystem.getAudioInputStream(PianoFiles[fileidx][fileidy]);
 				clip = AudioSystem.getClip();
 				clip.open(audioin);
-				
-//				if(clip.isRunning())
-//					clip.stop();
-//				clip.setFramePosition(0);
-				
 				clip.start();
 				
 				if(rec_piano)
@@ -496,12 +540,8 @@ public class Keyboard extends JFrame implements ActionListener{
 				audioin = AudioSystem.getAudioInputStream(drumfile[fileidx]);
 				clip = AudioSystem.getClip();
 				clip.open(audioin);
-				
-//				if(clip.isRunning())
-//					clip.stop();		
-//				clip.setFramePosition(0);
-				
 				clip.start();
+				
 				if(rec_drum)
 				{
 					if(playlist_drum.isEmpty())
