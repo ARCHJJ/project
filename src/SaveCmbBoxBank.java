@@ -14,7 +14,7 @@ class SaveCmbBoxBank extends SaveBank{
 	
 	/**
 	 * @brief 생성자
-	 * @param field
+	 * @param field : 콤보박스가 저장될 수 있게 세팅해줄 수 있도록 SettingToField 변수를 인자로 받아옴
 	 */
 	SaveCmbBoxBank(SettingToField field) {
 		this.field = field;

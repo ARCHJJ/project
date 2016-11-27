@@ -9,25 +9,25 @@ import javax.swing.JTable;
  */
 class CmbBoxField extends SettingToField {
 
-	//! 
+	//!JTable에 콤보박스를 추가시키기 위한 셀에디터
 	private CmbBoxEditor cmbboxEditor;
-	//! 
+	//!JTable에 콤보박스를 추가시키기 위한 셀렌더러
 	private CmbBoxRenderer cmbboxRenderer;
-	//! 
+	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private String[] tones;
-	//! 
+	//!현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가되게 하기위해 생성자인자로 전달받음
 	private BeatField BeatField;
-	//! 
+	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private JTable table_Beat;
-	//! 
+	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, rowcnt : 현재 행의 개수를 카운트
 	private int kinds, rowcnt = 1;
 	
 	/**
-	 * @brief 
-	 * @param BeatField BeatField
-	 * @param JTable table_Beat
-	 * @param int kinds
-	 * @param String[] tones
+	 * @brief 콤보박스로 이루어진 행을 하나 추가한다.
+	 * @param BeatField BeatField : 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가될 수 있도록 받아옴
+	 * @param JTable table_Beat 
+	 * @param int kinds : 해당하는 악기가 낼 수 있는 음의 개수
+	 * @param String[] tones : BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용
 	 */
 	public CmbBoxField(BeatField BeatField, JTable table_Beat, int kinds, String[] tones)
 	{
@@ -71,8 +71,8 @@ class CmbBoxField extends SettingToField {
 	}
 
 	/**
-	 * @brief 
-	 * @param JTable Desk 
+	 * @brief 열을 추가하고 나서 다시 렌더러와 에디터를 적용시켜 주는 메소드
+	 * @param JTable Desk : : 렌더러와 에디터가 적용될 JTable
 	 */
 	@Override
 	public void setCellOption(JTable Desk) {
