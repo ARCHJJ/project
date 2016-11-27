@@ -9,13 +9,13 @@ import javax.swing.table.TableCellRenderer;
 class ChkBoxRenderer implements TableCellRenderer
 {
 	/**
-	 * @brief 
+	 * @brief 테이블셀렌더러의 컴포넌트를 가져온다.
 	 * @param JTable table
 	 * @param Object value
-	 * @param boolean isSelected
+	 * @param boolean isSelected : 선택되었는지를 나타내줌
 	 * @param boolean hasFocus
-	 * @param int row
-	 * @param int column
+	 * @param int row : 행
+	 * @param int column : 열
 	 * @return
 	 */
 	@Override

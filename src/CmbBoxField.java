@@ -72,7 +72,7 @@ class CmbBoxField extends SettingToField {
 
 	/**
 	 * @brief 열을 추가하고 나서 다시 렌더러와 에디터를 적용시켜 주는 메소드
-	 * @param JTable Desk : : 렌더러와 에디터가 적용될 JTable
+	 * @param JTable Desk : 렌더러와 에디터가 적용될 JTable
 	 */
 	@Override
 	public void setCellOption(JTable Desk) {

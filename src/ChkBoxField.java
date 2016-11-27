@@ -8,22 +8,22 @@ import javax.swing.JTable;
  */
 class ChkBoxField extends SettingToField{
 
-	//! 
+	//!JTable에 체크박스를 추가시키기 위한 셀렌더러
 	private ChkBoxRenderer chkboxRenderer;
-	//! 
+	//!JTable에 체크박스를 추가시키기 위한 셀에디터
 	private ChkBoxEditor chkboxEditor;
-	//! 
+	//!현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가되게 하기 위해 생성자인자로 전달받음
 	private BeatField BeatField;
-	//! 
+	//!BeatField의 행이 추가될 때 셀 에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private JTable table_Beat;
-	//! 
+	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, rowcnt : 현재 행의 개수를 카운트
 	private int kinds, rowcnt = 1;
 	
 	/**
 	 * @brief 생성자
-	 * @param BeatField BeatField
+	 * @param BeatField BeatField : 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가될 수 있도록 받아옴
 	 * @param JTable table_Beat
-	 * @param int kinds
+	 * @param int kinds : 해당하는 악기가 낼 수 있는 음의 개수
 	 */
 	public ChkBoxField(BeatField BeatField, JTable table_Beat, int kinds)
 	{
@@ -44,8 +44,8 @@ class ChkBoxField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @param int idx
+	 * @brief 컬럼을 한줄 추가하는 메소드
+	 * @param int idx 현재 몇번째 컬럼인지를 가리키는 인덱스
 	 */
 	@Override
 	public void addColumn(int idx) {
@@ -65,8 +65,8 @@ class ChkBoxField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @param JTable Desk
+	 * @brief 열을 추가하고 나서 다시 렌더러와 에디터를 적용시켜 주는 메소드
+	 * @param JTable Desk : 렌더러와 에디터가 적용될 JTable
 	 */
 	@Override
 	public void setCellOption(JTable Desk) {
@@ -79,7 +79,7 @@ class ChkBoxField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief J테이블을 초기화하는 메소드
 	 */
 	@Override
 	public void Init() {
@@ -95,8 +95,8 @@ class ChkBoxField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @return
+	 * @brief 악기종류를 리턴 하는 메소드
+	 * @return 악기종류 리턴
 	 */
 	public int getKinds()
 	{
