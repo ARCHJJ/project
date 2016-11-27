@@ -29,18 +29,21 @@ public class Input_GuitarCode {
 	{
 		String Note;
 		JComboBox temp;
-		StringTokenizer st = new StringTokenizer(Code[x][y] ,",");
-		
+		//StringTokenizer st = new StringTokenizer(Code[x][y] ,",");
+		Note = Code[x][y];
+		char ch;
 		for(int i=1; i<7; i++)
 		{
-			Note = st.nextToken();
-			
+			//Note = st.nextToken();
+			ch = Note.charAt(i-1);
 			temp = (JComboBox)Desk.getModel().getValueAt(i, Desk.getModel().getColumnCount()-1);
-			
-			if(Note.equals("x"))
+			//System.out.println(ch);
+			//if(Note.equals("x"))
+			if(ch=='x')
 				temp.setSelectedIndex(0);
 			else
-				temp.setSelectedIndex(Integer.parseInt(Note)+1);
+				temp.setSelectedIndex(((int)ch-48)+1);
+				//temp.setSelectedIndex(Integer.parseInt(Note)+1);
 			
 			Desk.setValueAt(temp, i, Desk.getModel().getColumnCount()-1);
 			

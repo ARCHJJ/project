@@ -63,7 +63,7 @@ public class Keyboard extends JFrame implements ActionListener{
 	 * @brief »ý¼ºÀÚ
 	 */
 	public Keyboard(){
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		p = new KeyPanel();
 		//start = System.currentTimeMillis();
 				

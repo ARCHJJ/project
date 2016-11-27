@@ -4,8 +4,12 @@ import java.awt.SystemColor;
 import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.LinkedList;
 
 import javax.imageio.ImageIO;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -137,6 +141,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	private int IDX;
 	
+	private PlayToKeyboard keyboardPlay;
 	/**
 	 * @brief main 함수
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
@@ -412,11 +417,14 @@ public class Orpheus extends JFrame implements ActionListener{
 		contentPane.add(btn_BaseSolo);
 
 		
-		Keyboard = new JButton("키보드");
+		keyboardPlay = new PlayToKeyboard(files);
+		keyboardPlay.setVisible(false);
+		Keyboard = new JButton("test");
 		Keyboard.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				Keyboard kb = new Keyboard();
-				Keyboard.addActionListener(kb);
+//				Keyboard kb = new Keyboard();
+//				Keyboard.addActionListener(kb);
+				keyboardPlay.setVisible(true);
 			}
 		});
 		Keyboard.setBackground(SystemColor.window);
@@ -507,13 +515,6 @@ public class Orpheus extends JFrame implements ActionListener{
 		STF[2].setCellOption(table_Field[2]);
 	}
 	
-	/**
-	 * @brief 삭제예정
-	 */
-	public void playCode()
-	{
-		CodePlay.playCode(RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
-	}
 	
 	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
@@ -643,7 +644,34 @@ public class Orpheus extends JFrame implements ActionListener{
 		bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundFiles(IDX));
 		bankPlay.action();
 	}
-	
+
+	/**
+	 * @brief 삭제예정
+	 */
+	public void playCode()
+	{
+		//CodePlay.playCode(RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
+		AudioInputStream sound;
+		Clip clip;
+		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
+		char ch;
+		try{
+			for(int i=0, flat=5; i<6; i++, flat--)
+			{
+				ch = code.charAt(i);
+				if(ch!='x')
+				{
+					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[flat][(int)ch-48]);
+					clip = AudioSystem.getClip();
+					clip.open(sound);
+					clip.start();
+				}
+				
+			}
+		}
+		catch(Exception e) {}
+		
+	}
 	/**
 	 * @brief 작업대기줄에서 특정 악기대기줄만 재생한다.
 	 * UI와 스레드로 동작한다.
