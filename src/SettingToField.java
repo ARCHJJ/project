@@ -11,11 +11,11 @@ import javax.swing.JTable;
 abstract class SettingToField extends Setting{
 	//!
 	protected LinkedList<Boolean> bulb;
-	//!
+	//!뱅크의 목록
 	protected LinkedList<LinkedList<Note>> BankList;
 	
 	/**
-	 * @brief
+	 * @brief 필드부분을 초기세팅해주는 생성자
 	 */
 	public SettingToField(){
 		super();
@@ -26,24 +26,24 @@ abstract class SettingToField extends Setting{
 	}
 	
 	/**
-	 * @brief
-	 * @param int idx
+	 * @brief 컬럼 추가
+	 * @param int idx 컬럼 인덱스
 	 */
 	abstract void addColumn(int idx);
 	
 	/**
-	 * @brief
-	 * @param JTable Desk
-	 */
+	 * @brief 셀 옵션을 설정하는 메소드
+	 * @param JTable Desk 작업표시줄의 라인
+	 */ 
 	abstract void setCellOption(JTable Desk);
 	
 	/**
-	 * @brief
+	 * @brief 초기화 메소드
 	 */
 	abstract void Init();
 	
 	/**
-	 * @brief
+	 * @brief 악기종류 얻는 메소드
 	 */
 	abstract int getKinds();
 

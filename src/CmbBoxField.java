@@ -50,8 +50,8 @@ class CmbBoxField extends SettingToField {
 	}
 	
 	/**
-	 * @brief 
-	 * @param int idx
+	 * @brief 컬럼을 한줄 추가하는 메소드
+	 * @param int idx 현재 몇번쨰 컬럼인지를 가리키는 인덱스
 	 */
 	@Override
 	public void addColumn(int idx) {
@@ -72,7 +72,7 @@ class CmbBoxField extends SettingToField {
 
 	/**
 	 * @brief 
-	 * @param JTable Desk
+	 * @param JTable Desk 
 	 */
 	@Override
 	public void setCellOption(JTable Desk) {
@@ -85,7 +85,7 @@ class CmbBoxField extends SettingToField {
 	}
 	
 	/**
-	 * @brief 
+	 * @brief J테이블을 초기화하는 메소드
 	 */
 	@Override
 	public void Init() {
@@ -101,8 +101,8 @@ class CmbBoxField extends SettingToField {
 	}
 	
 	/**
-	 * @brief 
-	 * @return
+	 * @brief 악기종류를 리턴 하는 메소드
+	 * @return 악기종류 리턴
 	 */
 	public int getKinds()
 	{

@@ -8,16 +8,16 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @brief 
+ * @brief 체크박스형 뱅크를 저장하는 역할을 담당하는 클래스
  */
 class SaveChkBoxBank extends SaveBank{
 
-	//!
+	//!필드
 	SettingToField field;
 	
 	/**
-	 * @brief 
-	 * @param SettingToField field
+	 * @brief 생성자
+	 * @param SettingToField field 필드
 	 */
 	SaveChkBoxBank(SettingToField field) {
 		this.field = field;
@@ -25,9 +25,9 @@ class SaveChkBoxBank extends SaveBank{
 	}
 
 	/**
-	 * @brief 
-	 * @param LinkedList<Integer> beatList
-	 * @param int restTime
+	 * @brief 사용자가 원하는 특정 조건의 뱅크를 호출하는 메소드
+	 * @param LinkedList<Integer> beatList 박자의 목록을 가지고 있는 LinkedList형 자료구조
+	 * @param int restTime 쉬는 부분을 표현
 	 * @return
 	 */
 	public LinkedList<Note> getBank(LinkedList<Integer> beatList, int restTime)
@@ -67,8 +67,8 @@ class SaveChkBoxBank extends SaveBank{
 	}
 	
 	/**
-	 * @brief 
-	 * @param LinkedList<Note> bank
+	 * @brief 뱅크를 화면에 뿌려주는 역할을 하는 메소드
+	 * @param LinkedList<Note> bank 뱅크들의 집합을 가지고 있는 Linkedlist형 자료구조
 	 */
 	public void bankPrint(LinkedList<Note> bank)	//테스트용 메소드
 	{

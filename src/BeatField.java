@@ -55,7 +55,7 @@ class BeatField extends SettingToField{
 	
 	/**
 	 * @brief 
-	 * @param JTable Desk
+	 * @param JTable Desk 
 	 */
 	@Override
 	public void setCellOption(JTable Desk) 

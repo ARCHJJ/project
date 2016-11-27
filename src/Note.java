@@ -8,7 +8,7 @@ class Note {
 	int rest;
 	
 	/**
-	 * @brief 持失切
+	 * @brief 持失切.
 	 */
 	Note()
 	{

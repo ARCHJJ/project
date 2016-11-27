@@ -14,11 +14,11 @@ class ChkBoxEditor extends DefaultCellEditor implements ItemListener {
 
 	//! 
 	JTable desk;
-	//!
+	//!체크박스
 	JCheckBox chkbox;
 	//!
 	ChkBoxField field;
-	//!
+	//!컬럼
 	int col;
 	
 	/**

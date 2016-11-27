@@ -6,14 +6,15 @@ import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
 
 /**
- * @brief 
+ * @brief 콤보박스로 이루어진 뱅크를 저장
  */
 class SaveCmbBoxBank extends SaveBank{
-	//!
+	//!필드
 	SettingToField field;
 	
 	/**
-	 * @brief 
+	 * @brief 생성자
+	 * @param field
 	 */
 	SaveCmbBoxBank(SettingToField field) {
 		this.field = field;
@@ -22,10 +23,10 @@ class SaveCmbBoxBank extends SaveBank{
 
 	
 	/**
-	 * @brief 
-	 * @param LinkedList<Integer> beatList
-	 * @param int restTime
-	 * @return
+	 * @brief 조건에 맞는 특정한 뱅크를 호출하는 메소드
+	 * @param LinkedList<Integer> beatList 박자의 리스트들을 가진 자료구조
+	 * @param int restTime 쉬는부분
+	 * @return 조건에 맞는 arraylist 리턴
 	 */
 	public LinkedList<Note> getBank(LinkedList<Integer> beatList, int restTime)
 	{
@@ -66,8 +67,8 @@ class SaveCmbBoxBank extends SaveBank{
 	}
 	
 	/**
-	 * @brief 
-	 * @param LinkedList<Note> bank
+	 * @brief 뱅크를 화면에 뿌려주는 메소드
+	 * @param LinkedList<Note> bank 뱅크들의 집합을 가지는 linkedList 자료구조
 	 */
 	public void bankPrint(LinkedList<Note> bank)	//테스트용 메소드
 	{

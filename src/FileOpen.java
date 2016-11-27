@@ -5,15 +5,15 @@ import java.io.File;
  */
 class FileOpen {
 	
-	//!
+	//!피아노, 드럼 , 기타, 베이스 파일들의 경로
 	private File[][] PianoFiles, DrumFiles, GuitarFiles, BaseFiles;
-	//!
+	//!피아노, 드럼 , 기타, 베이스 파일 이름
 	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
-	//!
+	//!피아노, 드럼 , 기타, 베이스 폴더이름
 	private String[] PianoFolder, DrumFolder, GuitarFolder, BaseFolder;
-	//!
+	//!피아노, 드럼 , 기타, 베이스 맵핑되는 음계명
 	private String[] PianoSoundNames, DrumSoundNames, GuitarSoundNames, BaseSoundNames;
-	//!
+	//!기타 코드
 	private String[][] GuitarCode;
 	
 	/**
@@ -87,9 +87,9 @@ class FileOpen {
 	}
 	
 	/**
-	 * @brief 
-	 * @param int type
-	 * return
+	 * @brief 악기에 따른 사운드파일을 호출해 주는 메소드
+	 * @param int type 어떤 악기에 대한 것인지 분류
+	 * return 각각의 악기별로 파일 배열명을 리턴
 	 */
 	public File[][] getSoundFiles(int type)
 	{
@@ -108,9 +108,9 @@ class FileOpen {
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 악기에 따른 사운드명을 호출하는 메소드
 	 * @param int type
-	 * return
+	 * return 각각 악기의 사운드명을 리턴
 	 */
 	public String[] getSoundNames(int type)
 	{
@@ -129,8 +129,8 @@ class FileOpen {
 	}
 	
 	/**
-	 * @brief 
-	 * return
+	 * @brief 기타코드를 리턴해주는 메소드
+	 * return 기타 코드 리턴
 	 */
 	public String[][] getGuitarCode()
 	{
