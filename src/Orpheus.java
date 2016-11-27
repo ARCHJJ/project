@@ -78,15 +78,13 @@ public class Orpheus extends JFrame implements ActionListener{
 	//! btn_ChordListen		: 코드듣기버튼. 미리 만들어져 있는 코드를 들어본다.
 	private JButton btn_BankSave, btn_BankListen, btn_RhythmInsert, btn_RhythmListen, btn_ChordInsert, btn_ChordListen;
 	
-	//! btn_PianoSolo	: 피아노솔로버튼. 피아노작업대기줄만 재생한다.
-	//! btn_DrumSolo	: 드럼솔로버튼. 드럼작업대기줄만 재생한다.
-	//! btn_GuitarSolo	: 기타솔로버튼. 기타작업대기줄만 재생한다.
-	//! btn_BaseSolo	: 베이스솔로버튼. 베이스작업대기줄만 재생한다.
-	private JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo;
+	//! btn_PianoSolo	 : 피아노솔로버튼. 피아노작업대기줄만 재생한다.
+	//! btn_DrumSolo	 : 드럼솔로버튼. 드럼작업대기줄만 재생한다.
+	//! btn_GuitarSolo	 : 기타솔로버튼. 기타작업대기줄만 재생한다.
+	//! btn_BaseSolo	 : 베이스솔로버튼. 베이스작업대기줄만 재생한다.
+	//! btn_KeyBoardPlay : 키보드연주버튼. 키보드 연주를 가능하게 한다. 
+	private JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo, btn_KeyboardPlay;
 	
-	//!
-	private JButton Keyboard;
-
 	//! table_Field[0]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스 
 	private SettingToKind[] STK;
 	
@@ -123,11 +121,14 @@ public class Orpheus extends JFrame implements ActionListener{
 	//! 파일오픈클래스의 객체. 재생에 필요한 소리파일들을 오픈한다.
 	private FileOpen files;
 	
+	//! 키보드연주를 위한 클래스의 객체
+	private PlayToKeyboard keyboardPlay;
+	
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	private Input_GuitarCode Code;
 	
 	//!	삭제예정
-	private PlayCode CodePlay;
+	//private PlayCode CodePlay;
 	
 	//! 소리를 재생할 때 UI와의 스레드를 구현하기 위한 메인클래스의 객체.  
 	private static Orpheus ui;
@@ -141,7 +142,6 @@ public class Orpheus extends JFrame implements ActionListener{
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	private int IDX;
 	
-	private PlayToKeyboard keyboardPlay;
 	/**
 	 * @brief main 함수
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
@@ -227,9 +227,10 @@ public class Orpheus extends JFrame implements ActionListener{
 		
 		//FileOpen
 		files = new FileOpen();
-		
+		keyboardPlay = new PlayToKeyboard(files);
+		keyboardPlay.setVisible(false);
 		Code = new Input_GuitarCode(files.getGuitarCode());
-		CodePlay = new PlayCode(files.getGuitarCode(), files.getSoundFiles(2));
+		//CodePlay = new PlayCode(files.getGuitarCode(), files.getSoundFiles(2));
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STB = new BeatField[4];
@@ -338,16 +339,23 @@ public class Orpheus extends JFrame implements ActionListener{
 		btn_start.setBackground(bgcolor);
 		btn_start.setFont(HumanRoundHeadLine);
 		btn_start.addActionListener(this);
-		btn_start.setBounds(505, 737, 99, 33);
+		btn_start.setBounds(393, 737, 99, 33);
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("지우기");
 		btn_erase.setBackground(bgcolor);
 		btn_erase.setFont(HumanRoundHeadLine);
 		btn_erase.addActionListener(this);
-		btn_erase.setBounds(616, 737, 99, 33);
+		btn_erase.setBounds(504, 737, 99, 33);
 		contentPane.add(btn_erase);
 	
+		btn_KeyboardPlay = new JButton("키보드연주");
+		btn_KeyboardPlay.setBackground(bgcolor);
+		btn_KeyboardPlay.setFont(HumanRoundHeadLine);
+		btn_KeyboardPlay.addActionListener(this);
+		btn_KeyboardPlay.setBounds(615,737,100,33);
+		contentPane.add(btn_KeyboardPlay);
+
 		btn_BankSave = new JButton("뱅크 저장");
 		btn_BankSave.setBackground(Color.WHITE);
 		btn_BankSave.setFont(PureGothic);
@@ -415,21 +423,6 @@ public class Orpheus extends JFrame implements ActionListener{
 		btn_BaseSolo.addActionListener(this);
 		btn_BaseSolo.setBounds(718, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
-
-		
-		keyboardPlay = new PlayToKeyboard(files);
-		keyboardPlay.setVisible(false);
-		Keyboard = new JButton("test");
-		Keyboard.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-//				Keyboard kb = new Keyboard();
-//				Keyboard.addActionListener(kb);
-				keyboardPlay.setVisible(true);
-			}
-		});
-		Keyboard.setBackground(SystemColor.window);
-		Keyboard.setBounds(718,100,48,42);
-		contentPane.add(Keyboard);
 
 		setField(0);
 		
@@ -501,6 +494,10 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case "코드 듣기":
 			playCode();
+			break;
+			
+		case "키보드연주":
+			keyboardPlay.setVisible(true);
 			break;
 		}
 	}
@@ -646,7 +643,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	}
 
 	/**
-	 * @brief 삭제예정
+	 * @brief RootChord, ChildChord 를 통해 선택된 코드를 재생한다.
 	 */
 	public void playCode()
 	{
@@ -656,12 +653,12 @@ public class Orpheus extends JFrame implements ActionListener{
 		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
 		char ch;
 		try{
-			for(int i=0, flat=5; i<6; i++, flat--)
+			for(int i=0; i<6; i++)
 			{
 				ch = code.charAt(i);
 				if(ch!='x')
 				{
-					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[flat][(int)ch-48]);
+					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[i][(int)ch-48]);
 					clip = AudioSystem.getClip();
 					clip.open(sound);
 					clip.start();

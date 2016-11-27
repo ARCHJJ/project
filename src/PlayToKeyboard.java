@@ -18,8 +18,9 @@ import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.JLabel;
 
-//import javax.swing.JTable;
-
+/**
+ * @brief 사용자가 컴퓨터 키보드를 눌렀을 때 맵핑된 음을 재생시키는 역할을 하는 클래스이다. 
+ */
 class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 
 	private JPanel contentPane;
@@ -34,16 +35,23 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 	private FileOpen files;
 	private AudioInputStream sound;
 	private Clip clip;
-	private int IDX, pianoRoot = 0, guitarRoot = 0;
+	
 	private char keyPress;
-
+	private int IDX, pianoRoot = 0, guitarRoot = 0;
+	private String[] pianoOctave = {"4옥타브", "5옥타브", "6옥타브"};
+	private String[] guitarOctave= {"C","D","E","F","G","A","B"};
+	
+	/**
+	 * @brief 생성자. 초기상태를 설정해준다.
+	 * @param FileOpen files :  파일오픈클래스의 객체. 소리재생에 필요한 데이터를 가지고 있다.
+	 */
 	PlayToKeyboard(FileOpen files)
 	{
 		this.files = files;
 		contentPane = new JPanel();
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		setBounds(935, 20, 464, 400);
+		setBounds(935, 20, 462, 200);
 		addKeyListener(this);
 		setFocusable(true);
 		MakeModel();
@@ -51,14 +59,15 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		table_RootChord = new JTable();
 		table_RootChord.setEnabled(false);
 		scrollPane_RootChord = new JScrollPane(table_RootChord);
-		scrollPane_RootChord.setBounds(12, 108, 432, 63);
+		scrollPane_RootChord.setBounds(12, 83, 432, 41);
 		contentPane.add(scrollPane_RootChord);
 		
 		table_ChildChord = new JTable();
 		table_ChildChord.setEnabled(false);
 		scrollPane_ChildChord = new JScrollPane(table_ChildChord);
-		scrollPane_ChildChord.setBounds(12, 35, 432, 63);
+		scrollPane_ChildChord.setBounds(12, 35, 432, 41);
 		contentPane.add(scrollPane_ChildChord);
+		
 		btn_SelectToPiano = new JButton("피아노");
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToPiano.setBounds(12, 5, 99, 25);
@@ -80,15 +89,18 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		contentPane.add(btn_SelectToBase);
 				
 		lbl_showOctave = new JLabel("");
-		lbl_showOctave.setBounds(12, 181, 57, 15);
+		lbl_showOctave.setBounds(12, 134, 57, 15);
 		contentPane.add(lbl_showOctave);
 		
 		lbl_showTone = new JLabel("");
-		lbl_showTone.setBounds(123, 181, 57, 15);
+		lbl_showTone.setBounds(123, 134, 57, 15);
 		contentPane.add(lbl_showTone);
 		
 		setModel(0);
 	}
+	/**
+	 * @brief table_RootChord, table_ChildChord 구성에 필요한 객체를 할당한다.
+	 */
 	public void MakeModel()
 	{
 		tablemodel_RootChord = new DefaultTableModel();
@@ -103,9 +115,9 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 				};
 		
 		RootField = new Object[4][][];
-		RootField[0] = new Object[][]{{"근음", "4옥타브", "5옥타브", "6옥타브"}};
+		RootField[0] = new Object[][]{{"근음", pianoOctave[0], pianoOctave[1], pianoOctave[2]}};
 		RootField[1] = new Object[][]{{"근음"}};
-		RootField[2] = new Object[][]{{"근음", "C","D","E","F","G","A","B"}};
+		RootField[2] = new Object[][]{{"근음", guitarOctave[0], guitarOctave[1], guitarOctave[2], guitarOctave[3], guitarOctave[4], guitarOctave[5], guitarOctave[6]}};
 		RootField[3] = new Object[][]{{"근음"}};
 		
 		ChildHeader = new String[][]
@@ -122,6 +134,11 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		ChildField[2] = new Object[][]{{"연주", "M", "m", "7", "M7", "m7", "sus4", "dim"}};
 		ChildField[3] = new Object[][]{{"연주"}};		
 	}
+	/**
+	 * @brief 버튼에 따라  table_RootChord, table_ChildChord를 다르게 세팅한다.
+	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
+	 */
+	
 	public void setModel(int idx)
 	{
 		tablemodel_RootChord.setDataVector(RootField[idx], RootHeader[idx]);
@@ -136,6 +153,11 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		
 		IDX = idx;
 	}
+	/**
+	 * @brief 버튼액션리스너
+	 * @param ActionEvent e
+	 * 버튼이 눌렸을 때 해당 버튼의 이름에 따라 필요한 메소드를 호출한다.
+	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton)e.getSource();
@@ -166,23 +188,24 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		}
 	}
 	
+	/**
+	 * @brief 키보드를 눌렀을 때 피아노 소리가 재생되도록 세팅한다.
+	 */
 	public void Piano()
 	{
+		int idx = 0;
 		try
 		{
 			switch(keyPress)
 			{
 			case '1':
 				pianoRoot = 0;
-				lbl_showOctave.setText("4옥타브");
 				return;
 			case '2':
 				pianoRoot = 1;
-				lbl_showOctave.setText("5옥타브");
 				return;
 			case '3':
 				pianoRoot = 2;
-				lbl_showOctave.setText("6옥타브");
 				return;
 				
 			case 'a':
@@ -241,9 +264,11 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 			clip.open(sound);
 			clip.start();
 		}
-		catch(Exception e) {}
-		
+		catch(Exception e) {}	
 	}
+	/**
+	 * @brief 키보드를 눌렀을 때 드럼 소리가 재생되도록 세팅한다.
+	 */
 	public void Drum()
 	{
 		int idx = -1;
@@ -290,6 +315,9 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		catch(Exception e) {}
 		
 	}
+	/**
+	 * @brief 키보드를 눌렀을 때 기타 소리가 재생되도록 세팅한다.
+	 */
 	public void Guitar()
 	{
 		String tones;		
@@ -299,31 +327,24 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 			{	
 			case '1':
 				guitarRoot = 0;
-				lbl_showOctave.setText("C");
 				return;
 			case '2':
 				guitarRoot = 1;
-				lbl_showOctave.setText("D");
 				return;
 			case '3':
 				guitarRoot = 2;
-				lbl_showOctave.setText("E");
 				return;
 			case '4':
 				guitarRoot = 3;
-				lbl_showOctave.setText("F");
 				return;
 			case '5':
 				guitarRoot = 4;
-				lbl_showOctave.setText("G");
 				return;
 			case '6':
 				guitarRoot = 5;
-				lbl_showOctave.setText("A");
 				return;
 			case '7':
 				guitarRoot = 6;
-				lbl_showOctave.setText("B");
 				return;
 				
 			case 'a':
@@ -373,6 +394,10 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		}
 		catch(Exception e){}
 	}
+	/**
+	 * @brief 키보드액션리스너
+	 * 키보드가 눌렸을 때 데이터를 가져와서 처리한다.
+	 */
 	@Override
 	public void keyPressed(KeyEvent e) {
 		keyPress = e.getKeyChar();
@@ -380,25 +405,29 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 		{
 		case 0:
 			Piano();
+			lbl_showOctave.setText(pianoOctave[pianoRoot]);
 			break;
 		case 1:
 			Drum();
 			break;
 		case 2:
 			Guitar();
+			lbl_showOctave.setText(guitarOctave[guitarRoot]);
 			break;
 		}
 	}
-
+	
+	/**
+	 * @brief 키보드를 땔 때 데이터를 가져와서 처리한다.
+	 * PlayToKeyboard 클래스에서는 사용하지 않는다.
+	 */
 	@Override
-	public void keyReleased(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void keyReleased(KeyEvent e) {}
+	
+	/**
+	 * @brief 키보드를 땔 때 데이터를 가져와서 처리한다.
+	 * PlayToKeyboard 클래스에서는 사용하지 않는다.
+	 */
 	@Override
-	public void keyTyped(KeyEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void keyTyped(KeyEvent e) {}
 }
