@@ -37,7 +37,6 @@ public class Input_GuitarCode {
 			//Note = st.nextToken();
 			ch = Note.charAt(i-1);
 			temp = (JComboBox)Desk.getModel().getValueAt(i, Desk.getModel().getColumnCount()-1);
-			//System.out.println(ch);
 			//if(Note.equals("x"))
 			if(ch=='x')
 				temp.setSelectedIndex(0);

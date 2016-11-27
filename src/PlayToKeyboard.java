@@ -292,9 +292,7 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 	}
 	public void Guitar()
 	{
-		String tones;
-		StringTokenizer st = new StringTokenizer(",");
-		
+		String tones;		
 		try
 		{
 			switch(keyPress)
@@ -360,17 +358,20 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 				return;
 			}
 			
-			for(int i=0; i<6; i++)
+			char ch;
+			for(int i=0, flat=5; i<6; i++, flat--)
 			{
-				
+				ch = tones.charAt(i);
+				if(ch!='x')
+				{
+					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[flat][(int)ch-48]);
+					clip = AudioSystem.getClip();
+					clip.open(sound);
+					clip.start();
+				}
 			}
-			sound = AudioSystem.getAudioInputStream(files.getSoundFiles(1)[0][idx]);
-			clip = AudioSystem.getClip();
-			clip.open(sound);
-			clip.start();
 		}
 		catch(Exception e){}
-		
 	}
 	@Override
 	public void keyPressed(KeyEvent e) {
