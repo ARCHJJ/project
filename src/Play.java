@@ -14,43 +14,50 @@ import javax.swing.JTable;
  */
 class Play implements Runnable
 {
-	//!
+	//! Play클래스와 UI는 스레드로 동작한다.
 	private Thread thread;
 	
-	//작업대기줄 재생 - MultyPlay
-	//!
+	//! 작업대기줄 테이블
 	private JTable table_Task;
-	//!
+
+	//! 뱅크가 저장되어 있는 LinkedList
 	private LinkedList<LinkedList<Note>> BankList;
 	
-	//뱅크듣기 - SinglePlay
-	//!
+	//! 음과 쉬는시간이 저장되어 있는 LinkedList
 	private LinkedList<Note> playlist;
-	//!
+	
+	//! playlist의 Iterator
 	private Iterator<Note> itNote;
-	//!
+	
+	//! playlist.fileidx의 Iterator
 	private Iterator<Integer> itPlay;
-	//!
+	
+	//! 음소거 여부를 판단하기 위한 JCheckBox
 	private JCheckBox mute;
 	
-	//!
+	//! 재생할 소리가 저장되어 있는 File[][]
 	private File[][] SoundFiles;
-	//!
+	
+	//! 소리파일을 입력받기 위한 객체
 	private AudioInputStream sound;
-	//!
+	
+	//! 소리파일을 재생하기 위한 객체
 	private Clip clip;
-	//!
+	
+	//! 재생할 뱅크 번호
 	private int idx;
-	//!
+	
+	//! 메인 UI
 	private Orpheus ui;
 	
-	//!
+	//! UI에서 버튼이 눌렸는지 판단하는 변수
 	private boolean standby;
-	//!
+	
+	//! 뱅크듣기와 솔로듣기||연주시작을 구분하는 변수
 	private boolean singleplay;
 	
 	/**
-	 * @brief 
+	 * @brief 생성자. 스레드를 생성한다.
 	 * @param Orpheus ui
 	 */
 	public Play(Orpheus ui)
@@ -58,13 +65,12 @@ class Play implements Runnable
 		this.ui = ui;
 		thread = new Thread(this);
 		standby = true;
-		//singleplay = true;
 	}
 	
 	/**
-	 * @brief 
-	 * @param LinkedList<Note> playlist
-	 * @param File[][] SoundFiles
+	 * @brief 재생할 뱅크를 세팅한다.
+	 * @param LinkedList<Note> playlist	: 음과 쉬는시간이 저장되어 있는 LinkedList
+	 * @param File[][] SoundFiles		: 재생할 소리가 저장되어 있는 File[][]
 	 */
 	public void setBank(LinkedList<Note> playlist, File[][] SoundFiles)
 	{
@@ -73,7 +79,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 스레드를 시작한다.
 	 */
 	public void ThreadStart()
 	{
@@ -81,8 +87,8 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
-	 * @param boolean bulb
+	 * @brief 보조스레드를 설정한다.
+	 * @param boolean bulb : 보조스레드 동작여부의 인자로 사용된다.
 	 */
 	public void setDaemon(boolean bulb)
 	{
@@ -90,7 +96,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 스레드 대기상태를 해제한다.
 	 */
 	public void action()
 	{
@@ -98,7 +104,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 스레드를 대기상태로 만든다
 	 */
 	public void ready()
 	{
@@ -106,7 +112,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 뮤트기능을 사용하지 않을 때 호출한다.
 	 */
 	public void MuteDisable()
 	{
@@ -115,7 +121,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief '뱅크듣기' 기능만을 사용하는지 여부를 판단한다.
 	 */
 	public void singleSet()
 	{
@@ -123,11 +129,11 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
-	 * @param JTable table_Task
-	 * @param LinkedList<LinkedList<Note>> BankList
-	 * @param File[][] SoundFiles
-	 * @param JCheckBox mute
+	 * @brief '솔로듣기', '연주시작' 기능을 세팅한다.
+	 * @param JTable table_Task						: 작업대기줄 테이블
+	 * @param LinkedList<LinkedList<Note>> BankList	: 뱅크가 저장되어 있는 LinkedList
+	 * @param File[][] SoundFiles					: 재생할 소리가 저장되어 있는 File[][]
+	 * @param JCheckBox mute						: 음소거 기능
 	 */
 	public void multySet(JTable table_Task, LinkedList<LinkedList<Note>> BankList, File[][] SoundFiles, JCheckBox mute)
 	{
@@ -139,7 +145,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 하나의 뱅크만을 재생할 때 사용하는 메소드
 	 */
 	public void single()
 	{
@@ -178,7 +184,7 @@ class Play implements Runnable
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 스레드 동작메소드
 	 */
 	public void run()
 	{

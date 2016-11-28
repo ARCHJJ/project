@@ -1,19 +1,21 @@
 import java.util.LinkedList;
-
-import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
 /**
  * @brief Setting클래스를 상속받는 클래스. 
- * 체크박스 혹은 콤보박스가 저장될 수 있도록 Object[][]과 추가된 행이 첫 입력인지 아닌지 판단하는
+ * 체크박스 혹은 콤보박스가 저장될 수 있도록 Object[][]과 추가된 열이 첫 입력인지 아닌지 판단하는
  * LinkedList<Boolean>으로 이루어져 있다.
  */
 abstract class SettingToField extends Setting{
-	//!
+	//! 추가된 열이 첫 입력인지 판단하는 데이터가 저장되어 있는 LinkedList
 	protected LinkedList<Boolean> bulb;
-	//!뱅크의 목록
+
+	//! 뱅크를 저장하는 LinkedList
 	protected LinkedList<LinkedList<Note>> BankList;
 	
+	//! kinds  : 악기의 종류(개수)
+	//! colCnt : JTable의 열 
+	protected int kinds, colCnt = 1;
 	/**
 	 * @brief 필드부분을 초기세팅해주는 생성자
 	 */

@@ -125,7 +125,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	private PlayToKeyboard keyboardPlay;
 	
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
-	private Input_GuitarCode Code;
+	private InputGuitarCode Code;
 	
 	//!	삭제예정
 	//private PlayCode CodePlay;
@@ -143,7 +143,7 @@ public class Orpheus extends JFrame implements ActionListener{
 	private int IDX;
 	
 	/**
-	 * @brief main 함수
+	 * @brief main 메소드
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
 	 */
 	public static void main(String[] args) {
@@ -229,7 +229,7 @@ public class Orpheus extends JFrame implements ActionListener{
 		files = new FileOpen();
 		keyboardPlay = new PlayToKeyboard(files);
 		keyboardPlay.setVisible(false);
-		Code = new Input_GuitarCode(files.getGuitarCode());
+		Code = new InputGuitarCode(files.getGuitarCode());
 		//CodePlay = new PlayCode(files.getGuitarCode(), files.getSoundFiles(2));
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
@@ -664,7 +664,6 @@ public class Orpheus extends JFrame implements ActionListener{
 					clip.open(sound);
 					clip.start();
 				}
-				
 			}
 		}
 		catch(Exception e) {}

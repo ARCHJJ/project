@@ -1,6 +1,3 @@
-import java.util.LinkedList;
-
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
@@ -9,9 +6,10 @@ import javax.swing.JTable;
  */
 class CmbBoxField extends SettingToField {
 
-	//!JTable에 콤보박스를 추가시키기 위한 셀에디터
+	//! JTable에서 콤보박스를 사용할 수 있게끔 해주는 셀에디터
 	private CmbBoxEditor cmbboxEditor;
-	//!JTable에 콤보박스를 추가시키기 위한 셀렌더러
+	
+	//! JTable에서 콤보박스를 볼 수 있게 해주는 셀렌더러
 	private CmbBoxRenderer cmbboxRenderer;
 	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private String[] tones;
@@ -19,8 +17,8 @@ class CmbBoxField extends SettingToField {
 	private BeatField BeatField;
 	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private JTable table_Beat;
-	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, rowcnt : 현재 행의 개수를 카운트
-	private int kinds, rowcnt = 1;
+	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, colCnt : 현재 행의 개수를 카운트
+	//private int kinds;
 	
 	/**
 	 * @brief 콤보박스로 이루어진 행을 하나 추가한다.
@@ -42,7 +40,7 @@ class CmbBoxField extends SettingToField {
 		cmbboxRenderer = new CmbBoxRenderer();
 		
 		header = new String[]{"1"};
-		field = new Object[kinds][rowcnt];
+		field = new Object[kinds][colCnt];
 		for(int i=0; i<kinds; i++)
 			field[i][0] = new JComboBox(tones);
 		
@@ -60,7 +58,7 @@ class CmbBoxField extends SettingToField {
 			Object[] newData = new Object[kinds];
 			for(int i=0; i<kinds; i++)
 				newData[i] = new JComboBox(tones);
-			tablemodel.addColumn(Integer.toString(++rowcnt), newData);
+			tablemodel.addColumn(Integer.toString(++colCnt), newData);
 			
 			bulb.set(idx, false);
 			bulb.add(true);
@@ -91,9 +89,9 @@ class CmbBoxField extends SettingToField {
 	public void Init() {
 		bulb.clear();
 		bulb.add(true);
-		rowcnt = 1;
+		colCnt = 1;
 		header = new String[]{"1"};
-		field = new Object[kinds][rowcnt];
+		field = new Object[kinds][colCnt];
 		for(int i=0; i<kinds; i++)
 			field[i][0] = new JComboBox(tones);
 		

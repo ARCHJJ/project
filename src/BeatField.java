@@ -7,15 +7,28 @@ import javax.swing.JTable;
  * @brief SettingToFeild를 상속받는 클래스로써 N분음표를 선택하게 할수 있는 부분을 표시하는 JTable을 만드는 클래스이다. 
  */
 class BeatField extends SettingToField{
+	
+	//! JTable에서 콤보박스를 사용할 수 있게끔 해주는 셀에디터
 	private CmbBoxEditor cmbboxEditor;
+	
+	//! JTable에서 콤보박스를 볼 수 있게 해주는 셀렌더러
 	private CmbBoxRenderer cmbboxRenderer;
-	private JComboBox beatList;
+	
+	//! 콤보박스의 아이템리스트
 	private String[] beat = {"1", "2", "4", "8", "16", "32"};
+	
+	//! JTable에서 사용 될 기본 콤보박스
+	private JComboBox beatList;
+	
+	//! 현재 테이블에 있는 콤보박스들의 값을 저장하는 링크드리스트
 	private LinkedList<Integer> beatResult;
-	private int rowcnt = 1, max = 0;
+	
+	//! 현재 테이블에 있는 콤보박스들의 값의 총 합
+	private int max = 0;
 	
 	/**
 	 * @brief 생성자
+	 * 객체가 생성되면 기본 행과 열을 세팅한다.
 	 */
 	public BeatField()
 	{
@@ -37,7 +50,7 @@ class BeatField extends SettingToField{
 	
 	/**
 	 * @brief 데이터 입력시 다음 컬럼을 추가하는 메소드
-	 * @param int idx 인덱스 번호
+	 * @param int idx : 인덱스 번호
 	 */
 	@Override
 	public void addColumn(int idx) {
@@ -46,7 +59,7 @@ class BeatField extends SettingToField{
 			Object[] newData = new Object[1];
 			newData[0] = new JComboBox(beat);
 			((JComboBox) newData[0]).setSelectedIndex(2);
-			tablemodel.addColumn(Integer.toString(++rowcnt), newData);
+			tablemodel.addColumn(Integer.toString(++colCnt), newData);
 			
 			bulb.set(idx, false);
 			bulb.add(true);
@@ -71,9 +84,9 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @param JTable Desk
-	 * @return 
+	 * @brief 현재 테이블에 있는 콤보박스들의 값의 총 합을 리턴하는 메소드
+	 * @param JTable Desk 
+	 * @return int max 
 	 */
 	public int out_max(JTable Desk)
 	{
@@ -92,8 +105,8 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @return 
+	 * @brief 현재 테이블에 있는 콤보박스들의 값을 저장한 링크드리스트를 리턴하는 메소드
+	 * @return LinkedList<Integer> beatResult
 	 */
 	public LinkedList<Integer> getBeatResult()
 	{
@@ -110,13 +123,13 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
+	 * @brief 현재 테이블을 초기화하는 메소드 
 	 */
 	@Override
 	public void Init() {
 		bulb.clear();
 		bulb.add(true);
-		rowcnt = 1;
+		colCnt = 1;
 		field = new Object[1][2];
 		field[0][0] = "□분음표";
 		field[0][1] = beatList;
@@ -125,8 +138,8 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 
-	 * @return -1 리턴
+	 * @brief 부모클래스의 abstract 메소드. TaskField 클래스에서는 사용하지 않는다.
+	 * @return -1 : 사용하지 않기 때문에 -1을 리턴한다.
 	 */
 	@Override
 	public int getKinds() {

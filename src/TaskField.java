@@ -1,6 +1,4 @@
 import java.util.LinkedList;
-
-import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 @SuppressWarnings({ "rawtypes", "unchecked" })
@@ -21,7 +19,7 @@ class TaskField extends SettingToField{
 	//! 콤보박스에 들어갈 데이터가 추가될 경우 LinkedList<String>에 저장한 후 배열화 시킨다.
 	private LinkedList<String> items;
 	//! 행의 개수 카운트
-	private int colcnt = 1;
+	//private int colcnt = 1;
 	
 	/**
 	 * @brief 생성자. 초기상태를 설정해준다.
@@ -56,7 +54,7 @@ class TaskField extends SettingToField{
 		{
 			Object[] newData = new Object[1];
 			newData[0] = new JComboBox(itemList);
-			tablemodel.addColumn(Integer.toString(++colcnt), newData);
+			tablemodel.addColumn(Integer.toString(++colCnt), newData);
 			
 			bulb.set(idx, false);
 			bulb.add(true);

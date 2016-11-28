@@ -8,22 +8,23 @@ import javax.swing.JTable;
  */
 class ChkBoxField extends SettingToField{
 
-	//!JTable에 체크박스를 추가시키기 위한 셀렌더러
+	//! JTable에 체크박스를 추가시키기 위한 셀렌더러
 	private ChkBoxRenderer chkboxRenderer;
-	//!JTable에 체크박스를 추가시키기 위한 셀에디터
+
+	//! JTable에 체크박스를 추가시키기 위한 셀에디터
 	private ChkBoxEditor chkboxEditor;
-	//!현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가되게 하기 위해 생성자인자로 전달받음
+	
+	//! 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가되게 하기 위해 생성자인자로 전달받음
 	private BeatField BeatField;
-	//!BeatField의 행이 추가될 때 셀 에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
+	
+	//! BeatField의 행이 추가될 때 셀 에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private JTable table_Beat;
-	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, rowcnt : 현재 행의 개수를 카운트
-	private int kinds, rowcnt = 1;
 	
 	/**
 	 * @brief 생성자
 	 * @param BeatField BeatField : 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가될 수 있도록 받아옴
-	 * @param JTable table_Beat
-	 * @param int kinds : 해당하는 악기가 낼 수 있는 음의 개수
+	 * @param JTable table_Beat	  : BeatField가 적용될 JTable
+	 * @param int kinds			  : 해당하는 악기가 낼 수 있는 음의 개수
 	 */
 	public ChkBoxField(BeatField BeatField, JTable table_Beat, int kinds)
 	{
@@ -36,7 +37,7 @@ class ChkBoxField extends SettingToField{
 		chkboxEditor = new ChkBoxEditor(new JCheckBox(), this);
 		
 		header = new String[]{"1"};
-		field = new Object[kinds][rowcnt];
+		field = new Object[kinds][colCnt];
 		for(int i=0; i<kinds; i++)
 			field[i][0] = new JCheckBox();
 		
@@ -54,7 +55,7 @@ class ChkBoxField extends SettingToField{
 			Object[] newData = new Object[kinds];
 			for(int i=0; i<kinds; i++)
 				newData[i] = new JCheckBox(); 
-			tablemodel.addColumn(Integer.toString(++rowcnt), newData);
+			tablemodel.addColumn(Integer.toString(++colCnt), newData);
 			
 			bulb.set(idx, false);
 			bulb.add(true);
@@ -79,15 +80,15 @@ class ChkBoxField extends SettingToField{
 	}
 	
 	/**
-	 * @brief J테이블을 초기화하는 메소드
+	 * @brief 현재 테이블을 초기화하는 메소드
 	 */
 	@Override
 	public void Init() {
 		bulb.clear();
 		bulb.add(true);
-		rowcnt = 1;
+		colCnt = 1;
 		header = new String[]{"1"};
-		field = new Object[kinds][rowcnt];
+		field = new Object[kinds][colCnt];
 		for(int i=0; i<kinds; i++)
 			field[i][0] = new JCheckBox();
 		

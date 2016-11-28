@@ -419,12 +419,12 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 			}
 			
 			char ch;
-			for(int i=0, flat=5; i<6; i++, flat--)
+			for(int i=0; i<6; i++)
 			{
 				ch = tones.charAt(i);
 				if(ch!='x')
 				{
-					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[flat][(int)ch-48]);
+					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[i][(int)ch-48]);
 					clip = AudioSystem.getClip();
 					clip.open(sound);
 					clip.start();

@@ -5,19 +5,24 @@ import java.io.File;
  */
 class FileOpen {
 	
-	//!피아노, 드럼 , 기타, 베이스 파일들의 경로
+	//!피아노, 드럼 , 기타, 베이스 파일
 	private File[][] PianoFiles, DrumFiles, GuitarFiles, BaseFiles;
-	//!피아노, 드럼 , 기타, 베이스 파일 이름
-	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
+	
 	//!피아노, 드럼 , 기타, 베이스 폴더이름
 	private String[] PianoFolder, DrumFolder, GuitarFolder, BaseFolder;
+	
+	//!피아노, 드럼 , 기타, 베이스 파일 이름
+	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
+	
 	//!피아노, 드럼 , 기타, 베이스 맵핑되는 음계명
 	private String[] PianoSoundNames, DrumSoundNames, GuitarSoundNames, BaseSoundNames;
+	
 	//!기타 코드
 	private String[][] GuitarCode;
 	
 	/**
 	 * @brief 생성자
+	 * 필요한 소리파일을 오픈한다.
 	 */
 	FileOpen()
 	{
@@ -76,15 +81,7 @@ class FileOpen {
 		for(int i=0; i<6; i++)
 			for(int j=0; j<25; j++)
 				GuitarFiles[i][j] = new File(GuitarFolder[0]+GuitarFnames[i][j]);
-//		GuitarCode = new String[][] { {"x,3,2,0,1,0", "3,3,5,5,4,3", "x,3,2,3,1,0", "x,3,2,0,0,0", "3,3,5,3,4,3", "x,3,3,0,1,1", "x,x,1,2,1,2"}
-//									, {"x,x,0,2,3,2", "x,0,0,2,3,1", "x,0,0,2,1,2", "x,0,0,2,2,2", "x,0,0,2,1,1", "x,0,0,2,3,3", "x,x,0,1,0,1"}
-//									, {"0,2,2,1,0,0", "0,2,2,0,0,0", "0,2,0,1,0,0", "0,2,1,1,0,0", "0,2,0,0,0,0", "0,2,2,2,0,0", "0,1,2,0,2,0"}
-//									, {"1,3,3,2,1,1", "1,3,3,1,1,1", "1,3,1,2,1,1", "0,x,3,2,1,0", "1,3,1,1,1,1", "1,3,3,3,1,1", "x,x,3,4,3,4"}
-//									, {"3,2,0,0,0,3", "3,5,5,3,3,3", "3,2,0,0,0,1", "3,2,0,0,0,2", "3,5,3,3,3,3", "3,5,5,5,3,3", "x,x,2,3,2,3"}
-//									, {"x,0,2,2,2,0", "0,0,2,2,1,0", "0,0,2,0,2,0", "0,0,2,1,2,0", "0,0,2,0,1,0", "0,0,2,2,3,0", "x,0,1,2,1,2"}
-//									, {"x,0,2,2,2,0", "0,0,2,2,1,0", "0,0,2,0,2,0", "0,0,2,1,2,0", "0,0,2,0,1,0", "0,0,2,2,3,0", "x,0,1,2,1,2"}
-//									, {"2,2,4,4,4,2", "2,2,4,4,3,2", "x,2,1,2,0,2", "2,2,4,3,4,2", "2,2,4,2,3,2", "2,2,4,4,5,2", "1,2,3,1,3,1"}
-//									};
+
 		GuitarCode = new String[][] {  {"x32010","335543", "x32310", "x32000", "335343", "x33011", "xx1212"}
 									 , {"xx0232", "x00231", "x00212", "x00222", "x00211", "x00233", "xx0101"}
 									 , {"022100", "022000", "020100", "021100", "020000", "022200", "012020"}
@@ -98,7 +95,7 @@ class FileOpen {
 	
 	/**
 	 * @brief 악기에 따른 사운드파일을 호출해 주는 메소드
-	 * @param int type 어떤 악기에 대한 것인지 분류
+	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
 	 * return 각각의 악기별로 파일 배열명을 리턴
 	 */
 	public File[][] getSoundFiles(int type)
@@ -119,7 +116,7 @@ class FileOpen {
 	
 	/**
 	 * @brief 악기에 따른 사운드명을 호출하는 메소드
-	 * @param int type
+	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
 	 * return 각각 악기의 사운드명을 리턴
 	 */
 	public String[] getSoundNames(int type)
