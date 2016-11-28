@@ -52,6 +52,10 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 			taskPlay[i].ThreadStart();
 		}
 		
+		metronome = new metronome(this);
+		metronome.setDaemon(true);
+		metronome.ThreadStart();
+		
 		mainFrame = new JFrame();
 		mainFrame.setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
 		mainFrame.setForeground(Color.WHITE);
@@ -587,13 +591,25 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 	 */
 	public void musicQ()
 	{
+		int max = 0;
+
 		//연주시작 메소드
-		//for(int i=0; i<4; i++)
 		for(int i=0; i<3; i++)
 		{
 			taskPlay[i].multySet(table_Task[i], STF[i].BankList, files.getSoundClips(i), Mute[i]);
-			taskPlay[i].action();
+			
+			if(max < table_Task[i].getColumnCount())
+				max = table_Task[i].getColumnCount();
 		}
+		
+		
+		metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
+		
+	
+		for(int i=0; i<3; i++)
+			taskPlay[i].action();
+		
+		metronome.action();
 	}
 	
 	/**
