@@ -98,11 +98,11 @@ class Play implements Runnable
 	/**
 	 * @brief 스레드 대기상태를 해제한다.
 	 */
-	public void action()
+	public synchronized void action()
 	{
 		standby = false;
+		notify();
 	}
-	
 	/**
 	 * @brief 스레드를 대기상태로 만든다
 	 */
@@ -143,6 +143,7 @@ class Play implements Runnable
 		this.SoundFiles = SoundFiles;
 		this.mute = mute;
 	}
+	
 	
 	/**
 	 * @brief 하나의 뱅크만을 재생할 때 사용하는 메소드
@@ -190,29 +191,35 @@ class Play implements Runnable
 	{
 		while(true)
 		{
-			if(!standby)
+			try
 			{
-				if(singleplay)
-					single();
-				
-				else
+				synchronized (this)
 				{
-					int bankidx = 0;
-					JComboBox selectBank;
-					for(int i=1; i<table_Task.getModel().getColumnCount(); i++)
+					if(standby)
+						this.wait();
+				}
+			}
+			catch(InterruptedException ie) {}
+			
+			
+			if(singleplay)
+				single();
+				
+			else
+			{
+				int bankidx = 0;
+				JComboBox selectBank;
+				for(int i=1; i<table_Task.getModel().getColumnCount(); i++)
+				{
+					selectBank = (JComboBox)table_Task.getValueAt(0, i);
+					bankidx = selectBank.getSelectedIndex();
+					if(bankidx!=0)
 					{
-						selectBank = (JComboBox)table_Task.getValueAt(0, i);
-						bankidx = selectBank.getSelectedIndex();
-						if(bankidx!=0)
-						{
-							setBank(BankList.get(bankidx), SoundFiles);
-							single();
-						}
+						setBank(BankList.get(bankidx), SoundFiles);
+						single();
 					}
 				}
 			}
-			else
-				Thread.yield();
 		}
 	}
 }
