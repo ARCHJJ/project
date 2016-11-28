@@ -498,6 +498,7 @@ public class Orpheus extends JFrame implements ActionListener{
 			
 		case "키보드연주":
 			keyboardPlay.setVisible(true);
+			System.gc();
 			break;
 		}
 	}
