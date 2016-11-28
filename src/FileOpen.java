@@ -162,6 +162,7 @@ class FileOpen {
 		}
 		return null;
 	}
+
 	/**
 	 * @brief 악기에 따른 사운드명을 호출하는 메소드
 	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
@@ -191,4 +192,5 @@ class FileOpen {
 	{
 		return GuitarCode;
 	}
+
 }

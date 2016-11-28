@@ -25,19 +25,19 @@ import javax.swing.JCheckBox;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
 
 /**
- * @brief main 함수가 실행되는 클래스. GUI 인터페이스가 정의되는 곳이다.
+ * @brief 메인프로그램의 GUI 인터페이스가 정의되는 곳이다.
  */
 public class Orpheus extends OrpheusComponents implements ActionListener{
 
+	private boolean isBeginner;
 	/**
-	 * @brief main 메소드
+	 * @brief 생성자
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
+	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
-	public static void main(String[] args) {
-		ui = new Orpheus();
-		
+	public Orpheus() {
 		//뱅크듣기
-		bankPlay = new Play(ui);
+		bankPlay = new Play(this);
 		bankPlay.MuteDisable();
 		bankPlay.singleSet();
 		bankPlay.setDaemon(true);
@@ -47,22 +47,16 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		//for(int i=0; i<4; i++)
 		for(int i=0; i<3; i++)	//아직 베이스가 완성전이라서 반복은 3까지
 		{
-			taskPlay[i] = new Play(ui);
+			taskPlay[i] = new Play(this);
 			taskPlay[i].setDaemon(true);
 			taskPlay[i].ThreadStart();
 		}
-	}
-
-	/**
-	 * @brief 생성자
-	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
-	 */
-	public Orpheus() {
+		
 		mainFrame = new JFrame();
 		mainFrame.setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
 		mainFrame.setForeground(Color.WHITE);
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 20, 835, 819);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(245, 245, 245));
@@ -118,7 +112,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		keyboardPlay = new PlayToKeyboard(files);
 		keyboardPlay.setVisible(false);
 		Code = new InputGuitarCode(files.getGuitarCode());
-		//CodePlay = new PlayCode(files.getGuitarCode(), files.getSoundFiles(2));
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STB = new BeatField[4];
@@ -313,10 +306,31 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		contentPane.add(btn_BaseSolo);
 
 		setField(0);
-		
-		mainFrame.setVisible(true);
 	}
-
+	public void setVisible(boolean tf)
+	{
+		mainFrame.setVisible(tf);
+	}
+	
+	//public void isBeginner(boolean tf, boolean isFirst)
+	public void isBeginner(boolean tf)
+	{
+		BeatSet.setVisible(!tf);
+		lbl_SelectBeatSet.setVisible(!tf);
+		isBeginner = tf;
+		
+//		if(isFirst)
+//			for(int i=0; i<4; i++)
+//			{
+//				STF[i].BankListClear();
+//				STB[i].Init();
+//				STF[i].Init();
+//				
+//
+//				STB[i].setCellOption(table_Field[1]);
+//				STF[i].setCellOption(table_Field[2]);
+//			}
+	}
 	/**
 	 * @brief 버튼액션리스너
 	 * @param ActionEvent e
@@ -490,6 +504,9 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 	 */
 	public boolean OutofBeat(BeatField BeatField)
 	{
+		if(isBeginner)
+			return true;
+		
 		if(BeatField.out_max(table_Field[1]) < RestTimeSetup.music_score)
 		{
 			JOptionPane.showMessageDialog(null, "설정한 박자가 부족합니다.");
@@ -535,7 +552,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 	 */
 	public void playCode()
 	{
-		AudioInputStream sound;
 		Clip clip;
 		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
 		char ch;
@@ -548,10 +564,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 					clip = files.getSoundClips(2)[i][(int)ch-48];
 					clip.setFramePosition(0);
 					clip.start();
-//					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[i][(int)ch-48]);
-//					clip = AudioSystem.getClip();
-//					clip.open(sound);
-//					clip.start();
 				}
 			}
 		}
@@ -565,7 +577,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 	 */
 	public void ListenSolo(int idx)
 	{
-		//taskPlay[idx].multySet(table_Task[idx], STF[idx].BankList, files.getSoundFiles(idx), Mute[idx]);
 		taskPlay[idx].multySet(table_Task[idx], STF[idx].BankList, files.getSoundClips(idx), Mute[idx]);
 		taskPlay[idx].action();
 	}
@@ -580,7 +591,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		//for(int i=0; i<4; i++)
 		for(int i=0; i<3; i++)
 		{
-		//	taskPlay[i].multySet(table_Task[i], STF[i].BankList, files.getSoundFiles(i), Mute[i]);
 			taskPlay[i].multySet(table_Task[i], STF[i].BankList, files.getSoundClips(i), Mute[i]);
 			taskPlay[i].action();
 		}

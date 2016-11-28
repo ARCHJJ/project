@@ -26,7 +26,16 @@ abstract class SettingToField extends Setting{
 		bulb = new LinkedList<Boolean>();
 		bulb.add(true);
 	}
-	
+	/**
+	 * @brief BankList 를 초기화 하는 메소드
+	 */
+	public void BankListClear()
+	{
+		BankList.clear();
+		BankList.add(null);
+		bulb.clear();
+		bulb.add(true);
+	}
 	/**
 	 * @brief 컬럼 추가
 	 * @param int idx 컬럼 인덱스
