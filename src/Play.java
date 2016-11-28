@@ -35,11 +35,8 @@ class Play implements Runnable
 	//! 음소거 여부를 판단하기 위한 JCheckBox
 	private JCheckBox mute;
 	
-	//! 재생할 소리가 저장되어 있는 File[][]
-	private File[][] SoundFiles;
-	
-	//! 소리파일을 입력받기 위한 객체
-	private AudioInputStream sound;
+	//! 재생할 소리가 저장되어 있는 Clip[][]
+	private Clip[][] SoundClips;
 	
 	//! 소리파일을 재생하기 위한 객체
 	private Clip clip;
@@ -49,9 +46,6 @@ class Play implements Runnable
 	
 	//! 메인 UI
 	private Orpheus ui;
-	
-	//! UI에서 버튼이 눌렸는지 판단하는 변수
-	private boolean standby;
 	
 	//! 뱅크듣기와 솔로듣기||연주시작을 구분하는 변수
 	private boolean singleplay;
@@ -64,18 +58,17 @@ class Play implements Runnable
 	{
 		this.ui = ui;
 		thread = new Thread(this);
-		standby = true;
 	}
 	
 	/**
 	 * @brief 재생할 뱅크를 세팅한다.
 	 * @param LinkedList<Note> playlist	: 음과 쉬는시간이 저장되어 있는 LinkedList
-	 * @param File[][] SoundFiles		: 재생할 소리가 저장되어 있는 File[][]
+	 * @param Clip[][] SoundClips		: 재생할 소리가 저장되어 있는 Clip[][]
 	 */
-	public void setBank(LinkedList<Note> playlist, File[][] SoundFiles)
+	public void setBank(LinkedList<Note> playlist, Clip[][] SoundClips)
 	{
 		this.playlist = playlist;
-		this.SoundFiles = SoundFiles;
+		this.SoundClips = SoundClips;
 	}
 	
 	/**
@@ -100,17 +93,8 @@ class Play implements Runnable
 	 */
 	public synchronized void action()
 	{
-		standby = false;
 		notify();
 	}
-	/**
-	 * @brief 스레드를 대기상태로 만든다
-	 */
-	public void ready()
-	{
-		standby = true;
-	}
-	
 	/**
 	 * @brief 뮤트기능을 사용하지 않을 때 호출한다.
 	 */
@@ -132,19 +116,17 @@ class Play implements Runnable
 	 * @brief '솔로듣기', '연주시작' 기능을 세팅한다.
 	 * @param JTable table_Task						: 작업대기줄 테이블
 	 * @param LinkedList<LinkedList<Note>> BankList	: 뱅크가 저장되어 있는 LinkedList
-	 * @param File[][] SoundFiles					: 재생할 소리가 저장되어 있는 File[][]
+	 * @param Clip[][] SoundClips					: 재생할 소리가 저장되어 있는 Clip[][]
 	 * @param JCheckBox mute						: 음소거 기능
 	 */
-	public void multySet(JTable table_Task, LinkedList<LinkedList<Note>> BankList, File[][] SoundFiles, JCheckBox mute)
+	public void multySet(JTable table_Task, LinkedList<LinkedList<Note>> BankList, Clip[][] SoundClips, JCheckBox mute)
 	{
 		singleplay = false;
 		this.table_Task = table_Task;
 		this.BankList = BankList;
-		this.SoundFiles = SoundFiles;
+		this.SoundClips = SoundClips;
 		this.mute = mute;
 	}
-	
-	
 	/**
 	 * @brief 하나의 뱅크만을 재생할 때 사용하는 메소드
 	 */
@@ -164,11 +146,8 @@ class Play implements Runnable
 					idx = itPlay.next();
 					if(!mute.isSelected())
 					{
-						sound = AudioSystem.getAudioInputStream(SoundFiles[idx/100][idx%100]);
-						clip = AudioSystem.getClip();
-						clip.open(sound);
-								
-						//clip.setFramePosition(0);
+						clip = SoundClips[idx/100][idx%100];
+						clip.setFramePosition(0);
 						clip.start();
 					}
 							
@@ -180,7 +159,6 @@ class Play implements Runnable
 		{
 			exp.printStackTrace();
 		}
-		ready();
 		ui.getBankListenButton().setEnabled(true);
 	}
 	
@@ -195,8 +173,7 @@ class Play implements Runnable
 			{
 				synchronized (this)
 				{
-					if(standby)
-						this.wait();
+					wait();
 				}
 			}
 			catch(InterruptedException ie) {}
@@ -215,7 +192,7 @@ class Play implements Runnable
 					bankidx = selectBank.getSelectedIndex();
 					if(bankidx!=0)
 					{
-						setBank(BankList.get(bankidx), SoundFiles);
+						setBank(BankList.get(bankidx), SoundClips);
 						single();
 					}
 				}

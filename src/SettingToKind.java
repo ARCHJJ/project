@@ -16,10 +16,16 @@ class SettingToKind extends Setting{
 		header = new String[]{"¾Ç±â"};
 		field = new Object[kinds][1];
 		field[0][0] = fileNames[0];
+
+		for(int i=0; i<kinds; i++)	
+			field[i][0] = fileNames[i];
+		
+
 		for(int i=0; i<kinds; i++)
 		{
 			field[i][0] = fileNames[i];   
 		}
+
 		tablemodel.setDataVector(field, header);
 	}
 }

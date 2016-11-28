@@ -59,10 +59,7 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 	
 	//! 파일오픈클래스의 객체. 재생에 필요한 소리파일들을 오픈한다.
 	private FileOpen files;
-	
-	//! 소리파일을 입력받기 위한 객체
-	private AudioInputStream sound;
-	
+
 	//! 소리파일을 재생하기 위한 객체
 	private Clip clip;
 	
@@ -248,59 +245,58 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 				return;
 				
 			case 'a':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[0][pianoRoot]);
+				clip = files.getSoundClips(0)[0][pianoRoot];
 				lbl_showTone.setText("도");
 				break;
 			case 'w':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[1][pianoRoot]);
+				clip = files.getSoundClips(0)[1][pianoRoot];
 				lbl_showTone.setText("도#");
 				break;
 			case 's':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[2][pianoRoot]);
+				clip = files.getSoundClips(0)[2][pianoRoot];
 				lbl_showTone.setText("레");
 				break;
 			case 'e':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[3][pianoRoot]);
+				clip = files.getSoundClips(0)[3][pianoRoot];
 				lbl_showTone.setText("레#");
 				break;
 			case 'd':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[4][pianoRoot]);
+				clip = files.getSoundClips(0)[4][pianoRoot];
 				lbl_showTone.setText("미");
 				break;
 			case 'f':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[5][pianoRoot]);
+				clip = files.getSoundClips(0)[5][pianoRoot];
 				lbl_showTone.setText("파");
 				break;
 			case 't':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[6][pianoRoot]);
+				clip = files.getSoundClips(0)[6][pianoRoot];
 				lbl_showTone.setText("파#");
 				break;
 			case 'h':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[7][pianoRoot]);
+				clip = files.getSoundClips(0)[7][pianoRoot];
 				lbl_showTone.setText("솔");
 				break;
 			case 'u':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[8][pianoRoot]);
+				clip = files.getSoundClips(0)[8][pianoRoot];
 				lbl_showTone.setText("솔#");
 				break;
 			case 'j':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[9][pianoRoot]);
+				clip = files.getSoundClips(0)[9][pianoRoot];
 				lbl_showTone.setText("라");
 				break;
 			case 'i':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[10][pianoRoot]);
+				clip = files.getSoundClips(0)[10][pianoRoot];
 				lbl_showTone.setText("라#");
 				break;
 			case 'k':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[11][pianoRoot]);
+				clip = files.getSoundClips(0)[11][pianoRoot];
 				lbl_showTone.setText("시");
 				break;
 			case 'l':
-				sound = AudioSystem.getAudioInputStream(files.getSoundFiles(0)[0][(pianoRoot+1)%3]);
+				clip = files.getSoundClips(0)[0][(pianoRoot+1)%3];
 				lbl_showTone.setText("도");
 			}
-			clip = AudioSystem.getClip();
-			clip.open(sound);
+			clip.setFramePosition(0);
 			clip.start();
 		}
 		catch(Exception e) {}	
@@ -346,9 +342,8 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 			default:
 				return;
 			}
-			sound = AudioSystem.getAudioInputStream(files.getSoundFiles(1)[0][idx]);
-			clip = AudioSystem.getClip();
-			clip.open(sound);
+			clip = files.getSoundClips(1)[0][idx];
+			clip.setFramePosition(0);
 			clip.start();
 		}
 		catch(Exception e) {}
@@ -424,9 +419,8 @@ class PlayToKeyboard extends JFrame implements ActionListener, KeyListener{
 				ch = tones.charAt(i);
 				if(ch!='x')
 				{
-					sound = AudioSystem.getAudioInputStream(files.getSoundFiles(2)[i][(int)ch-48]);
-					clip = AudioSystem.getClip();
-					clip.open(sound);
+					clip = files.getSoundClips(2)[i][(int)ch-48];
+					clip.setFramePosition(0);
 					clip.start();
 				}
 			}
