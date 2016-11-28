@@ -5,8 +5,13 @@ import java.util.StringTokenizer;
  */
 class RestTimeSetup {
 	//! music_score : 음이 연주되는 총 시간
-	//! result 		: 음과 음 사이의 시간 
-	public static int music_score, result;
+	//! result 		: 음과 음 사이의 시간
+	//! time_signature_denominator 		: 박자 기준 음표
+	//! time_signature_numerator 		: 박자 기준 길이 
+	public static int music_score = 32;
+	public static int result = 1000;
+	public static int time_signature_denominator = 4;
+	public static int time_signature_numerator = 4;
 	
 	/**
 	 * @brief 박자와 비트에 맞춰 쉬는시간과 연주시간을 계산하는 메소드
@@ -16,7 +21,6 @@ class RestTimeSetup {
 	public static void getRestTime(String BPMSet, String BeatSet)
 	{
 		int BPM = Integer.parseInt(BPMSet); 
-        int time_signature_denominator, time_signature_numerator; 
         
         double BPN, thirty_second_note;
         
