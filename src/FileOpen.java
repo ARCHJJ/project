@@ -29,6 +29,11 @@ class FileOpen {
 	//!기타 코드
 	private String[][] GuitarCode;
 	
+	//!메트로놈
+	private File MetronomeFile;
+	private AudioInputStream MetronomeAIS;
+	private Clip MetronomeClip;
+	
 	/**
 	 * @brief 생성자
 	 * 필요한 소리파일을 오픈한다.
@@ -138,6 +143,11 @@ class FileOpen {
 			/*
 			 * Base작업 추가대기중
 			 */
+			
+			MetronomeFile = new File("metronome.wav");
+			MetronomeAIS = AudioSystem.getAudioInputStream(MetronomeFile);
+			MetronomeClip = AudioSystem.getClip();
+			MetronomeClip.open(MetronomeAIS);
 		}
 		catch (Exception e){}										
 	}
@@ -162,7 +172,16 @@ class FileOpen {
 		}
 		return null;
 	}
-
+	
+	/**
+	 * @brief 메트로놈의 사운드 파일을 호출하는 메소드
+	 * return 메트로놈 파일명을 리턴
+	 */
+	public Clip getMetronomeClips()
+	{
+		return MetronomeClip;
+	}
+	
 	/**
 	 * @brief 악기에 따른 사운드명을 호출하는 메소드
 	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
@@ -192,5 +211,4 @@ class FileOpen {
 	{
 		return GuitarCode;
 	}
-
 }
