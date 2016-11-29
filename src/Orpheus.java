@@ -25,8 +25,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		bankPlay.ThreadStart();
 		
 		taskPlay = new Play[4];
-		//for(int i=0; i<4; i++)
-		for(int i=0; i<3; i++)	//아직 베이스가 완성전이라서 반복은 3까지
+
+		for(int i=0; i<4; i++)	
 		{
 			taskPlay[i] = new Play(this);
 			taskPlay[i].setDaemon(true);
@@ -339,7 +339,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		int max = 0;
 
 		//연주시작 메소드
-		for(int i=0; i<3; i++)
+		for(int i=0; i<4; i++)
 		{
 			taskPlay[i].multySet(table_Task[i], STF[i].BankList, files.getSoundClips(i), Mute[i]);
 			
@@ -351,7 +351,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
 		
 	
-		for(int i=0; i<3; i++)
+		for(int i=0; i<4; i++)
 			taskPlay[i].action();
 		
 		metronome.action();
