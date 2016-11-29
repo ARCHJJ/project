@@ -98,7 +98,8 @@ class Metronome implements Runnable
 			 		clip.setFramePosition(0);
 					clip.start();
 					
-					Thread.sleep(time);	
+					Thread.sleep(time);
+					clip.stop();
 				}
 			}
 			catch(InterruptedException ie) { ie.printStackTrace(); }
