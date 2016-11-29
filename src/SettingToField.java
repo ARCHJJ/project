@@ -20,7 +20,6 @@ abstract class SettingToField extends Setting{
 	 * @brief 필드부분을 초기세팅해주는 생성자
 	 */
 	public SettingToField(){
-		super();
 		BankList = new LinkedList<LinkedList<Note>>();
 		BankList.add(null);
 		bulb = new LinkedList<Boolean>();

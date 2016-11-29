@@ -29,7 +29,6 @@ class CmbBoxField extends SettingToField {
 	 */
 	public CmbBoxField(BeatField BeatField, JTable table_Beat, int kinds, String[] tones)
 	{
-		super();
 		this.BeatField = BeatField;
 		this.table_Beat = table_Beat;
 		this.kinds = kinds;

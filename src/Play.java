@@ -26,6 +26,9 @@ class Play implements Runnable
 	//! 음과 쉬는시간이 저장되어 있는 LinkedList
 	private LinkedList<Note> playlist;
 	
+	//! 부드러운 소리재생을 위해 잔향제거
+	private LinkedList<Clip> noise;
+	
 	//! playlist의 Iterator
 	private Iterator<Note> itNote;
 	
@@ -58,6 +61,7 @@ class Play implements Runnable
 	{
 		this.ui = ui;
 		thread = new Thread(this);
+		noise = new LinkedList<Clip>();
 	}
 	
 	/**
@@ -133,7 +137,7 @@ class Play implements Runnable
 	public void single()
 	{
 		try
-		{		
+		{	
 			itNote = playlist.iterator();
 			ui.getBankListenButton().setEnabled(false);
 			
@@ -147,11 +151,13 @@ class Play implements Runnable
 					if(!mute.isSelected())
 					{
 						clip = SoundClips[idx/100][idx%100];
+						noise.add(clip);
 						clip.setFramePosition(0);
 						clip.start();
 					}
 				}
 				Thread.sleep(temp.rest);
+				removeNoise();
 			}
 		}
 		catch(Exception exp)
@@ -160,7 +166,17 @@ class Play implements Runnable
 		}
 		ui.getBankListenButton().setEnabled(true);
 	}
-	
+	public void removeNoise()
+	{
+		Clip tmp;
+		for(int i=0; i<noise.size(); i++)
+		{
+			tmp = noise.get(i);
+			if(tmp.isRunning())
+				tmp.stop();
+		}
+		noise.clear();
+	}
 	/**
 	 * @brief 스레드 동작메소드
 	 */

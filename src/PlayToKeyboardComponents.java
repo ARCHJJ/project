@@ -8,6 +8,10 @@ import javax.swing.JTable;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * @brief 키보드연주기능의 GUI를 정의하는 클래스
+ * 컴포넌트 집합체로서 PlayToKeyboard 클래스의 부모클래스가 된다.  
+ */
 abstract class PlayToKeyboardComponents {
 
 	//! GUI에서 메인이 되는 Freme
@@ -66,4 +70,48 @@ abstract class PlayToKeyboardComponents {
 	//! pianoOctave : 기타의 근음 이름을 가지고 있는 String[]
 	protected String[] guitarOctave= {"C","D","E","F","G","A","B"};
 	
+	public PlayToKeyboardComponents() {
+		mainFrame = new JFrame();
+		contentPane = new JPanel();
+		mainFrame.setContentPane(contentPane);
+		contentPane.setLayout(null);
+		mainFrame.setBounds(935, 20, 462, 200);
+		
+		
+		table_RootChord = new JTable();
+		table_RootChord.setEnabled(false);
+		scrollPane_RootChord = new JScrollPane(table_RootChord);
+		scrollPane_RootChord.setBounds(12, 83, 432, 41);
+		contentPane.add(scrollPane_RootChord);
+		
+		table_ChildChord = new JTable();
+		table_ChildChord.setEnabled(false);
+		scrollPane_ChildChord = new JScrollPane(table_ChildChord);
+		scrollPane_ChildChord.setBounds(12, 35, 432, 41);
+		contentPane.add(scrollPane_ChildChord);
+		
+		btn_SelectToPiano = new JButton("피아노");
+		btn_SelectToPiano.setBounds(12, 5, 99, 25);
+		contentPane.add(btn_SelectToPiano);
+		
+		btn_SelectToDrum = new JButton("드럼");
+		btn_SelectToDrum.setBounds(123, 5, 99, 25);
+		contentPane.add(btn_SelectToDrum);
+		
+		btn_SelectToGuitar = new JButton("기타");
+		btn_SelectToGuitar.setBounds(234, 5, 99, 25);
+		contentPane.add(btn_SelectToGuitar);
+		
+		btn_SelectToBase = new JButton("베이스");
+		btn_SelectToBase.setBounds(345, 5, 99, 25);
+		contentPane.add(btn_SelectToBase);
+				
+		lbl_showOctave = new JLabel("");
+		lbl_showOctave.setBounds(12, 134, 57, 15);
+		contentPane.add(lbl_showOctave);
+		
+		lbl_showTone = new JLabel("");
+		lbl_showTone.setBounds(123, 134, 57, 15);
+		contentPane.add(lbl_showTone);
+	}
 }

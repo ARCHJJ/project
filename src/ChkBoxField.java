@@ -28,7 +28,6 @@ class ChkBoxField extends SettingToField{
 	 */
 	public ChkBoxField(BeatField BeatField, JTable table_Beat, int kinds)
 	{
-		super();
 		this.BeatField = BeatField;
 		this.table_Beat = table_Beat;
 		this.kinds = kinds;

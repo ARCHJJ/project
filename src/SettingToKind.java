@@ -11,7 +11,6 @@ class SettingToKind extends Setting{
 	 */
 	public SettingToKind(String[] fileNames)
 	{
-		super();
 		kinds = fileNames.length;
 		header = new String[]{"¾Ç±â"};
 		field = new Object[kinds][1];

@@ -1,17 +1,9 @@
-import java.io.File;
-import java.util.LinkedList;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
-import javax.swing.JTable;
 
 /**
  * @brief 메트로놈을 적용하는 클래스 이다. 
  */
-class metronome implements Runnable 
+class Metronome implements Runnable 
 {
 	//!	스레드로 동작한다.
 	private Thread thread;
@@ -24,12 +16,12 @@ class metronome implements Runnable
 	//!	소리파일을 재생하기 위한 객체
 	private Clip clip;
 
-	//! UI에서 버튼이 눌렸는지 판단하는 변수
-	private boolean standby;
 	//! 메트로놈이 실행될 박자
 	private int time;
+	
 	//! 메트로놈 반목횟수
 	private int music_score;
+	
 	//! 한 박자당 횟수
 	private int time_signature;
 	
@@ -37,11 +29,10 @@ class metronome implements Runnable
 	 * @brief 생성자. 스레드를 생성한다.
 	 * @param Orpheus ui
 	 */
-	public metronome(Orpheus ui)
+	public Metronome(Orpheus ui)
 	{
 		this.ui = ui;
 		thread = new Thread(this);
-		standby = true;
 	}
 	
 	/**
@@ -66,16 +57,7 @@ class metronome implements Runnable
 	 */
 	public synchronized void action()
 	{
-		standby = false;
 		notify();
-	}
-	
-	/**
-	 * @brief 스레드를 대기상태로 만든다
-	 */
-	public void ready()
-	{
-		standby = true;
 	}
 	
 	/**
@@ -107,8 +89,7 @@ class metronome implements Runnable
 			{
 				synchronized (this)
 				{
-					if(standby)
-						this.wait();
+					wait();
 				}
 			}
 			catch(InterruptedException ie) {}
@@ -123,14 +104,11 @@ class metronome implements Runnable
 					
 					Thread.sleep(time);	
 				}
-			 	
 			}
 			catch(Exception exp)
 			{
 				exp.printStackTrace();
-			}	
-			
-			ready();
+			}
 		}
 	}
 }

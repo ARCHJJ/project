@@ -33,55 +33,15 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 	PlayToKeyboard(FileOpen files)
 	{
 		this.files = files;
-		mainFrame = new JFrame();
-		contentPane = new JPanel();
-		mainFrame.setContentPane(contentPane);
-		contentPane.setLayout(null);
-		mainFrame.setBounds(935, 20, 462, 200);
 		mainFrame.addKeyListener(this);
 		mainFrame.setFocusable(true);
-		MakeModel();
 		
-		table_RootChord = new JTable();
-		table_RootChord.setEnabled(false);
-		scrollPane_RootChord = new JScrollPane(table_RootChord);
-		scrollPane_RootChord.setBounds(12, 83, 432, 41);
-		contentPane.add(scrollPane_RootChord);
-		
-		table_ChildChord = new JTable();
-		table_ChildChord.setEnabled(false);
-		scrollPane_ChildChord = new JScrollPane(table_ChildChord);
-		scrollPane_ChildChord.setBounds(12, 35, 432, 41);
-		contentPane.add(scrollPane_ChildChord);
-		
-		btn_SelectToPiano = new JButton("피아노");
 		btn_SelectToPiano.addActionListener(this);
-		btn_SelectToPiano.setBounds(12, 5, 99, 25);
-		contentPane.add(btn_SelectToPiano);
-		
-		btn_SelectToDrum = new JButton("드럼");
 		btn_SelectToDrum.addActionListener(this);
-		btn_SelectToDrum.setBounds(123, 5, 99, 25);
-		contentPane.add(btn_SelectToDrum);
-		
-		btn_SelectToGuitar = new JButton("기타");
 		btn_SelectToGuitar.addActionListener(this);
-		btn_SelectToGuitar.setBounds(234, 5, 99, 25);
-		contentPane.add(btn_SelectToGuitar);
-		
-		btn_SelectToBase = new JButton("베이스");
 		//btn_SelectToBase.addActionListener(this);
-		btn_SelectToBase.setBounds(345, 5, 99, 25);
-		contentPane.add(btn_SelectToBase);
-				
-		lbl_showOctave = new JLabel("");
-		lbl_showOctave.setBounds(12, 134, 57, 15);
-		contentPane.add(lbl_showOctave);
 		
-		lbl_showTone = new JLabel("");
-		lbl_showTone.setBounds(123, 134, 57, 15);
-		contentPane.add(lbl_showTone);
-		
+		MakeModel();
 		setModel(0);
 	}
 	/**
@@ -245,6 +205,10 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			case 'l':
 				clip = files.getSoundClips(0)[0][(pianoRoot+1)%3];
 				lbl_showTone.setText("도");
+				break;
+				
+			default:
+				return;
 			}
 			clip.setFramePosition(0);
 			clip.start();

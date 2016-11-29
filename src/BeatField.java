@@ -32,7 +32,6 @@ class BeatField extends SettingToField{
 	 */
 	public BeatField()
 	{
-		super();
 		beatList = new JComboBox(beat);
 		beatList.setSelectedIndex(2);
 		

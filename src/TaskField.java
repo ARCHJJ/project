@@ -27,7 +27,6 @@ class TaskField extends SettingToField{
 	 */
 	public TaskField(String instrument)
 	{
-		super();
 		items = new LinkedList<String>();
 		items.add("");
 		itemList = items.toArray();
