@@ -224,7 +224,7 @@ class FileOpen {
 				}
 
 			
-			MetronomeFile = new File("metronome.wav");
+			MetronomeFile = new File("metronome\\metronome.wav");
 			MetronomeAIS = AudioSystem.getAudioInputStream(MetronomeFile);
 			MetronomeClip = AudioSystem.getClip();
 			MetronomeClip.open(MetronomeAIS);
