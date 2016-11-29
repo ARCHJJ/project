@@ -157,6 +157,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		case "키보드연주":
 			keyboardPlay.setVisible(true);
 			break;
+
 		}
 	}
 	
@@ -350,14 +351,14 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 				max = table_Task[i].getColumnCount();
 		}
 		
-		
-		metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
-		
+		if(metronome_Check.isSelected())
+			metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
 	
 		for(int i=0; i<4; i++)
 			taskPlay[i].action();
 		
-		metronome.action();
+		if(metronome_Check.isSelected())
+			metronome.action();
 	}
 	
 	/**
@@ -369,6 +370,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	{
 		return btn_BankListen;
 	}
+	
 
 	@Override
 	public void windowClosed(WindowEvent arg0) {
