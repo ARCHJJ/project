@@ -1,27 +1,8 @@
-import java.awt.Color;
-import java.awt.Font;
-import java.awt.SystemColor;
-import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.LinkedList;
-
-import javax.imageio.ImageIO;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
-import javax.swing.ImageIcon;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.JOptionPane;
-import javax.swing.border.EmptyBorder;
-import javax.swing.JCheckBox;
 @SuppressWarnings({ "unchecked", "serial","rawtypes" })
 
 /**
@@ -185,8 +166,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		STF[2].addColumn(table_Field[2].getModel().getColumnCount()-1);
 		STF[2].setCellOption(table_Field[2]);
 	}
-	
-	
+
 	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
 	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
@@ -327,20 +307,17 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		Clip clip;
 		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
 		char ch;
-		try{
-			for(int i=0; i<6; i++)
+		
+		for(int i=0; i<6; i++)
+		{
+			ch = code.charAt(i);
+			if(ch!='x')
 			{
-				ch = code.charAt(i);
-				if(ch!='x')
-				{
-					clip = files.getSoundClips(2)[i][(int)ch-48];
-					clip.setFramePosition(0);
-					clip.start();
-				}
+				clip = files.getSoundClips(2)[i][(int)ch-48];
+				clip.setFramePosition(0);
+				clip.start();
 			}
 		}
-		catch(Exception e) {}
-		
 	}
 	/**
 	 * @brief 작업대기줄에서 특정 악기대기줄만 재생한다.

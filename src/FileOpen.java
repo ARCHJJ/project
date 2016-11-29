@@ -4,6 +4,7 @@ import java.io.IOException;
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
+import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
@@ -86,14 +87,15 @@ class FileOpen {
 				    , "37.wav", "38.wav", "39.wav", "40.wav", "41.wav", "42.wav", "43.wav", "44.wav", "45.wav", "46.wav", "47.wav", "48.wav"}
 			};
 	
-		GuitarCode = new String[][] {  {"x32010","335543", "x32310", "x32000", "335343", "x33011", "xx1212"}
-									 , {"xx0232", "x00231", "x00212", "x00222", "x00211", "x00233", "xx0101"}
-									 , {"022100", "022000", "020100", "021100", "020000", "022200", "012020"}
-									 , {"133211", "133111", "131211", "0x3210", "131111", "133311", "xx3434"}
-									 , {"320003", "355333", "320001", "320002", "353333", "355533", "xx2323"}
-									 , {"x02220", "002210", "002020", "002120", "002010", "002230", "x01212"}
-									 , {"224442", "224432", "x21202", "224342", "224232", "224452", "123131"}
-									 };
+		GuitarCode = new String[][] {  
+			  {"x32010","335543", "x32310", "x32000", "335343", "x33011", "xx1212"}
+			, {"xx0232", "x00231", "x00212", "x00222", "x00211", "x00233", "xx0101"}
+			, {"022100", "022000", "020100", "021100", "020000", "022200", "012020"}
+			, {"133211", "133111", "131211", "0x3210", "131111", "133311", "xx3434"}
+			, {"320003", "355333", "320001", "320002", "353333", "355533", "xx2323"}
+			, {"x02220", "002210", "002020", "002120", "002010", "002230", "x01212"}
+			, {"224442", "224432", "x21202", "224342", "224232", "224452", "123131"}
+			};
 	
 										
 										
@@ -149,7 +151,9 @@ class FileOpen {
 			MetronomeClip = AudioSystem.getClip();
 			MetronomeClip.open(MetronomeAIS);
 		}
-		catch (Exception e){}										
+		catch(UnsupportedAudioFileException ue) { ue.printStackTrace(); }
+		catch(LineUnavailableException le) { le.printStackTrace(); }
+		catch(IOException ioe) { ioe.printStackTrace(); }
 	}
 	
 	/**

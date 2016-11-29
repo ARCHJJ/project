@@ -66,26 +66,20 @@ class SaveChkBoxBank extends SaveBank{
 	{
 		Iterator<Note> itNote = bank.iterator();
 		Iterator<Integer> itPlay;
-		try
+		while(itNote.hasNext())
 		{
-			while(itNote.hasNext())
+			Note temp = itNote.next();
+			System.out.println(temp.rest);
+			itPlay = temp.fileidx.iterator();
+			System.out.print("[");
+			while(itPlay.hasNext())
 			{
-				Note temp = itNote.next();
-				System.out.println(temp.rest);
-				itPlay = temp.fileidx.iterator();
-				System.out.print("[");
-				while(itPlay.hasNext())
-				{
-					System.out.print(itPlay.next());
-					System.out.print(", ");
-				}
-				System.out.print("]" + "\t");
-				System.out.println("rest :" + temp.rest);
+				System.out.print(itPlay.next());
+				System.out.print(", ");
 			}
+			System.out.print("]" + "\t");
+			System.out.println("rest :" + temp.rest);
 		}
-		catch(Exception exp)
-		{}
 	}
-	
 }
-
+	

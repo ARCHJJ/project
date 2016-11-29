@@ -91,11 +91,7 @@ class Metronome implements Runnable
 				{
 					wait();
 				}
-			}
-			catch(InterruptedException ie) {}
-			
-			try
-			{
+
 			 	for(int i = 0; i < music_score*time_signature; i++)
 				{			
 			 		clip = MetronomeClip;
@@ -105,10 +101,7 @@ class Metronome implements Runnable
 					Thread.sleep(time);	
 				}
 			}
-			catch(Exception exp)
-			{
-				exp.printStackTrace();
-			}
+			catch(InterruptedException ie) { ie.printStackTrace(); }
 		}
 	}
 }

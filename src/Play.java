@@ -117,14 +117,11 @@ class Play extends PlayComponents
 					}
 				}
 				Thread.sleep(temp.rest);
-				removeNoise();
-				
+				removeNoise();	
 			}
 		}
-		catch(Exception exp)
-		{
-			exp.printStackTrace();
-		}
+		catch(InterruptedException ie) { ie.printStackTrace(); }
+		
 		ui.getBankListenButton().setEnabled(true);
 	}
 	public void removeNoise()
@@ -139,10 +136,7 @@ class Play extends PlayComponents
 			{
 				Thread.sleep(10);
 			}
-			catch (InterruptedException e)
-			{
-				e.printStackTrace();
-			}
+			catch (InterruptedException ie) { ie.printStackTrace(); }
 		}
 		noise.clear();
 	}
@@ -160,7 +154,7 @@ class Play extends PlayComponents
 					wait();
 				}
 			}
-			catch(InterruptedException ie) {}
+			catch(InterruptedException ie) { ie.printStackTrace(); }
 			
 			
 			if(singleplay)

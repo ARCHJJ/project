@@ -39,7 +39,7 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
-		//btn_SelectToBase.addActionListener(this);
+//		btn_SelectToBase.addActionListener(this);
 		
 		MakeModel();
 		setModel(0);
@@ -140,99 +140,81 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			break;
 		}
 	}
-//	public void removeNoise()
-//	{
-//		Clip tmp;
-//		for(int i=0; i<noise.size(); i++)
-//		{
-//			tmp = noise.get(i);
-//			if(tmp.isRunning())
-//				tmp.stop();
-//		}
-//		noise.clear();
-//	}
 	/**
 	 * @brief 키보드를 눌렀을 때 피아노 소리가 재생되도록 세팅한다.
 	 */
 	public void Piano()
 	{
-		int idx = 0;
-		try
+		switch(keyPress)
 		{
-			switch(keyPress)
-			{
-			case '1':
-				pianoRoot = 0;
-				return;
-			case '2':
-				pianoRoot = 1;
-				return;
-			case '3':
-				pianoRoot = 2;
-				return;
-				
-			case 'a':
-				clip = files.getSoundClips(0)[0][pianoRoot];
-				lbl_showTone.setText("도");
-				break;
-			case 'w':
-				clip = files.getSoundClips(0)[1][pianoRoot];
-				lbl_showTone.setText("도#");
-				break;
-			case 's':
-				clip = files.getSoundClips(0)[2][pianoRoot];
-				lbl_showTone.setText("레");
-				break;
-			case 'e':
-				clip = files.getSoundClips(0)[3][pianoRoot];
-				lbl_showTone.setText("레#");
-				break;
-			case 'd':
-				clip = files.getSoundClips(0)[4][pianoRoot];
-				lbl_showTone.setText("미");
-				break;
-			case 'f':
-				clip = files.getSoundClips(0)[5][pianoRoot];
-				lbl_showTone.setText("파");
-				break;
-			case 't':
-				clip = files.getSoundClips(0)[6][pianoRoot];
-				lbl_showTone.setText("파#");
-				break;
-			case 'h':
-				clip = files.getSoundClips(0)[7][pianoRoot];
-				lbl_showTone.setText("솔");
-				break;
-			case 'u':
-				clip = files.getSoundClips(0)[8][pianoRoot];
-				lbl_showTone.setText("솔#");
-				break;
-			case 'j':
-				clip = files.getSoundClips(0)[9][pianoRoot];
-				lbl_showTone.setText("라");
-				break;
-			case 'i':
-				clip = files.getSoundClips(0)[10][pianoRoot];
-				lbl_showTone.setText("라#");
-				break;
-			case 'k':
-				clip = files.getSoundClips(0)[11][pianoRoot];
-				lbl_showTone.setText("시");
-				break;
-			case 'l':
-				clip = files.getSoundClips(0)[0][(pianoRoot+1)%3];
-				lbl_showTone.setText("도");
-				break;
-				
-			default:
-				return;
-			}
-			//noise.add(clip);
-			clip.setFramePosition(0);
-			clip.start();
+		case '1':
+			pianoRoot = 0;
+			return;
+		case '2':
+			pianoRoot = 1;
+			return;
+		case '3':
+			pianoRoot = 2;
+			return;
+			
+		case 'a':
+			clip = files.getSoundClips(0)[0][pianoRoot];
+			lbl_showTone.setText("도");
+			break;
+		case 'w':
+			clip = files.getSoundClips(0)[1][pianoRoot];
+			lbl_showTone.setText("도#");
+			break;
+		case 's':
+			clip = files.getSoundClips(0)[2][pianoRoot];
+			lbl_showTone.setText("레");
+			break;
+		case 'e':
+			clip = files.getSoundClips(0)[3][pianoRoot];
+			lbl_showTone.setText("레#");
+			break;
+		case 'd':
+			clip = files.getSoundClips(0)[4][pianoRoot];
+			lbl_showTone.setText("미");
+			break;
+		case 'f':
+			clip = files.getSoundClips(0)[5][pianoRoot];
+			lbl_showTone.setText("파");
+			break;
+		case 't':
+			clip = files.getSoundClips(0)[6][pianoRoot];
+			lbl_showTone.setText("파#");
+			break;
+		case 'h':
+			clip = files.getSoundClips(0)[7][pianoRoot];
+			lbl_showTone.setText("솔");
+			break;
+		case 'u':
+			clip = files.getSoundClips(0)[8][pianoRoot];
+			lbl_showTone.setText("솔#");
+			break;
+		case 'j':
+			clip = files.getSoundClips(0)[9][pianoRoot];
+			lbl_showTone.setText("라");
+			break;
+		case 'i':
+			clip = files.getSoundClips(0)[10][pianoRoot];
+			lbl_showTone.setText("라#");
+			break;
+		case 'k':
+			clip = files.getSoundClips(0)[11][pianoRoot];
+			lbl_showTone.setText("시");
+			break;
+		case 'l':
+			clip = files.getSoundClips(0)[0][(pianoRoot+1)%3];
+			lbl_showTone.setText("도");
+			break;
+			
+		default:
+			return;
 		}
-		catch(Exception e) {}
-		//removeNoise();
+		clip.setFramePosition(0);
+		clip.start();
 	}
 	/**
 	 * @brief 키보드를 눌렀을 때 드럼 소리가 재생되도록 세팅한다.
@@ -240,48 +222,44 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 	public void Drum()
 	{
 		int idx = -1;
-		try
+	
+		switch(keyPress)
 		{
-			switch(keyPress)
-			{
-			case 'a':
-				idx = 0;
-				lbl_showTone.setText("베이스");
-				break;
-			case 's':
-				idx = 1;
-				lbl_showTone.setText("하이헷");
-				break;
-			case 'd':
-				idx = 2;
-				lbl_showTone.setText("스네어");
-				break;
-			case 'f':
-				idx = 3;
-				lbl_showTone.setText("라이드");
-				break;
-			case 'h':
-				idx = 4;
-				lbl_showTone.setText("크래시");
-				break;
-			case 'j':
-				idx = 5;
-				lbl_showTone.setText("스몰탐");
-				break;
-			case 'k':
-				idx = 6;
-				lbl_showTone.setText("하이탐");
-				break;
-			default:
-				return;
-			}
-			clip = files.getSoundClips(1)[0][idx];
-			//noise.add(clip);
-			clip.setFramePosition(0);
-			clip.start();
+		case 'a':
+			idx = 0;
+			lbl_showTone.setText("베이스");
+			break;
+		case 's':
+			idx = 1;
+			lbl_showTone.setText("하이헷");
+			break;
+		case 'd':
+			idx = 2;
+			lbl_showTone.setText("스네어");
+			break;
+		case 'f':
+			idx = 3;
+			lbl_showTone.setText("라이드");
+			break;
+		case 'h':
+			idx = 4;
+			lbl_showTone.setText("크래시");
+			break;
+		case 'j':
+			idx = 5;
+			lbl_showTone.setText("스몰탐");
+			break;
+		case 'k':
+			idx = 6;
+			lbl_showTone.setText("하이탐");
+			break;
+		default:
+			return;
 		}
-		catch(Exception e) {}
-		//removeNoise();
+		clip = files.getSoundClips(1)[0][idx];
+		clip.setFramePosition(0);
+		clip.start();
+	
 	}
 	/**
 	 * @brief 키보드를 눌렀을 때 기타 소리가 재생되도록 세팅한다.
@@ -289,79 +267,74 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 	public void Guitar()
 	{
 		String tones;		
-		try
-		{
-			switch(keyPress)
-			{	
-			case '1':
-				guitarRoot = 0;
-				return;
-			case '2':
-				guitarRoot = 1;
-				return;
-			case '3':
-				guitarRoot = 2;
-				return;
-			case '4':
-				guitarRoot = 3;
-				return;
-			case '5':
-				guitarRoot = 4;
-				return;
-			case '6':
-				guitarRoot = 5;
-				return;
-			case '7':
-				guitarRoot = 6;
-				return;
-				
-			case 'a':
-				tones = files.getGuitarCode()[guitarRoot][0];
-				lbl_showTone.setText("M");
-				break;
-			case 's':
-				tones = files.getGuitarCode()[guitarRoot][1];
-				lbl_showTone.setText("m");
-				break;
-			case 'd':
-				tones = files.getGuitarCode()[guitarRoot][2];
-				lbl_showTone.setText("7");
-				break;
-			case 'f':
-				tones = files.getGuitarCode()[guitarRoot][3];
-				lbl_showTone.setText("M7");
-				break;
-			case 'h':
-				tones = files.getGuitarCode()[guitarRoot][4];
-				lbl_showTone.setText("m7");
-				break;
-			case 'j':
-				tones = files.getGuitarCode()[guitarRoot][5];
-				lbl_showTone.setText("sus4");
-				break;
-			case 'k':
-				tones = files.getGuitarCode()[guitarRoot][6];
-				lbl_showTone.setText("dim");
-				break;
-			default:
-				return;
-			}
+	
+		switch(keyPress)
+		{	
+		case '1':
+			guitarRoot = 0;
+			return;
+		case '2':
+			guitarRoot = 1;
+			return;
+		case '3':
+			guitarRoot = 2;
+			return;
+		case '4':
+			guitarRoot = 3;
+			return;
+		case '5':
+			guitarRoot = 4;
+			return;
+		case '6':
+			guitarRoot = 5;
+			return;
+		case '7':
+			guitarRoot = 6;
+			return;
 			
-			char ch;
-			for(int i=0; i<6; i++)
-			{
-				ch = tones.charAt(i);
-				if(ch!='x')
-				{
-					clip = files.getSoundClips(2)[i][(int)ch-48];
-					//noise.add(clip);
-					clip.setFramePosition(0);
-					clip.start();
-				}
-			}
-			//removeNoise();
+		case 'a':
+			tones = files.getGuitarCode()[guitarRoot][0];
+			lbl_showTone.setText("M");
+			break;
+		case 's':
+			tones = files.getGuitarCode()[guitarRoot][1];
+			lbl_showTone.setText("m");
+			break;
+		case 'd':
+			tones = files.getGuitarCode()[guitarRoot][2];
+			lbl_showTone.setText("7");
+			break;
+		case 'f':
+			tones = files.getGuitarCode()[guitarRoot][3];
+			lbl_showTone.setText("M7");
+			break;
+		case 'h':
+			tones = files.getGuitarCode()[guitarRoot][4];
+			lbl_showTone.setText("m7");
+			break;
+		case 'j':
+			tones = files.getGuitarCode()[guitarRoot][5];
+			lbl_showTone.setText("sus4");
+			break;
+		case 'k':
+			tones = files.getGuitarCode()[guitarRoot][6];
+			lbl_showTone.setText("dim");
+			break;
+		default:
+			return;
 		}
-		catch(Exception e){}
+		
+		char ch;
+		for(int i=0; i<6; i++)
+		{
+			ch = tones.charAt(i);
+			if(ch!='x')
+			{
+				clip = files.getSoundClips(2)[i][(int)ch-48];
+				clip.setFramePosition(0);
+				clip.start();
+			}
+		}
 	}
 	/**
 	 * @brief 키보드액션리스너
