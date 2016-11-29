@@ -121,9 +121,6 @@ abstract class OrpheusComponents {
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	protected InputGuitarCode Code;
 	
-	//! 소리를 재생할 때 UI와의 스레드를 구현하기 위한 메인클래스의 객체.  
-	protected Orpheus ui;
-	
 	//! 뱅크미리듣기를 위한 객체
 	protected Play bankPlay;
 	

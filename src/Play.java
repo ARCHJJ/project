@@ -12,47 +12,8 @@ import javax.swing.JTable;
 /**
  * @brief 작곡한 뱅크를 재생하는 기능을 담당하는 클래스이다. 
  */
-class Play implements Runnable
+class Play extends PlayComponents
 {
-	//! Play클래스와 UI는 스레드로 동작한다.
-	private Thread thread;
-	
-	//! 작업대기줄 테이블
-	private JTable table_Task;
-
-	//! 뱅크가 저장되어 있는 LinkedList
-	private LinkedList<LinkedList<Note>> BankList;
-	
-	//! 음과 쉬는시간이 저장되어 있는 LinkedList
-	private LinkedList<Note> playlist;
-	
-	//! 부드러운 소리재생을 위해 잔향제거
-	private LinkedList<Clip> noise;
-	
-	//! playlist의 Iterator
-	private Iterator<Note> itNote;
-	
-	//! playlist.fileidx의 Iterator
-	private Iterator<Integer> itPlay;
-	
-	//! 음소거 여부를 판단하기 위한 JCheckBox
-	private JCheckBox mute;
-	
-	//! 재생할 소리가 저장되어 있는 Clip[][]
-	private Clip[][] SoundClips;
-	
-	//! 소리파일을 재생하기 위한 객체
-	private Clip clip;
-	
-	//! 재생할 뱅크 번호
-	private int idx;
-	
-	//! 메인 UI
-	private Orpheus ui;
-	
-	//! 뱅크듣기와 솔로듣기||연주시작을 구분하는 변수
-	private boolean singleplay;
-	
 	/**
 	 * @brief 생성자. 스레드를 생성한다.
 	 * @param Orpheus ui
@@ -82,7 +43,6 @@ class Play implements Runnable
 	{
 		thread.start();
 	}
-	
 	/**
 	 * @brief 보조스레드를 설정한다.
 	 * @param boolean bulb : 보조스레드 동작여부의 인자로 사용된다.
@@ -151,13 +111,14 @@ class Play implements Runnable
 					if(!mute.isSelected())
 					{
 						clip = SoundClips[idx/100][idx%100];
-						noise.add(clip);
+						noise.add(SoundClips[idx/100][idx%100]);
 						clip.setFramePosition(0);
 						clip.start();
 					}
 				}
 				Thread.sleep(temp.rest);
 				removeNoise();
+				
 			}
 		}
 		catch(Exception exp)
@@ -174,6 +135,14 @@ class Play implements Runnable
 			tmp = noise.get(i);
 			if(tmp.isRunning())
 				tmp.stop();
+			try
+			{
+				Thread.sleep(10);
+			}
+			catch (InterruptedException e)
+			{
+				e.printStackTrace();
+			}
 		}
 		noise.clear();
 	}

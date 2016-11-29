@@ -140,7 +140,17 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			break;
 		}
 	}
-	
+//	public void removeNoise()
+//	{
+//		Clip tmp;
+//		for(int i=0; i<noise.size(); i++)
+//		{
+//			tmp = noise.get(i);
+//			if(tmp.isRunning())
+//				tmp.stop();
+//		}
+//		noise.clear();
+//	}
 	/**
 	 * @brief 키보드를 눌렀을 때 피아노 소리가 재생되도록 세팅한다.
 	 */
@@ -217,10 +227,12 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			default:
 				return;
 			}
+			//noise.add(clip);
 			clip.setFramePosition(0);
 			clip.start();
 		}
-		catch(Exception e) {}	
+		catch(Exception e) {}
+		//removeNoise();
 	}
 	/**
 	 * @brief 키보드를 눌렀을 때 드럼 소리가 재생되도록 세팅한다.
@@ -264,11 +276,12 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 				return;
 			}
 			clip = files.getSoundClips(1)[0][idx];
+			//noise.add(clip);
 			clip.setFramePosition(0);
 			clip.start();
 		}
 		catch(Exception e) {}
-		
+		//removeNoise();
 	}
 	/**
 	 * @brief 키보드를 눌렀을 때 기타 소리가 재생되도록 세팅한다.
@@ -341,10 +354,12 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 				if(ch!='x')
 				{
 					clip = files.getSoundClips(2)[i][(int)ch-48];
+					//noise.add(clip);
 					clip.setFramePosition(0);
 					clip.start();
 				}
 			}
+			//removeNoise();
 		}
 		catch(Exception e){}
 	}

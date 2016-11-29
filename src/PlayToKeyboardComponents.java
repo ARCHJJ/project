@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -59,6 +61,9 @@ abstract class PlayToKeyboardComponents {
 	//! 소리파일을 재생하기 위한 객체
 	protected Clip clip;
 	
+	//! 부드러운 소리재생을 위해 잔향제거
+	//protected LinkedList<Clip> noise;
+	
 	//! IDX			: 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	//! pianoRoot	: 현재 피아노의 옥타브
 	//! guitarRoot	: 현재 기타의 근음
@@ -77,7 +82,7 @@ abstract class PlayToKeyboardComponents {
 		contentPane.setLayout(null);
 		mainFrame.setBounds(935, 20, 462, 200);
 		
-		
+		//noise = new LinkedList<Clip>();
 		table_RootChord = new JTable();
 		table_RootChord.setEnabled(false);
 		scrollPane_RootChord = new JScrollPane(table_RootChord);
