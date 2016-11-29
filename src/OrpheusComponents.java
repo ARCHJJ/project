@@ -121,7 +121,7 @@ abstract class OrpheusComponents {
 	protected Play[] taskPlay;
 	
 	//! 메트로놈을 위한 객체
-	protected metronome metronome;
+	protected Metronome metronome;
 
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	protected int IDX;

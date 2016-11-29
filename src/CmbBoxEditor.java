@@ -48,8 +48,10 @@ public class CmbBoxEditor extends DefaultCellEditor implements ItemListener {
 		
 		combo = (JComboBox)value;
 		combo.addItemListener(this);
+		
 		desk = table;
 		col = column;
+		
 		return (Component)value;
 	}
 	

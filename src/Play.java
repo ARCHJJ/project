@@ -150,11 +150,8 @@ class Play implements Runnable
 						clip.setFramePosition(0);
 						clip.start();
 					}
-							
 				}
 				Thread.sleep(temp.rest);
-				if(clip.isRunning())
-					clip.stop();
 			}
 		}
 		catch(Exception exp)

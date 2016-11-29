@@ -47,11 +47,13 @@ class ChkBoxEditor extends DefaultCellEditor implements ItemListener {
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column){
 		if(value == null)
 			return null;
+		
 		chkbox = (JCheckBox)value;
 		chkbox.addItemListener(this);
 		
-		col = column;
 		desk = table;
+		col = column;
+		
 		return (Component)value;
 		//return super.getTableCellEditorComponent(table, value, isSelected, row, column);
 	}

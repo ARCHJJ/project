@@ -21,7 +21,6 @@ public class MainGate extends JFrame implements ActionListener{
 	
 	//! 메인프로그램
 	private Orpheus MainProgram;
-	
 	//private boolean[] isFirstOpen;
 	
 	/**

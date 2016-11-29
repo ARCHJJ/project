@@ -52,7 +52,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 			taskPlay[i].ThreadStart();
 		}
 		
-		metronome = new metronome(this);
+		metronome = new Metronome(this);
 		metronome.setDaemon(true);
 		metronome.ThreadStart();
 		

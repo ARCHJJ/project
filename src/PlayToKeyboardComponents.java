@@ -16,7 +16,8 @@ abstract class PlayToKeyboardComponents {
 	//! GUI에서 메인이 되는 Panel
 	protected JPanel contentPane;
 	
-	//! 근음과 파생음을 안내해주는 테이블
+	//! table_RootChord  : 근음을 안내해주는 테이블
+	//! table_ChildChord : 파생음을 안내해주는 테이블
 	protected JTable table_RootChord, table_ChildChord;
 	
 	//! tablemodel_RootChord	: table_RootChord의 모델
@@ -26,7 +27,8 @@ abstract class PlayToKeyboardComponents {
 	//! centerSort	: 가운데 정렬을 위한 셀렌더러
 	protected DefaultTableCellRenderer centerSort;
 	
-	//! table_RootChord, table_ChildChord에 스크롤을 추가하는 ScrollPane
+	//! scrollPane_RootChord	: table_RootChord에 스크롤을 추가하는 ScrollPane
+	//! scrollPane_ChildChord	: table_ChildChord에 스크롤을 추가하는 ScrollPane
 	protected JScrollPane scrollPane_RootChord, scrollPane_ChildChord;
 	
 	//! btn_SelectToPiano	: 피아노선택버튼. table_Field을 피아노로 셋팅한다.
