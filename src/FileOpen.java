@@ -47,6 +47,9 @@ class FileOpen {
 	//! 베이스 소리재생을 위한 클래스
 	private Clip[][] BaseClip;
 	
+	//! 소리 파일 폴더 이름
+	private String[] SoundFolder;
+	
 	//! 피아노 파일 폴더 이름
 	private String[] PianoFolder;
 	
@@ -105,6 +108,8 @@ class FileOpen {
 		DrumSoundNames = new String[]{"쉼표", "베이스", "하이헷", "스네어", "라이드", "크래시", "스몰탐", "하이탐"};
 		GuitarSoundNames = new String[]{"쉼표", "6", "5", "4", "3", "2", "1"};
 		BaseSoundNames = new String[]{"쉼표", "4", "3", "2", "1"};
+		
+		SoundFolder = new String[]{"SoundFile\\"};
 		
 		PianoFolder = new String[]{
 			  "piano\\0\\"	
@@ -192,14 +197,14 @@ class FileOpen {
 			for(int i=0; i<12; i++)
 				for(int j=0; j<3; j++)
 				{
-					PianoFiles[i][j] = new File(PianoFolder[j]+PianoFnames[i][j]);
+					PianoFiles[i][j] = new File(SoundFolder[0]+PianoFolder[j]+PianoFnames[i][j]);
 					PianoAIS[i][j] = AudioSystem.getAudioInputStream(PianoFiles[i][j]);
 					PianoClip[i][j] = AudioSystem.getClip();
 					PianoClip[i][j].open(PianoAIS[i][j]);
 				}
 			for(int i=0; i<7; i++)
 			{
-				DrumFiles[0][i] = new File(DrumFolder[0]+DrumFnames[0][i]);
+				DrumFiles[0][i] = new File(SoundFolder[0]+DrumFolder[0]+DrumFnames[0][i]);
 				DrumAIS[0][i] = AudioSystem.getAudioInputStream(DrumFiles[0][i]);
 				DrumClip[0][i] = AudioSystem.getClip();
 				DrumClip[0][i].open(DrumAIS[0][i]);
@@ -208,7 +213,7 @@ class FileOpen {
 			for(int i=0; i<6; i++)
 				for(int j=0; j<25; j++)
 				{
-					GuitarFiles[i][j] = new File(GuitarFolder[0]+GuitarFnames[i][j]);
+					GuitarFiles[i][j] = new File(SoundFolder[0]+GuitarFolder[0]+GuitarFnames[i][j]);
 					GuitarAIS[i][j] = AudioSystem.getAudioInputStream(GuitarFiles[i][j]);
 					GuitarClip[i][j] = AudioSystem.getClip();
 					GuitarClip[i][j].open(GuitarAIS[i][j]);
@@ -217,14 +222,14 @@ class FileOpen {
 			for(int i=0; i<4; i++)
 				for(int j=0; j<25; j++)
 				{
-					BaseFiles[i][j] = new File(BaseFolder[0]+BaseFnames[i][j]);
+					BaseFiles[i][j] = new File(SoundFolder[0]+BaseFolder[0]+BaseFnames[i][j]);
 					BaseAIS[i][j] = AudioSystem.getAudioInputStream(BaseFiles[i][j]);
 					BaseClip[i][j] = AudioSystem.getClip();
 					BaseClip[i][j].open(BaseAIS[i][j]);
 				}
 
 			
-			MetronomeFile = new File("metronome\\metronome.wav");
+			MetronomeFile = new File("SoundFolder[0]+metronome\\metronome.wav");
 			MetronomeAIS = AudioSystem.getAudioInputStream(MetronomeFile);
 			MetronomeClip = AudioSystem.getClip();
 			MetronomeClip.open(MetronomeAIS);
