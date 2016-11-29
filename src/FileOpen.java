@@ -145,6 +145,18 @@ class FileOpen {
 			  , {"24.wav", "25.wav", "26.wav", "27.wav", "28.wav", "29.wav", "30.wav", "31.wav", "32.wav", "33.wav", "34.wav", "35.wav", "36.wav"
 				    , "37.wav", "38.wav", "39.wav", "40.wav", "41.wav", "42.wav", "43.wav", "44.wav", "45.wav", "46.wav", "47.wav", "48.wav"}
 			};
+			
+			BaseFolder = new String[] {"base\\"};
+			BaseFnames = new String[][]{
+				{"0.wav", "1.wav", "2.wav", "3.wav", "4.wav", "5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav"
+					, "13.wav", "14.wav", "15.wav", "16.wav", "17.wav", "18.wav", "19.wav", "20.wav", "21.wav", "22.wav", "23.wav", "24.wav"}         
+			  , {"5.wav", "6.wav", "7.wav", "8.wav", "9.wav", "10.wav", "11.wav", "12.wav", "13.wav", "14.wav", "15.wav", "16.wav", "17.wav"
+				    , "18.wav", "19.wav", "20.wav", "21.wav", "22.wav", "23.wav", "24.wav", "25.wav", "26.wav", "27.wav", "28.wav", "29.wav"}
+			  , {"10.wav", "11.wav", "12.wav", "13.wav", "14.wav", "15.wav", "16.wav", "17.wav", "18.wav", "19.wav", "20.wav", "21.wav", "22.wav"
+				    , "23.wav", "24.wav", "25.wav", "26.wav", "27.wav", "28.wav", "29.wav", "30.wav", "31.wav", "32.wav", "33.wav", "34.wav"}
+			  , {"15.wav", "16.wav", "17.wav", "18.wav", "19.wav", "20.wav", "21.wav", "22.wav", "23.wav", "24.wav", "25.wav", "26.wav", "27.wav"
+				    , "28.wav", "29.wav", "30.wav", "31.wav", "32.wav", "33.wav", "34.wav", "35.wav", "36.wav", "37.wav", "38.wav", "39.wav"}
+			};
 	
 		GuitarCode = new String[][] {  
 			  {"x32010","335543", "x32310", "x32000", "335343", "x33011", "xx1212"}
@@ -170,11 +182,11 @@ class FileOpen {
 		GuitarAIS = new AudioInputStream[6][25];
 		GuitarClip = new Clip[6][25];
 		
-		/*
-		 * BaseFiles = new File[x][y];
-		 * BaseAIS = new AudioInputStream[x][y];
-		 * BaseClip = new Clip[x][y];
-		 */
+		
+		BaseFiles = new File[4][25];
+		BaseAIS = new AudioInputStream[4][25];
+		BaseClip = new Clip[4][25];
+		 
 		try
 		{
 			for(int i=0; i<12; i++)
@@ -201,9 +213,16 @@ class FileOpen {
 					GuitarClip[i][j] = AudioSystem.getClip();
 					GuitarClip[i][j].open(GuitarAIS[i][j]);
 				}
-			/*
-			 * Base작업 추가대기중
-			 */
+			
+			for(int i=0; i<4; i++)
+				for(int j=0; j<25; j++)
+				{
+					BaseFiles[i][j] = new File(BaseFolder[0]+BaseFnames[i][j]);
+					BaseAIS[i][j] = AudioSystem.getAudioInputStream(BaseFiles[i][j]);
+					BaseClip[i][j] = AudioSystem.getClip();
+					BaseClip[i][j].open(BaseAIS[i][j]);
+				}
+
 			
 			MetronomeFile = new File("metronome.wav");
 			MetronomeAIS = AudioSystem.getAudioInputStream(MetronomeFile);
