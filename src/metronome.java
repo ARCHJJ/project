@@ -7,6 +7,7 @@ class Metronome implements Runnable
 {
 	//!	스레드로 동작한다.
 	private Thread thread;
+	
 	//!	메인 UI
 	private Orpheus ui;
 	

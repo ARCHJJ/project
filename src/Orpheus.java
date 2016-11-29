@@ -2,6 +2,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
@@ -40,6 +43,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		metronome.setDaemon(true);
 		metronome.ThreadStart();
 		
+		save = new SaveScore();
+		
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
@@ -55,6 +60,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_DrumSolo.addActionListener(this);
 		btn_GuitarSolo.addActionListener(this);
 		btn_BaseSolo.addActionListener(this);
+		btn_SaveScore.addActionListener(this);
 		setField(0);
 	}
 	/**
@@ -157,8 +163,20 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		case "키보드연주":
 			keyboardPlay.setVisible(true);
 			break;
-
+			
+		case "파일 저장":
+			saveScore();
+			break;
 		}
+	}
+	
+	/**
+	 * @brief 작업 내용을 텍스트 파일 형태로 저장한다.
+	 */
+	public void saveScore()
+	{
+		save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+		save.save_Score(STF, table_Task);
 	}
 	
 	/**
@@ -371,7 +389,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		return btn_BankListen;
 	}
 	
-
 	@Override
 	public void windowClosed(WindowEvent arg0) {
 		// TODO Auto-generated method stub

@@ -123,6 +123,9 @@ abstract class OrpheusComponents {
 	//! 키보드연주버튼. 키보드 연주를 가능하게 한다. 
 	protected JButton btn_KeyboardPlay;
 	
+	//! 파일 저장버튼. 작업 내용을 저장한다. 
+	protected JButton btn_SaveScore;
+	
 	//! table_Field[0]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스 
 	protected SettingToKind[] STK;
 	
@@ -173,6 +176,9 @@ abstract class OrpheusComponents {
 	
 	//! 메트로놈을 위한 객체
 	protected Metronome metronome;
+	
+	//! 파일 저장을 위한 객체
+	protected SaveScore save;
 
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	protected int IDX;
@@ -425,6 +431,11 @@ abstract class OrpheusComponents {
 		btn_BaseSolo.setFont(PureGothic);
 		btn_BaseSolo.setBounds(718, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
-
+		
+		btn_SaveScore = new JButton("파일 저장");
+		btn_SaveScore.setBackground(SystemColor.window);
+		btn_SaveScore.setFont(PureGothic);
+		btn_SaveScore.setBounds(718, 155, 97, 23);
+		contentPane.add(btn_SaveScore);
 	}
 }
