@@ -68,6 +68,9 @@ abstract class OrpheusComponents {
 
 	//! 작업대기줄에서 재생되는 악기를 뮤트시키는 체크박스. 차례대로 피아노, 드럼, 기타, 베이스
 	protected JCheckBox[] Mute;
+	
+	//! 작업대기줄 실핼시 메트로놈의 활성화 여부를 묻는 체크박스
+	protected JCheckBox metronome_Check;
 
 	//! 연주시작버튼. 작업대기줄에서 설정한 뱅크를 차례로 재생한다.
 	protected JButton btn_start;
@@ -233,6 +236,12 @@ abstract class OrpheusComponents {
 		BPMSet.setFont(PureGothic);
 		BPMSet.setBounds(742, 6, 60, 23);
 		contentPane.add(BPMSet);
+		
+		metronome_Check = new JCheckBox("메트로놈");
+		metronome_Check.setBounds(12, 737, 97, 23);
+		metronome_Check.setBackground(SystemColor.window);
+		metronome_Check.setFont(PureGothic);
+		contentPane.add(metronome_Check);
 		
 		//FileOpen
 		files = new FileOpen();
@@ -414,8 +423,8 @@ abstract class OrpheusComponents {
 		btn_BaseSolo = new JButton("베이스솔로");
 		btn_BaseSolo.setBackground(SystemColor.window);
 		btn_BaseSolo.setFont(PureGothic);
-		
 		btn_BaseSolo.setBounds(718, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
+
 	}
 }
