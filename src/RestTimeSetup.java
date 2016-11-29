@@ -4,13 +4,13 @@ import java.util.StringTokenizer;
  * @brief 박자에 따른 음과 음 사이의 시간과 총 연주시간을 계산하는 클래스
  */
 class RestTimeSetup {
-	//! music_score : 음이 연주되는 총 시간
-	//! result 		: 음과 음 사이의 시간
-	//! time_signature_denominator 		: 박자 기준 음표
-	//! time_signature_numerator 		: 박자 기준 길이 
+	//! music_score : 음이 연주되는 총 시간	
 	public static int music_score = 32;
+	//! result 		: 음과 음 사이의 시간
 	public static int result = 1000;
+	//! time_signature_denominator 		: 박자 기준 음표
 	public static int time_signature_denominator = 4;
+	//! time_signature_numerator 		: 박자 기준 길이 
 	public static int time_signature_numerator = 4;
 	
 	/**
