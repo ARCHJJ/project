@@ -45,6 +45,13 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 		setModel(0);
 	}
 	/**
+	 * @brief 메인프레임의 Visible을 설정하는 메소드
+	 */
+	public void setVisible(boolean bulb)
+	{
+		mainFrame.setVisible(bulb);
+	}
+	/**
 	 * @brief table_RootChord, table_ChildChord 구성에 필요한 객체를 할당한다.
 	 */
 	public void MakeModel()
@@ -340,14 +347,6 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			}
 		}
 		catch(Exception e){}
-	}
-	/**
-	 * @brief 메인프레임을 리턴하는 메소드
-	 * return JFrame
-	 */
-	public void setVisible(boolean bulb)
-	{
-		mainFrame.setVisible(bulb);
 	}
 	/**
 	 * @brief 키보드액션리스너

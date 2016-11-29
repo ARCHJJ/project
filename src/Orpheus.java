@@ -73,11 +73,17 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 		btn_BaseSolo.addActionListener(this);
 		setField(0);
 	}
+	/**
+	 * @brief 메인프레임의 Visible을 설정하는 메소드
+	 */
 	public void setVisible(boolean tf)
 	{
 		mainFrame.setVisible(tf);
 	}
-	
+	/**
+	 * @brief 프로그램의 설정이 초보자용인지 숙련자용인지 판단하는 메소드
+	 * @param boolean tf : true이면 초보자용, false이면 숙련자용이다.
+	 */
 	//public void isBeginner(boolean tf, boolean isFirst)
 	public void isBeginner(boolean tf)
 	{
