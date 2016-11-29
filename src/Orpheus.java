@@ -1,5 +1,8 @@
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
+
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
@@ -8,7 +11,7 @@ import javax.swing.JOptionPane;
 /**
  * @brief 메인프로그램의 UI와 재생기능의 스레드, 버튼액션리스너를 설정하는 클래스
  */
-public class Orpheus extends OrpheusComponents implements ActionListener{
+public class Orpheus extends OrpheusComponents implements ActionListener, WindowListener{
 
 	private boolean isBeginner;
 	/**
@@ -366,4 +369,22 @@ public class Orpheus extends OrpheusComponents implements ActionListener{
 	{
 		return btn_BankListen;
 	}
+
+	@Override
+	public void windowClosed(WindowEvent arg0) {
+		// TODO Auto-generated method stub
+		
+	}
+	@Override
+	public void windowActivated(WindowEvent arg0) {}
+	@Override
+	public void windowClosing(WindowEvent arg0) {}
+	@Override
+	public void windowDeactivated(WindowEvent arg0) {}
+	@Override
+	public void windowDeiconified(WindowEvent arg0) {}
+	@Override
+	public void windowIconified(WindowEvent arg0) {}
+	@Override
+	public void windowOpened(WindowEvent arg0) {}
 }

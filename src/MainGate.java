@@ -32,6 +32,7 @@ public class MainGate extends JFrame implements ActionListener{
 	 */
 	public MainGate() {
 		MainProgram = new Orpheus();
+		setTitle("난이도를 선택해주세요.");
 		setPreferredSize(new Dimension(400, 400));
 		setLocation(100,100);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
