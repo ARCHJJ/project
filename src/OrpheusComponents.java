@@ -14,6 +14,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+@SuppressWarnings({ "unchecked", "rawtypes" })
 /**
  * @brief 메인프로그램의 GUI를 정의하는 클래스
  * 컴포넌트 집합체로서 Orpheus 클래스의 부모클래스가 된다.  
@@ -38,46 +39,86 @@ abstract class OrpheusComponents {
 	//! table_Task에 스크롤을 추가하는 ScrollPane
 	protected JScrollPane[] scrollPane_Task;
 	
-	//! BeatSet			: 비트를 선택하는 콤보박스
-	//! BankChoice		: 뱅크를 선택하는 콤보박스
-	//! RhythmChoice	: 리듬을 선택하는 콤보박스
-	//! RootChord		: 코드의 근음을 선택하는 콤보박스
-	//! ChildChord		: 근음에서 파생되는음을 선택하는 콤보박스
-	protected JComboBox BeatSet, BankChoice, RhythmChoice, RootChord, ChildChord;
+	//! 비트를 선택하는 콤보박스
+	protected JComboBox BeatSet;
+	
+	//! 뱅크를 선택하는 콤보박스
+	protected JComboBox BankChoice;
+	
+	//! 리듬을 선택하는 콤보박스
+	protected JComboBox RhythmChoice;
+	
+	//! 근음을 선택하는 콤보박스
+	protected JComboBox RootChord;
+	
+	//! 근음에서 파생되는음을 선택하는 콤보박스
+	protected JComboBox ChildChord;
 	
 	//! BPMSet : BPM을 입력하는 텍스트필드 
 	protected JTextField BPMSet;
 	
-	//! lbl_SelectInstrument : 악기선택버튼을 안내해주는 레이블
-	//! lbl_SelectBPM		 : BPMSet을 안내해주는 레이블
-	//! lbl_SelectBeatSet	 : BeatSet을 안내해주는 레이블
-	protected JLabel lbl_SelectInstrument, lbl_SelectBPM, lbl_SelectBeatSet;
+	//! 악기선택버튼을 안내해주는 레이블
+	protected JLabel lbl_SelectInstrument;
+	
+	//! BPMSet을 안내해주는 레이블
+	protected JLabel lbl_SelectBPM;
+	
+	//! BeatSet을 안내해주는 레이블
+	protected JLabel lbl_SelectBeatSet;
 
 	//! 작업대기줄에서 재생되는 악기를 뮤트시키는 체크박스. 차례대로 피아노, 드럼, 기타, 베이스
 	protected JCheckBox[] Mute;
 
-	//! btn_start			: 연주시작버튼. 작업대기줄에서 설정한 뱅크를 차례로 재생한다.
-	//! btn_erase			: 지우기버튼. table_Field의 내용을 모두 지운다.
-	//! btn_SelectToPiano	: 피아노선택버튼. table_Field을 피아노로 셋팅한다.
-	//! btn_SelectToDrum	: 드럼선택버튼. table_Field을 드럼으로 셋팅한다.
-	//! btn_SelectToGuitar	: 기타선택버튼. table_Field을 기타로 셋팅한다.
-	//! btn_SelectToBase	: 베이스선택버튼. table_Field을 베이스로 셋팅한다.
-	protected JButton btn_start, btn_erase, btn_SelectToPiano, btn_SelectToDrum, btn_SelectToGuitar, btn_SelectToBase;
+	//! 연주시작버튼. 작업대기줄에서 설정한 뱅크를 차례로 재생한다.
+	protected JButton btn_start;
 	
-	//! btn_BankSave		: 뱅크저장버튼. table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
-	//! btn_BankListen		: 뱅크재생버튼. 콤보박스로 선택한 뱅크를 재생한다.
-	//! btn_RhythmInsert	: 리듬삽입버튼. 미리 만들어져 있는 리듬을 table_Field[1], table_Field[2]에 삽입한다.
-	//! btn_RhythmListen	: 리듬듣기버튼. 미리 만들어져 있는 리듬을 들어본다.
-	//! btn_ChordInsert		: 코드삽입버튼. 미리 만들어져 있는 코드를 table_Field[1], table_Field[2]에 삽입한다.
-	//! btn_ChordListen		: 코드듣기버튼. 미리 만들어져 있는 코드를 들어본다.
-	protected JButton btn_BankSave, btn_BankListen, btn_RhythmInsert, btn_RhythmListen, btn_ChordInsert, btn_ChordListen;
+	//! 지우기버튼. table_Field의 내용을 모두 지운다.
+	protected JButton btn_erase;
 	
-	//! btn_PianoSolo	 : 피아노솔로버튼. 피아노작업대기줄만 재생한다.
-	//! btn_DrumSolo	 : 드럼솔로버튼. 드럼작업대기줄만 재생한다.
-	//! btn_GuitarSolo	 : 기타솔로버튼. 기타작업대기줄만 재생한다.
-	//! btn_BaseSolo	 : 베이스솔로버튼. 베이스작업대기줄만 재생한다.
-	//! btn_KeyBoardPlay : 키보드연주버튼. 키보드 연주를 가능하게 한다. 
-	protected JButton btn_PianoSolo, btn_DrumSolo, btn_GuitarSolo, btn_BaseSolo, btn_KeyboardPlay;
+	//! 피아노선택버튼. table_Field을 피아노로 셋팅한다.
+	protected JButton btn_SelectToPiano;
+	
+	//! 드럼선택버튼. table_Field을 드럼으로 셋팅한다.
+	protected JButton btn_SelectToDrum;
+	
+	//! 기타선택버튼. table_Field을 기타로 셋팅한다.
+	protected JButton btn_SelectToGuitar;
+	
+	//! 베이스선택버튼. table_Field을 베이스로 셋팅한다.
+	protected JButton btn_SelectToBase;
+	
+	//! 뱅크저장버튼. table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
+	protected JButton btn_BankSave;
+	
+	//! 뱅크재생버튼. 콤보박스로 선택한 뱅크를 재생한다.
+	protected JButton btn_BankListen;
+	
+	//! 리듬삽입버튼. 미리 만들어져 있는 리듬을 table_Field[1], table_Field[2]에 삽입한다.
+	protected JButton btn_RhythmInsert;
+	
+	//! 코드삽입버튼. 미리 만들어져 있는 코드를 table_Field[1], table_Field[2]에 삽입한다.
+	protected JButton btn_RhythmListen;
+	
+	//! 리듬듣기버튼. 미리 만들어져 있는 리듬을 들어본다.
+	protected JButton btn_ChordInsert;
+	
+	//! 코드듣기버튼. 미리 만들어져 있는 코드를 들어본다.
+	protected JButton btn_ChordListen;
+	
+	//! 피아노솔로버튼. 피아노작업대기줄만 재생한다.
+	protected JButton btn_PianoSolo;
+	
+	//! 드럼솔로버튼. 드럼작업대기줄만 재생한다.
+	protected JButton btn_DrumSolo;
+	
+	//! 기타솔로버튼. 기타작업대기줄만 재생한다.
+	protected JButton btn_GuitarSolo;
+
+	//! 베이스솔로버튼. 베이스작업대기줄만 재생한다.
+	protected JButton btn_BaseSolo;
+	
+	//! 키보드연주버튼. 키보드 연주를 가능하게 한다. 
+	protected JButton btn_KeyboardPlay;
 	
 	//! table_Field[0]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스 
 	protected SettingToKind[] STK;

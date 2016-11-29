@@ -10,16 +10,18 @@ import javax.swing.JTable;
 class TaskField extends SettingToField{
 	//! JTable에서 콤보박스를 이용해 값을 주고자 할 때 필요한 에디터
 	private CmbBoxEditor cmbboxEditor;
+	
 	//! JTable에서 콤보박스가 보이게끔 해주는 렌더러
 	private CmbBoxRenderer cmbboxRenderer;
+	
 	//! DefaultTableModel에 들어갈 콤보박스
 	private JComboBox BankList;
+	
 	//! 콤보박스에 들어갈 데이터
 	private Object[] itemList;
+	
 	//! 콤보박스에 들어갈 데이터가 추가될 경우 LinkedList<String>에 저장한 후 배열화 시킨다.
 	private LinkedList<String> items;
-	//! 행의 개수 카운트
-	//private int colcnt = 1;
 	
 	/**
 	 * @brief 생성자. 초기상태를 설정해준다.

@@ -1,14 +1,10 @@
-import java.io.File;
-import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+@SuppressWarnings("rawtypes")
 /**
  * @brief 작곡한 뱅크를 재생하는 기능을 담당하는 클래스이다. 
  */

@@ -8,31 +8,91 @@ import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
 
 /**
- * @brief 저장되어 음악파일을 오픈해준다.
+ * @brief 저장된 음악파일을 오픈해준다.
  */
 class FileOpen {
+	//! 피아노 소리파일
+	private File[][] PianoFiles;
 	
-	//!피아노, 드럼 , 기타, 베이스 파일
-	private File[][] PianoFiles, DrumFiles, GuitarFiles, BaseFiles;
+	//! 드럼 소리파일
+	private File[][] DrumFiles;
 	
-	private AudioInputStream[][] PianoAIS, DrumAIS, GuitarAIS, BaseAIS;
+	//! 기타 소리파일
+	private File[][] GuitarFiles;
 	
-	private Clip[][] PianoClip, DrumClip, GuitarClip, BaseClip;
-	//!피아노, 드럼 , 기타, 베이스 폴더이름
-	private String[] PianoFolder, DrumFolder, GuitarFolder, BaseFolder;
+	//! 베이스 소리파일
+	private File[][] BaseFiles;
 	
-	//!피아노, 드럼 , 기타, 베이스 파일 이름
-	private String[][] PianoFnames, DrumFnames, GuitarFnames, BaseFnames;
+	//! 피아노 소리파일스트림
+	private AudioInputStream[][] PianoAIS;
 	
-	//!피아노, 드럼 , 기타, 베이스 맵핑되는 음계명
-	private String[] PianoSoundNames, DrumSoundNames, GuitarSoundNames, BaseSoundNames;
+	//! 드럼 소리파일스트림
+	private AudioInputStream[][] DrumAIS;
+	
+	//! 기타 소리파일스트림
+	private AudioInputStream[][] GuitarAIS;
+	
+	//! 베이스 소리파일스트림
+	private AudioInputStream[][] BaseAIS;
+	
+	//! 피아노 소리재생을 위한 클래스
+	private Clip[][] PianoClip;
+	
+	//! 드럼 소리재생을 위한 클래스
+	private Clip[][] DrumClip;
+	
+	//! 기타 소리재생을 위한 클래스
+	private Clip[][] GuitarClip;
+	
+	//! 베이스 소리재생을 위한 클래스
+	private Clip[][] BaseClip;
+	
+	//! 피아노 파일 폴더 이름
+	private String[] PianoFolder;
+	
+	//! 드럼 파일 폴더 이름
+	private String[] DrumFolder;
+	
+	//! 기타 파일 폴더 이름
+	private String[] GuitarFolder;
+	
+	//! 베이스 파일 폴더 이름
+	private String[] BaseFolder;
+	
+	//! 피아노 파일 이름
+	private String[][] PianoFnames;
+	
+	//! 드럼 파일 이름
+	private String[][] DrumFnames;
+	
+	//! 기타 파일 이름
+	private String[][] GuitarFnames;
+	
+	//! 베이스 파일 이름
+	private String[][] BaseFnames;
+	
+	//! 피아노 음계명
+	private String[] PianoSoundNames;
+	
+	//! 드럼 음계명
+	private String[] DrumSoundNames;
+	
+	//! 기타 음계명
+	private String[] GuitarSoundNames;
+	
+	//! 베이스 음계명
+	private String[] BaseSoundNames;
 	
 	//!기타 코드
 	private String[][] GuitarCode;
 	
-	//!메트로놈
+	//! 메트로놈 소리파일
 	private File MetronomeFile;
+	
+	//! 메트로놈 소리파일스트림
 	private AudioInputStream MetronomeAIS;
+	
+	//! 메트로놈 소리재생을 위한 클래스
 	private Clip MetronomeClip;
 	
 	/**
@@ -41,7 +101,6 @@ class FileOpen {
 	 */
 	FileOpen()
 	{
-
 		PianoSoundNames = new String[]{"쉼표", "도", "도#", "레", "레#", "미", "파", "파#", "솔", "솔#", "라", "라#", "시"};
 		DrumSoundNames = new String[]{"쉼표", "베이스", "하이헷", "스네어", "라이드", "크래시", "스몰탐", "하이탐"};
 		GuitarSoundNames = new String[]{"쉼표", "6", "5", "4", "3", "2", "1"};
@@ -159,7 +218,7 @@ class FileOpen {
 	/**
 	 * @brief 악기에 따른 사운드파일을 호출해 주는 메소드
 	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
-	 * return 각각의 악기별로 파일 배열명을 리턴
+	 * return Clip[][] : 각각의 악기별로 파일 배열명을 리턴
 	 */
 	public Clip[][] getSoundClips(int type)
 	{
@@ -179,7 +238,7 @@ class FileOpen {
 	
 	/**
 	 * @brief 메트로놈의 사운드 파일을 호출하는 메소드
-	 * return 메트로놈 파일명을 리턴
+	 * return Clip MetronomeClip : 메트로놈 Clip을 리턴
 	 */
 	public Clip getMetronomeClips()
 	{
@@ -189,7 +248,7 @@ class FileOpen {
 	/**
 	 * @brief 악기에 따른 사운드명을 호출하는 메소드
 	 * @param int type : 어떤 악기에 대한 것인지 분류. 0번 부터 3번 까지 차례대로 피아노, 드럼, 기타, 베이스
-	 * return 각각 악기의 사운드명을 리턴
+	 * return String[] : 각각 악기의 사운드명을 리턴
 	 */
 	public String[] getSoundNames(int type)
 	{
@@ -209,7 +268,7 @@ class FileOpen {
 	
 	/**
 	 * @brief 기타코드를 리턴해주는 메소드
-	 * return 기타 코드 리턴
+	 * return String[][] GuitarCode : 기타 코드 리턴
 	 */
 	public String[][] getGuitarCode()
 	{

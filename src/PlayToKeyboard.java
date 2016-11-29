@@ -2,21 +2,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
-import java.util.StringTokenizer;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.sound.sampled.AudioInputStream;
-import javax.sound.sampled.AudioSystem;
-import javax.sound.sampled.Clip;
 import javax.swing.JButton;
-import javax.swing.JComboBox;
-import javax.swing.JScrollPane;
-import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.JLabel;
 
 /**
  * @brief 사용자가 컴퓨터 키보드를 눌렀을 때 맵핑된 음을 재생시키는 역할을 하는 클래스이다. 

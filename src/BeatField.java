@@ -3,6 +3,7 @@ import java.util.LinkedList;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+@SuppressWarnings({"unchecked", "rawtypes"})
 /**
  * @brief SettingToFeild를 상속받는 클래스로써 N분음표를 선택하게 할수 있는 부분을 표시하는 JTable을 만드는 클래스이다. 
  */
@@ -84,8 +85,8 @@ class BeatField extends SettingToField{
 	
 	/**
 	 * @brief 현재 테이블에 있는 콤보박스들의 값의 총 합을 리턴하는 메소드
-	 * @param JTable Desk 
-	 * @return int max 
+	 * @param JTable Desk : 콤보박스를 가지고 있는 테이블
+	 * @return int max	  : 콤보박스 값의 총 합
 	 */
 	public int out_max(JTable Desk)
 	{
@@ -104,8 +105,8 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
-	 * @brief 현재 테이블에 있는 콤보박스들의 값을 저장한 링크드리스트를 리턴하는 메소드
-	 * @return LinkedList<Integer> beatResult
+	 * @brief 현재 테이블에 있는 콤보박스들의 값을 저장한 LinkedList를 리턴하는 메소드
+	 * @return LinkedList<Integer> beatResult : 콤보박스들의 값을 저장한 LinkedList
 	 */
 	public LinkedList<Integer> getBeatResult()
 	{

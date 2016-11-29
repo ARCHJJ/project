@@ -1,6 +1,5 @@
 import java.awt.Component;
 import javax.swing.*;
-import javax.swing.table.DefaultTableCellRenderer;
 import javax.swing.table.TableCellRenderer;
 
 /**
@@ -15,7 +14,7 @@ class ChkBoxRenderer implements TableCellRenderer
 	 * @param boolean isSelected : JTable이 선택되었는지 판단
 	 * @param int row			 : 셀에디터가 적용될 JTable의 행
 	 * @param int column 		 : 셀에디터가 적용될 JTable의 열
-	 * @return value 			 : 컴포넌트 value 값을 리턴해준다
+	 * @return (Component)value	 : 컴포넌트 value 값을 리턴해준다
 	 */
 	@Override
 	public Component getTableCellRendererComponent

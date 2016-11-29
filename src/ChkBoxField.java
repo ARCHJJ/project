@@ -1,5 +1,3 @@
-import java.util.LinkedList;
-
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
@@ -21,7 +19,7 @@ class ChkBoxField extends SettingToField{
 	private JTable table_Beat;
 	
 	/**
-	 * @brief 생성자
+	 * @brief 체크박스로 이루어진 행을 하나 추가하여 초기값을 세팅한다.
 	 * @param BeatField BeatField : 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가될 수 있도록 받아옴
 	 * @param JTable table_Beat	  : BeatField가 적용될 JTable
 	 * @param int kinds			  : 해당하는 악기가 낼 수 있는 음의 개수
@@ -45,7 +43,7 @@ class ChkBoxField extends SettingToField{
 	
 	/**
 	 * @brief 컬럼을 한줄 추가하는 메소드
-	 * @param int idx 현재 몇번째 컬럼인지를 가리키는 인덱스
+	 * @param int idx 현재 몇 번째 컬럼인지를 가리키는 인덱스
 	 */
 	@Override
 	public void addColumn(int idx) {
@@ -96,7 +94,7 @@ class ChkBoxField extends SettingToField{
 	
 	/**
 	 * @brief 악기종류를 리턴 하는 메소드
-	 * @return 악기종류 리턴
+	 * @return int kinds : 악기종류 리턴
 	 */
 	public int getKinds()
 	{

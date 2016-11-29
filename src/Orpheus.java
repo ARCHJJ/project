@@ -3,7 +3,7 @@ import java.awt.event.ActionListener;
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-@SuppressWarnings({ "unchecked", "serial","rawtypes" })
+@SuppressWarnings({ "unchecked" })
 
 /**
  * @brief 메인프로그램의 UI와 재생기능의 스레드, 버튼액션리스너를 설정하는 클래스

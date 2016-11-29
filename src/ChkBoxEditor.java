@@ -5,8 +5,8 @@ import java.awt.event.ItemListener;
 import javax.swing.DefaultCellEditor;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
 
+@SuppressWarnings("serial")
 /**
  * @brief JTable에서 체크박스를 사용할 수 있게 하는 셀에디터
  */
@@ -41,7 +41,7 @@ class ChkBoxEditor extends DefaultCellEditor implements ItemListener {
 	 * @param boolean isSelected : JTable이 선택되었는지 판단
 	 * @param int row			 : 셀에디터가 적용될 JTable의 행
 	 * @param int column 		 : 셀에디터가 적용될 JTable의 열
-	 * @return value 			 : 컴포넌트 value 값을 리턴해준다
+	 * @return (Component)value	 : 컴포넌트 value 값을 리턴해준다
 	 */
 	@Override
 	public Component getTableCellEditorComponent(JTable table, Object value, boolean isSelected, int row, int column){
@@ -61,7 +61,7 @@ class ChkBoxEditor extends DefaultCellEditor implements ItemListener {
 	
 	/**
 	 * @brief 선택한 셀의 값을 리턴한다.
-	 * @return chkbox : 셀에 적용된 아이템리스너를 지우고 리턴한다.
+	 * @return JCheckBox chkbox : 셀에 적용된 아이템리스너를 지우고 리턴한다.
 	 */
 	@Override
 	public Object getCellEditorValue() {

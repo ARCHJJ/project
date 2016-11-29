@@ -1,6 +1,6 @@
 import javax.swing.JComboBox;
 import javax.swing.JTable;
-
+@SuppressWarnings("rawtypes")
 /**
  * @brief 미리 만들어놓은 기타코드를 테이블에 삽입하는 클래스
  */

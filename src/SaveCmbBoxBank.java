@@ -1,10 +1,8 @@
 import java.util.Iterator;
 import java.util.LinkedList;
-
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.table.DefaultTableModel;
-
+@SuppressWarnings("rawtypes")
 /**
  * @brief 콤보박스로 이루어진 테이블을 뱅크에 저장하는 클래스
  */

@@ -13,9 +13,11 @@ abstract class SettingToField extends Setting{
 	//! 뱅크를 저장하는 LinkedList
 	protected LinkedList<LinkedList<Note>> BankList;
 	
-	//! kinds  : 악기의 종류(개수)
-	//! colCnt : JTable의 열 
-	protected int kinds, colCnt = 1;
+	//! 악기의 종류(개수)
+	protected int kinds;
+	
+	//! JTable의 열 
+	protected int colCnt = 1;
 	/**
 	 * @brief 필드부분을 초기세팅해주는 생성자
 	 */

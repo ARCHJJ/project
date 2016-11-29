@@ -7,6 +7,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+@SuppressWarnings("serial")
 /**
  * @brief 초보자용과 숙련자용을 선택하는 GUI 인터페이스가 정의되는 곳이다.
  */
@@ -15,9 +16,11 @@ public class MainGate extends JFrame implements ActionListener{
 	//! GUI에서 메인이 되는 컨테이너
 	private Container contentPane;
 	
-	//! Beginner : 초보자용 선택버튼
-	//! Expert	 : 숙련자용 선택버튼
-	private JButton Beginner, Expert;
+	//! 초보자용 선택버튼
+	private JButton Beginner;
+	
+	//! 숙련자용 선택버튼
+	private JButton Expert;
 	
 	//! 메인프로그램
 	private Orpheus MainProgram;

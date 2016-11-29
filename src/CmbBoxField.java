@@ -1,6 +1,6 @@
 import javax.swing.JComboBox;
 import javax.swing.JTable;
-
+@SuppressWarnings({"unchecked", "rawtypes"})
 /**
  * @brief SettingToField를 상속받는 클래스. 콤보박스로 구성된 TableModel로서 기타, 베이스, 피아노 등의 악기가 표현할 수 있는 음을 콤보박스를 이용하여 선택한다.
  */
@@ -11,21 +11,22 @@ class CmbBoxField extends SettingToField {
 	
 	//! JTable에서 콤보박스를 볼 수 있게 해주는 셀렌더러
 	private CmbBoxRenderer cmbboxRenderer;
+	
 	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private String[] tones;
+	
 	//!현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가되게 하기위해 생성자인자로 전달받음
 	private BeatField BeatField;
+	
 	//!BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용시키기 위해 생성자인자로 전달받음
 	private JTable table_Beat;
-	//!kinds : 해당하는 악기가 낼 수 있는 음의 개수, colCnt : 현재 행의 개수를 카운트
-	//private int kinds;
 	
 	/**
-	 * @brief 콤보박스로 이루어진 행을 하나 추가한다.
+	 * @brief 콤보박스로 이루어진 행을 하나 추가하여 초기값을 세팅한다.
 	 * @param BeatField BeatField : 현재 테이블 모델에 행이 추가되면 BeatField도 함께 추가될 수 있도록 받아옴
-	 * @param JTable table_Beat 
-	 * @param int kinds : 해당하는 악기가 낼 수 있는 음의 개수
-	 * @param String[] tones : BeatField의 행이 추가될 때 셀에디터와 렌더러를 다시 한번 적용
+	 * @param JTable table_Beat	  : BeatField가 적용될 JTable
+	 * @param int kinds			  : 해당하는 악기가 낼 수 있는 음의 개수
+	 * @param String[] tones 	  : 콤보박스가 나타낼 아이템리스트
 	 */
 	public CmbBoxField(BeatField BeatField, JTable table_Beat, int kinds, String[] tones)
 	{
@@ -48,7 +49,7 @@ class CmbBoxField extends SettingToField {
 	
 	/**
 	 * @brief 컬럼을 한줄 추가하는 메소드
-	 * @param int idx 현재 몇번쨰 컬럼인지를 가리키는 인덱스
+	 * @param int idx : 현재 몇 번째 컬럼인지를 가리키는 인덱스
 	 */
 	@Override
 	public void addColumn(int idx) {
@@ -99,7 +100,7 @@ class CmbBoxField extends SettingToField {
 	
 	/**
 	 * @brief 악기종류를 리턴 하는 메소드
-	 * @return 악기종류 리턴
+	 * @return int kinds : 악기종류 리턴
 	 */
 	public int getKinds()
 	{
