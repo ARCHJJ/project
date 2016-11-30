@@ -9,6 +9,9 @@ import java.io.IOException;
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
+import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings({ "unchecked" })
 
 /**
@@ -24,6 +27,14 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 * 버튼액션리스너를 추가한다.
 	 */
 	public Orpheus(MainGate mainGate) {
+		try
+		{
+			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			SwingUtilities.updateComponentTreeUI(mainFrame);
+		}
+		catch(Exception e) { e.printStackTrace(); }
 		this.mainGate = mainGate;
 		//뱅크듣기
 		bankPlay = new Play(this);
