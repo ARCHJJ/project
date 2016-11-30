@@ -133,7 +133,6 @@ class BeatField extends SettingToField{
 		field = new Object[1][2];
 		field[0][0] = "¡àºÐÀ½Ç¥";
 		field[0][1] = beatList;
-
 		tablemodel.setDataVector(field, new String[]{" ", "1"});
 	}
 	

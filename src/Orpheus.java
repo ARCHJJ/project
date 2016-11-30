@@ -17,12 +17,14 @@ import javax.swing.JOptionPane;
 public class Orpheus extends OrpheusComponents implements ActionListener, WindowListener{
 
 	private boolean isBeginner;
+	private MainGate mainGate;
 	/**
 	 * @brief 생성자
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
 	 * 버튼액션리스너를 추가한다.
 	 */
-	public Orpheus() {
+	public Orpheus(MainGate mainGate) {
+		this.mainGate = mainGate;
 		//뱅크듣기
 		bankPlay = new Play(this);
 		bankPlay.MuteDisable();
@@ -61,6 +63,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_GuitarSolo.addActionListener(this);
 		btn_BaseSolo.addActionListener(this);
 		btn_SaveScore.addActionListener(this);
+		
+		mainFrame.addWindowListener(this);
 		setField(0);
 	}
 	/**
@@ -80,18 +84,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		BeatSet.setVisible(!tf);
 		lbl_SelectBeatSet.setVisible(!tf);
 		isBeginner = tf;
-		
-//		if(isFirst)
-//			for(int i=0; i<4; i++)
-//			{
-//				STF[i].BankListClear();
-//				STB[i].Init();
-//				STF[i].Init();
-//				
-//
-//				STB[i].setCellOption(table_Field[1]);
-//				STF[i].setCellOption(table_Field[2]);
-//			}
 	}
 	/**
 	 * @brief 버튼액션리스너
@@ -317,8 +309,11 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	public void ListenBank()
 	{
 		int BankNum = BankChoice.getSelectedIndex();
-		bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundClips(IDX));
-		bankPlay.action();
+		if(BankNum!=0)
+		{
+			bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundClips(IDX));
+			bankPlay.action();
+		}
 	}
 
 	/**
@@ -370,13 +365,13 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		}
 		
 		if(metronome_Check.isSelected())
+		{
 			metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
-	
+			metronome.action();
+		}
+
 		for(int i=0; i<4; i++)
 			taskPlay[i].action();
-		
-		if(metronome_Check.isSelected())
-			metronome.action();
 	}
 	
 	/**
@@ -390,14 +385,28 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	}
 	
 	@Override
-	public void windowClosed(WindowEvent arg0) {
-		// TODO Auto-generated method stub
-		
+	public void windowClosing(WindowEvent arg0) {
+		int sav;
+		sav = JOptionPane.showConfirmDialog(null, "작업하던 내용을 저장하시겠습니까?", "저장", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+		if(sav == 0)
+		{
+			save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+			save.save_Score(STF, table_Task);
+		}
+		for(int i=0; i<4; i++)
+		{
+			STF[i].BankListClear();
+			STF[i].Init();
+			STB[i].Init();
+		}
+		setField(0);
+		mainFrame.setVisible(false);
+		mainGate.setVisible(true);
 	}
 	@Override
-	public void windowActivated(WindowEvent arg0) {}
+	public void windowClosed(WindowEvent arg0) {}
 	@Override
-	public void windowClosing(WindowEvent arg0) {}
+	public void windowActivated(WindowEvent arg0) {}
 	@Override
 	public void windowDeactivated(WindowEvent arg0) {}
 	@Override
@@ -405,5 +414,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	@Override
 	public void windowIconified(WindowEvent arg0) {}
 	@Override
-	public void windowOpened(WindowEvent arg0) {}
+	public void windowOpened(WindowEvent arg0) {
+	}
 }

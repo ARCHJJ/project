@@ -26,5 +26,4 @@ class CmbBoxRenderer implements TableCellRenderer{
 		
 		return (Component)value;
 	}
-
 }

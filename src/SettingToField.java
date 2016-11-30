@@ -34,8 +34,8 @@ abstract class SettingToField extends Setting{
 	{
 		BankList.clear();
 		BankList.add(null);
-		bulb.clear();
-		bulb.add(true);
+//		bulb.clear();
+//		bulb.add(true);
 	}
 	/**
 	 * @brief 컬럼 추가

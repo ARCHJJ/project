@@ -31,7 +31,7 @@ public class MainGate extends JFrame implements ActionListener{
 	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
 	public MainGate() {
-		MainProgram = new Orpheus();
+		MainProgram = new Orpheus(this);
 		setTitle("난이도를 선택해주세요.");
 		setPreferredSize(new Dimension(400, 400));
 		setLocation(100,100);
@@ -70,6 +70,7 @@ public class MainGate extends JFrame implements ActionListener{
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		setVisible(false);
 		JButton source = (JButton)e.getSource();
 		switch(source.getText())
 		{

@@ -61,7 +61,7 @@ public class SaveScore {
 			
 			out = new BufferedWriter(new FileWriter("out.save"));
 		      
-		    System.out.println("동작 확인");
+		    //System.out.println("동작 확인");
 		    
 		    out.write("TimeSignature=");
 		    out.write(time_signature_Index); 

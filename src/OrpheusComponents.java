@@ -2,6 +2,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
+import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -173,6 +174,9 @@ abstract class OrpheusComponents {
 	
 	//! 솔로듣기를 위한 객체
 	protected Play[] taskPlay;
+	
+	//! 듣기버튼들의 중복클릭을 방지하기 위해 여러개의 버튼을 비활성화 시키기 위해 ArrayList에 저장
+	protected ArrayList<JButton> ListenButtons;
 	
 	//! 메트로놈을 위한 객체
 	protected Metronome metronome;
@@ -437,5 +441,15 @@ abstract class OrpheusComponents {
 		btn_SaveScore.setFont(PureGothic);
 		btn_SaveScore.setBounds(718, 155, 97, 23);
 		contentPane.add(btn_SaveScore);
+		
+		ListenButtons = new ArrayList<JButton>(8);
+		ListenButtons.add(btn_BankListen);
+		ListenButtons.add(btn_RhythmListen);
+		ListenButtons.add(btn_ChordListen);
+		ListenButtons.add(btn_start);
+		ListenButtons.add(btn_PianoSolo);
+		ListenButtons.add(btn_DrumSolo);
+		ListenButtons.add(btn_GuitarSolo);
+		ListenButtons.add(btn_BaseSolo);
 	}
 }

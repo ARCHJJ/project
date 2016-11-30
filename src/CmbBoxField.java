@@ -83,7 +83,7 @@ class CmbBoxField extends SettingToField {
 	}
 	
 	/**
-	 * @brief J테이블을 초기화하는 메소드
+	 * @brief 현재 테이블을 초기화하는 메소드
 	 */
 	@Override
 	public void Init() {
