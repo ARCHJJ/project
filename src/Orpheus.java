@@ -31,7 +31,18 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		{
 			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			
+			//UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+			//mainFrame.setDefaultLookAndFeelDecorated(true);
+			
+			//UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+			
+			//UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
+			
+			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			
 			SwingUtilities.updateComponentTreeUI(mainFrame);
 		}
 		catch(Exception e) { e.printStackTrace(); }
