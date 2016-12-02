@@ -113,7 +113,7 @@ class Play extends PlayComponents
 					}
 				}
 				Thread.sleep(temp.rest);
-				removeNoise();	
+				removeNoise();
 			}
 		}
 		catch(InterruptedException ie) { ie.printStackTrace(); }
@@ -130,7 +130,7 @@ class Play extends PlayComponents
 				tmp.stop();
 			try
 			{
-				Thread.sleep(10);
+				Thread.sleep(1);
 			}
 			catch (InterruptedException ie) { ie.printStackTrace(); }
 		}

@@ -189,6 +189,11 @@ abstract class OrpheusComponents {
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	protected int IDX;
 	
+	//! 총 뱅크 갯수
+	protected int totalBankCount;
+	
+	//! 저장여부를 묻는 창을 띄우는 조건으로 사용될 변수
+	protected boolean isSave;
 	/**
 	 * @brief 생성자
 	 * 사용할 컴포넌트를 할당하고 위치를 설정한다. 
@@ -453,22 +458,5 @@ abstract class OrpheusComponents {
 		ListenButtons.add(btn_DrumSolo);
 		ListenButtons.add(btn_GuitarSolo);
 		ListenButtons.add(btn_BaseSolo);
-		
-		JButton btnNewButton = new JButton("TEST");
-		btnNewButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				//STF[1] = new ChkBoxField(STB[1], table_Field[1], files.getSoundNames(1).length);
-				for(int k=0; k<STF[1].getModel().getColumnCount(); k++)
-					for(int i=0; i<files.getSoundNames(1).length; i++)
-					{
-						JCheckBox t = (JCheckBox)STF[1].getModel().getValueAt(i, k);
-						System.out.println((t.isSelected()));
-						t.setSelected(true);
-						STF[1].getModel().setValueAt(t, i, k);
-					}
-			}
-		});
-		btnNewButton.setBounds(117, 737, 99, 25);
-		contentPane.add(btnNewButton);
 	}
 }

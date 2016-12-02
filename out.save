@@ -1,6 +1,8 @@
 TimeSignature=3
 BPM=100
-KeyboardBankCount=0
+KeyboardBankCount=1
+1
+600$0
 DrumBankCount=0
 GuitarBankCount=0
 BaseBankCount=0

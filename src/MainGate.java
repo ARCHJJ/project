@@ -2,8 +2,6 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -12,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
+//import javax.swing.SwingUtilities;
+//import javax.swing.UIManager;
+//import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings("serial")
 /**
  * @brief 초보자용과 숙련자용을 선택하는 GUI 인터페이스가 정의되는 곳이다.
@@ -38,14 +39,14 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
 	public MainGate() {
-		try
-		{
-			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			SwingUtilities.updateComponentTreeUI(this);
-		}
-		catch(Exception e) { e.printStackTrace(); }
+//		try
+//		{
+//			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+//			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+//			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+//			SwingUtilities.updateComponentTreeUI(this);
+//		}
+//		catch(Exception e) { e.printStackTrace(); }
 		MainProgram = new Orpheus(this);
 		setTitle("난이도를 선택해주세요.");
 		setPreferredSize(new Dimension(970, 360));

@@ -2,16 +2,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.BufferedWriter;
-import java.io.FileWriter;
-import java.io.IOException;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
-import javax.swing.SwingUtilities;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings({ "unchecked" })
 
 /**
@@ -20,6 +14,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class Orpheus extends OrpheusComponents implements ActionListener, WindowListener{
 
 	private boolean isBeginner;
+	private int totalBankCount_before;
 	private MainGate mainGate;
 	/**
 	 * @brief 생성자
@@ -28,25 +23,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 * @wbp.parser.entryPoint
 	 */
 	public Orpheus(MainGate mainGate) {
-		try
-		{
-			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			
-			//UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-			//mainFrame.setDefaultLookAndFeelDecorated(true);
-			
-			//UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-			
-			//UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
-			
-			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
-			
-			SwingUtilities.updateComponentTreeUI(mainFrame);
-		}
-		catch(Exception e) { e.printStackTrace(); }
 		this.mainGate = mainGate;
 		//뱅크듣기
 		bankPlay = new Play(this);
@@ -69,6 +45,9 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		metronome.ThreadStart();
 		
 		save = new SaveScore();
+		isSave = false;
+		totalBankCount = 0;
+		totalBankCount_before = 0;
 		
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
@@ -184,25 +163,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			break;
 		}
 	}
-	
-	/**
-	 * @brief 작업 내용을 텍스트 파일 형태로 저장한다.
-	 */
-	public void saveScore()
-	{
-		save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-		save.save_Score(STF, table_Task);
-	}
-	
-	/**
-	 * @brief 현재 보고있는 JTable에 미리 만들어진 코드를 삽입한다.
-	 */
-	public void inputCode()
-	{
-		Code.addCode(table_Field[2], RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
-		STF[2].addColumn(table_Field[2].getModel().getColumnCount()-1);
-		STF[2].setCellOption(table_Field[2]);
-	}
 
 	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
@@ -261,19 +221,24 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		
 		IDX = idx;
 	}
-	
+
 	/**
-	 * @brief 현재 보고 있는 table_Field[1], table_Field[2]를 지우고 초기상태로 되돌린다.
+	 * @brief table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
 	 */
-	public void init()
+	public void saveBank()
 	{
-		STB[IDX].Init();
-		STF[IDX].Init();
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		if(!OutofBeat(STB[IDX]))
+			return;
 		
-		STB[IDX].setCellOption(table_Field[1]);
-		STF[IDX].setCellOption(table_Field[2]);
+		STF[IDX].BankList.add(Bank[IDX].getBank(STB[IDX].getBeatResult(), RestTimeSetup.result));
+		int num = STF[IDX].BankList.size()-1;
+		STT[IDX].reflash(num);
+		setBankList(num);
+		JOptionPane.showMessageDialog(null, num+"번 뱅크 저장완료.");
+		totalBankCount++;
 	}
-	
+
 	/**
 	 * @brief 뱅크가 추가되면 BankChoice에서 선택할 수 있도록 추가한다.
 	 * @param int size : BankChoice의 크기
@@ -310,22 +275,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	}
 	
 	/**
-	 * @brief table_Field[1], table_Field[2]의 내용을 뱅크에 저장한다.
-	 */
-	public void saveBank()
-	{
-		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		if(!OutofBeat(STB[IDX]))
-			return;
-		
-		STF[IDX].BankList.add(Bank[IDX].getBank(STB[IDX].getBeatResult(), RestTimeSetup.result));
-		int num = STF[IDX].BankList.size()-1;
-		STT[IDX].reflash(num);
-		setBankList(num);
-		JOptionPane.showMessageDialog(null, num+"번 뱅크 저장완료.");
-	}
-	
-	/**
 	 * @brief BankChoice를 통해 선택된 뱅크를 재생한다.
 	 * UI와 스레드로 동작한다.
 	 */
@@ -338,27 +287,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			bankPlay.action();
 		}
 	}
-
-	/**
-	 * @brief RootChord, ChildChord 를 통해 선택된 코드를 재생한다.
-	 */
-	public void playCode()
-	{
-		Clip clip;
-		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
-		char ch;
-		
-		for(int i=0; i<6; i++)
-		{
-			ch = code.charAt(i);
-			if(ch!='x')
-			{
-				clip = files.getSoundClips(2)[i][(int)ch-48];
-				clip.setFramePosition(0);
-				clip.start();
-			}
-		}
-	}
+	
 	/**
 	 * @brief 작업대기줄에서 특정 악기대기줄만 재생한다.
 	 * UI와 스레드로 동작한다.
@@ -396,6 +325,62 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		for(int i=0; i<4; i++)
 			taskPlay[i].action();
 	}
+
+	/**
+	 * @brief 현재 보고 있는 table_Field[1], table_Field[2]를 지우고 초기상태로 되돌린다.
+	 */
+	public void init()
+	{
+		STB[IDX].Init();
+		STF[IDX].Init();
+		
+		STB[IDX].setCellOption(table_Field[1]);
+		STF[IDX].setCellOption(table_Field[2]);
+	}
+
+	/**
+	 * @brief 현재 보고있는 JTable에 미리 만들어진 코드를 삽입한다.
+	 */
+	public void inputCode()
+	{
+		Code.addCode(table_Field[2], RootChord.getSelectedIndex(), ChildChord.getSelectedIndex());
+		STF[2].addColumn(table_Field[2].getModel().getColumnCount()-1);
+		STF[2].setCellOption(table_Field[2]);
+	}
+
+	/**
+	 * @brief RootChord, ChildChord 를 통해 선택된 코드를 재생한다.
+	 */
+	public void playCode()
+	{
+		Clip clip;
+		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
+		char ch;
+		
+		for(int i=0; i<6; i++)
+		{
+			ch = code.charAt(i);
+			if(ch!='x')
+			{
+				clip = files.getSoundClips(2)[i][(int)ch-48];
+				clip.setFramePosition(0);
+				clip.start();
+			}
+		}
+	}
+	
+	/**
+	 * @brief 작업 내용을 텍스트 파일 형태로 저장한다.
+	 */
+	public void saveScore()
+	{
+		save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+		save.save_Score(STF, table_Task);
+		isSave = true;
+		totalBankCount_before = totalBankCount;
+		
+		JOptionPane.showMessageDialog(null, "저장완료!");
+	}
 	
 	/**
 	 * @brief 뱅크듣기 버튼을 리턴한다.
@@ -409,13 +394,18 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	
 	@Override
 	public void windowClosing(WindowEvent arg0) {
-		int sav;
-		sav = JOptionPane.showConfirmDialog(null, "작업하던 내용을 저장하시겠습니까?", "저장", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
-		if(sav == 0)
+		
+		if((!isSave&&totalBankCount>0) || (isSave&&(totalBankCount != totalBankCount_before)))
 		{
-			save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-			save.save_Score(STF, table_Task);
+			int sav;
+			sav = JOptionPane.showConfirmDialog(null, "작업하던 내용을 저장하시겠습니까?", "저장", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
+			if(sav == 0)
+			{
+				save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+				save.save_Score(STF, table_Task);
+			}
 		}
+		
 		for(int i=0; i<4; i++)
 		{
 			STF[i].BankListClear();
@@ -423,6 +413,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			STB[i].Init();
 		}
 		setField(0);
+		isSave = false;
+		totalBankCount = totalBankCount_before = 0;
 		mainFrame.setVisible(false);
 		mainGate.setVisible(true);
 	}
