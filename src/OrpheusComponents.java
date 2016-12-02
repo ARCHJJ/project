@@ -14,6 +14,8 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 /**
@@ -451,5 +453,22 @@ abstract class OrpheusComponents {
 		ListenButtons.add(btn_DrumSolo);
 		ListenButtons.add(btn_GuitarSolo);
 		ListenButtons.add(btn_BaseSolo);
+		
+		JButton btnNewButton = new JButton("TEST");
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				//STF[1] = new ChkBoxField(STB[1], table_Field[1], files.getSoundNames(1).length);
+				for(int k=0; k<STF[1].getModel().getColumnCount(); k++)
+					for(int i=0; i<files.getSoundNames(1).length; i++)
+					{
+						JCheckBox t = (JCheckBox)STF[1].getModel().getValueAt(i, k);
+						System.out.println((t.isSelected()));
+						t.setSelected(true);
+						STF[1].getModel().setValueAt(t, i, k);
+					}
+			}
+		});
+		btnNewButton.setBounds(117, 737, 99, 25);
+		contentPane.add(btnNewButton);
 	}
 }

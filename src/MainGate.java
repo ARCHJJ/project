@@ -2,6 +2,8 @@ import java.awt.Container;
 import java.awt.Dimension;
 
 import javax.swing.JFrame;
+import javax.swing.SwingUtilities;
+import javax.swing.UIManager;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
@@ -27,14 +29,23 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 	
 	//! 메인프로그램
 	private Orpheus MainProgram;
-	//private boolean[] isFirstOpen;
 	
-	ImageIcon[] icon;
+	//! 
+	private ImageIcon[] icon;
+	
 	/**
 	 * @brief 생성자
 	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
 	public MainGate() {
+		try
+		{
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			SwingUtilities.updateComponentTreeUI(this);
+		}
+		catch(Exception e) { e.printStackTrace(); }
 		MainProgram = new Orpheus(this);
 		setTitle("난이도를 선택해주세요.");
 		setPreferredSize(new Dimension(970, 360));
@@ -60,8 +71,6 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 		
 		contentPane.add(Beginner);
 		contentPane.add(Expert);
-		
-		//isFirstOpen = new boolean[]{true, true};
 	}
 
 	/**
@@ -89,32 +98,22 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 		{
 		case "초보자용":
 			MainProgram.isBeginner(true);
-			//isFirstOpen[0] = false;
 			break;
 		case "숙련자용":
 			MainProgram.isBeginner(false);
-			//isFirstOpen[1] = false;
 		}
 		MainProgram.setVisible(true);
 	}
 
 	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		//System.out.println("마우스가 들어왔다");
-		JButton tmp = (JButton) arg0.getSource();
+		JButton tmp = (JButton)arg0.getSource();
 		tmp.setIcon(icon[2]);
 		
 	}
-
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		JButton tmp = (JButton) arg0.getSource();
+		JButton tmp = (JButton)arg0.getSource();
 		switch(tmp.getText())
 		{
 		case "초보자용":
@@ -124,16 +123,10 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 			tmp.setIcon(icon[1]);
 		}
 	}
-
 	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
+	public void mouseClicked(MouseEvent arg0) {}
 	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mousePressed(MouseEvent arg0) {}
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
 }
