@@ -28,14 +28,25 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 * @wbp.parser.entryPoint
 	 */
 	public Orpheus(MainGate mainGate) {
-//		try
-//		{
-//			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-//			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-//			UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-//			SwingUtilities.updateComponentTreeUI(mainFrame);
-//		}
-//		catch(Exception e) { e.printStackTrace(); }
+		try
+		{
+			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			
+			//UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+			//mainFrame.setDefaultLookAndFeelDecorated(true);
+			
+			//UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
+			
+			//UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
+			
+			UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+			UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			
+			SwingUtilities.updateComponentTreeUI(mainFrame);
+		}
+		catch(Exception e) { e.printStackTrace(); }
 		this.mainGate = mainGate;
 		//¹ðÅ©µè±â
 		bankPlay = new Play(this);
