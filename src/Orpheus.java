@@ -2,6 +2,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.FileNotFoundException;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
@@ -45,9 +46,12 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		metronome.ThreadStart();
 		
 		save = new SaveScore();
+		open = new OpenScore();
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
+		
+		DrumRhythm = new InputDrumRhythm();
 		
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
@@ -65,6 +69,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_GuitarSolo.addActionListener(this);
 		btn_BaseSolo.addActionListener(this);
 		btn_SaveScore.addActionListener(this);
+		btn_OpenScore.addActionListener(this);
+		btn_RhythmInsert.addActionListener(this);
 		
 		mainFrame.addWindowListener(this);
 		setField(0);
@@ -161,9 +167,29 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		case "파일 저장":
 			saveScore();
 			break;
+			
+		case "파일 열람":
+			openScore();
+			break;
+			
+		case "리듬 입력":
+			inputrhythm();
+			break;
 		}
 	}
+	
+	/**
+	 * @brief 드럼, 베이스의 리듬을 입력한다.
+	 */
+	public void inputrhythm()
+	{
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		
+		DrumRhythm.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator);
 
+		DrumRhythm.inputDrum(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()), STF[1], STB[1], table_Field[2]);
+		
+	}
 	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
 	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
@@ -314,6 +340,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			
 			if(max < table_Task[i].getColumnCount())
 				max = table_Task[i].getColumnCount();
+			System.out.println(max);
 		}
 		
 		if(metronome_Check.isSelected())
@@ -380,6 +407,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		totalBankCount_before = totalBankCount;
 		
 		JOptionPane.showMessageDialog(null, "저장완료!");
+	}
+	
+	/**
+	 * @brief 이전 작업 내용을 불러온다.
+	 */
+	public void openScore()
+	{
+			open.open_Score(BeatSet, BPMSet, STF, STT, table_Task);
+			RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 	}
 	
 	/**

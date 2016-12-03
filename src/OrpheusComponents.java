@@ -14,9 +14,10 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
-
 @SuppressWarnings({ "unchecked", "rawtypes" })
 /**
  * @brief 메인프로그램의 GUI를 정의하는 클래스
@@ -129,6 +130,9 @@ abstract class OrpheusComponents {
 	//! 파일 저장버튼. 작업 내용을 저장한다. 
 	protected JButton btn_SaveScore;
 	
+	//! 파일 열람버튼. 작업 내용을 오픈한다. 
+	protected JButton btn_OpenScore;
+	
 	//! table_Field[0]을 구성하는 클래스객체. 차례대로 피아노, 드럼, 기타, 베이스 
 	protected SettingToKind[] STK;
 	
@@ -148,7 +152,7 @@ abstract class OrpheusComponents {
 	protected String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
 
 	//! RhythmChoice를 구성하는 String 배열
-	protected String[] RhythmList = {"1","2","3","4"};
+	protected String[] RhythmList = {"1", "2", "4"};
 	
 	//! RootChord를 구성하는 String 배열
 	protected String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
@@ -171,6 +175,9 @@ abstract class OrpheusComponents {
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	protected InputGuitarCode Code;
 	
+	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
+	protected InputDrumRhythm DrumRhythm;
+	
 	//! 뱅크미리듣기를 위한 객체
 	protected Play bankPlay;
 	
@@ -185,6 +192,9 @@ abstract class OrpheusComponents {
 	
 	//! 파일 저장을 위한 객체
 	protected SaveScore save;
+	
+	//! 파일 열람을 위한 객체
+	protected OpenScore open;
 
 	//! 현재 보고 있는 화면이 어떤 악기인지 구분하기 위한 변수
 	protected int IDX;
@@ -343,6 +353,7 @@ abstract class OrpheusComponents {
 		for(int i=0; i<4; i++)
 			icon[i] = new ImageIcon("image\\button"+Integer.toString(i+1)+".jpg");
 
+
 		lbl_SelectInstrument = new JLabel("악기선택 :");
 		lbl_SelectInstrument.setHorizontalAlignment(SwingConstants.CENTER);
 		lbl_SelectInstrument.setFont(HumanRoundHeadLine20);
@@ -461,6 +472,12 @@ abstract class OrpheusComponents {
 		btn_SaveScore.setFont(PureGothic12);
 		btn_SaveScore.setBounds(681, 222, 97, 23);
 		contentPane.add(btn_SaveScore);
+		
+		btn_OpenScore = new JButton("파일 열람");
+		btn_OpenScore.setBackground(SystemColor.window);
+		btn_OpenScore.setFont(PureGothic12);
+		btn_OpenScore.setBounds(681, 252, 97, 23);
+		contentPane.add(btn_OpenScore);
 		
 		ListenButtons = new ArrayList<JButton>(8);
 		ListenButtons.add(btn_BankListen);
