@@ -6,23 +6,39 @@ import javax.swing.JComboBox;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
-
+/**
+ * @brief 저장된 내용을 불러오는 클래스이다. 
+ */
 public class OpenScore {
-	
+	//! 파일 입력을 위한 객체
 	protected BufferedReader in;
 
+	//! 세이브파일을 한줄씩 읽어오기 위한 객체
 	protected String line;
 	
+	//! 세이브 파일을 정보별로 자르기 위한 객체
 	protected StringTokenizer st;
 	
+	//! 정보를 뱅크에 넣기위한 객체
 	protected JComboBox selectBank;
 	
+	//! 현재 악기의 뱅크 수
 	protected int BankCount;
 	
+	//! 현재 악기 뱅크의 노트 수
 	protected int NoteCount;
 	
+	//! 현재 악기의 작업대기 수
 	protected int TaskCount;
 	
+	/**
+	 * @brief 저장된 파일을 불러온다.
+	 * @param JComboBox BeatSet		: 박자를 설정하는 콤보박스
+	 * @param JTextField BPMSet		: BPM을 설정하는 테이블 필드
+	 * @param SettingToField STF[]	: 뱅크를 가지는 악기의 필드
+	 * @param TaskField STT[]		: 작업표시줄의 상태를 가지는 필드
+	 * @param JTable table_Task[]	: 작업표시줄이 들어갈 테이블
+	 */
 	public void open_Score(JComboBox BeatSet, JTextField BPMSet, SettingToField STF[], TaskField STT[], JTable table_Task[])
 	{
 		
@@ -111,9 +127,9 @@ public class OpenScore {
 				
 				for(int j = 1; j <= TaskCount ; j++)
 				{			
-					selectBank = (JComboBox)table_Task[i].getModel().getValueAt(0, j);		
+					selectBank = (JComboBox)STT[i].getModel().getValueAt(0, j);		
 					selectBank.setSelectedIndex(Integer.parseInt(st.nextToken()));
-					table_Task[i].getModel().setValueAt(selectBank, 0, j);
+					STT[i].getModel().setValueAt(selectBank, 0, j);
 					
 					STT[i].addColumn(j);
 					

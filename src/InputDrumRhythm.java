@@ -1,11 +1,14 @@
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
-
+/**
+ * @brief 드럼에 선택된 리듬을 입력하는 클래스이다. 
+ */
 public class InputDrumRhythm {
-	
+	//!	테이블에 드럼 박자를 저장하기 위한 객체
 	protected JCheckBox selectNote;
 	
+	//! 테이블에 박자를 넣기위한 객체
 	protected JComboBox selectBeat;
 	
 	//! 박자 기준 음표
@@ -14,6 +17,11 @@ public class InputDrumRhythm {
 	//! 박자 기준 길이 
 	protected int numerator;
 	
+	/**
+	 * @brief 박자를 셋팅한다
+	 * @param int time_signature_numerator		: 기준음표
+	 * @param int time_signature_denominator	: 기준 시간
+	 */
 	public void setBeat(int time_signature_numerator, int time_signature_denominator)
 	{
 		numerator = time_signature_numerator;
@@ -22,6 +30,14 @@ public class InputDrumRhythm {
 		
 	}
 	
+	/**
+	 * @brief 테이블에 선택한 리듬을 입력한다.
+	 * @param int x					: 선택한 박자
+	 * @param int y					: 선택한 리듬
+	 * @param SettingToField STF	: 드럼이 셋팅 될 필드
+	 * @param BeatField STB			: 노트 당 박자가 셋팅 될 필드
+	 * @param JTable Desk			: 셋팅된 필드가 들어갈 테이블
+	 */
 	public void inputDrum(int x, int y, SettingToField STF, BeatField STB, JTable Desk)
 	{
 		switch(x)
@@ -49,6 +65,12 @@ public class InputDrumRhythm {
 		STF.setCellOption(Desk);
 	}
 	
+	/**
+	 * @brief 단순리듬.
+	 * @param int y					: 선택한 리듬
+	 * @param SettingToField STF	: 드럼이 셋팅 될 필드
+	 * @param BeatField STB			: 노트 당 박자가 셋팅 될 필드
+	 */
 	public void SimpleTimeSignatures(int y, SettingToField STF, BeatField STB)
 	{
 		for(int i = 0; i < numerator*y; i++)
@@ -79,6 +101,12 @@ public class InputDrumRhythm {
 		}
 	}
 	
+	/**
+	 * @brief 복합리듬.
+	 * @param int y					: 선택한 리듬
+	 * @param SettingToField STF	: 드럼이 셋팅 될 필드
+	 * @param BeatField STB			: 노트 당 박자가 셋팅 될 필드
+	 */
 	public void CompoundTimeSignatures(int y, SettingToField STF, BeatField STB)
 	{
 		for(int i = 0; i < numerator*y; i++)
@@ -109,6 +137,12 @@ public class InputDrumRhythm {
 		}
 	}
 	
+	/**
+	 * @brief 혼합리듬.
+	 * @param int y					: 선택한 리듬
+	 * @param SettingToField STF	: 드럼이 셋팅 될 필드
+	 * @param BeatField STB			: 노트 당 박자가 셋팅 될 필드
+	 */
 	public void ComplexTimeSignatures(int y, SettingToField STF, BeatField STB)
 	{
 		for(int i = 0; i < numerator*y; i++)
