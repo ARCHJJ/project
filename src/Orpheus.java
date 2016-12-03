@@ -16,6 +16,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 
 	private boolean isBeginner;
 	private int totalBankCount_before;
+	private String[] tmp;
 	private MainGate mainGate;
 	/**
 	 * @brief 생성자
@@ -25,20 +26,24 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public Orpheus(MainGate mainGate) {
 		this.mainGate = mainGate;
-		//뱅크듣기
-		bankPlay = new Play(this);
+		
+		bankPlay = new Play();
 		bankPlay.MuteDisable();
 		bankPlay.singleSet();
 		bankPlay.setDaemon(true);
 		bankPlay.ThreadStart();
 		
 		taskPlay = new Play[4];
-
+		tmp = new String[8];
 		for(int i=0; i<4; i++)	
 		{
-			taskPlay[i] = new Play(this);
+			tmp[i] = btn_Solo[i].getText();
+			tmp[i+4] = "정 지("+(i+1)+")";
+			taskPlay[i] = new Play();
 			taskPlay[i].setDaemon(true);
 			taskPlay[i].ThreadStart();
+			
+			//btn_Solo[i].addActionListener(this);
 		}
 		
 		metronome = new Metronome(this);
@@ -47,12 +52,11 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		
 		save = new SaveScore();
 		open = new OpenScore();
+		
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
-		
-		DrumRhythm = new InputDrumRhythm();
-		
+			
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
@@ -64,13 +68,13 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_BankListen.addActionListener(this);
 		btn_ChordListen.addActionListener(this);
 		btn_ChordInsert.addActionListener(this);
-		btn_PianoSolo.addActionListener(this);
-		btn_DrumSolo.addActionListener(this);
-		btn_GuitarSolo.addActionListener(this);
-		btn_BaseSolo.addActionListener(this);
 		btn_SaveScore.addActionListener(this);
 		btn_OpenScore.addActionListener(this);
 		btn_RhythmInsert.addActionListener(this);
+		btn_Solo[0].addActionListener(this);
+		btn_Solo[1].addActionListener(this);
+		btn_Solo[2].addActionListener(this);
+		btn_Solo[3].addActionListener(this);
 		
 		mainFrame.addWindowListener(this);
 		setField(0);
@@ -125,26 +129,32 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			break;
 		
 		case "뱅크 듣기":
+		case "정  지":
 			ListenBank();
 			break;
 		
 		case "피아노솔로":
+		case "정 지(1)":
 			ListenSolo(0);
 			break;
 			
 		case "드럼솔로":
+		case "정 지(2)":
 			ListenSolo(1);
 			break;
 			
 		case "기타솔로":
+		case "정 지(3)":
 			ListenSolo(2);
 			break;
 			
 		case "베이스솔로":
+		case "정 지(4)":
 			ListenSolo(3);
 			break;
 			
 		case "연주시작":
+		case "연주정지":
 			musicQ();
 			break;
 			
@@ -186,9 +196,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 		
 		DrumRhythm.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator);
-
-		DrumRhythm.inputDrum(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()), STF[1], STB[1], table_Field[2]);
-		
+		DrumRhythm.inputDrum(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()), STF[1], STB[1], table_Field[2]);	
 	}
 	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
@@ -306,6 +314,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void ListenBank()
 	{
+		if(stop[4])
+		{
+			stop[4] = false;
+			btn_BankListen.setText("뱅크 듣기");
+			bankPlay.standby();
+			return;
+		}
+		stop[4] = true;
+		btn_BankListen.setText("정  지");
 		int BankNum = BankChoice.getSelectedIndex();
 		if(BankNum!=0)
 		{
@@ -321,6 +338,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void ListenSolo(int idx)
 	{
+		if(stop[idx])
+		{
+			stop[idx] = false;
+			btn_Solo[idx].setText(tmp[idx]);
+			taskPlay[idx].standby();
+			return;
+		}
+		stop[idx] = true;
+		btn_Solo[idx].setText(tmp[idx+4]);
 		taskPlay[idx].multySet(table_Task[idx], STF[idx].BankList, files.getSoundClips(idx), Mute[idx]);
 		taskPlay[idx].action();
 	}
@@ -331,8 +357,21 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void musicQ()
 	{
+		if(stop[5])
+		{
+			stop[5] = false;
+			btn_start.setText("연주시작");
+			
+			bankPlay.standby();
+			for(Play tmp : taskPlay)
+				tmp.standby();
+			
+			return;
+		}
+		stop[5] = true;
+		btn_start.setText("연주정지");
 		int max = 0;
-
+		
 		//연주시작 메소드
 		for(int i=0; i<4; i++)
 		{

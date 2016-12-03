@@ -14,11 +14,13 @@ class Play extends PlayComponents
 	 * @brief 생성자. 스레드를 생성한다.
 	 * @param Orpheus ui
 	 */
-	public Play(Orpheus ui)
+	
+	public Play()
 	{
-		this.ui = ui;
+		//this.ui = ui;
 		thread = new Thread(this);
 		noise = new LinkedList<Clip>();
+		standby = false;
 	}
 	
 	/**
@@ -30,6 +32,7 @@ class Play extends PlayComponents
 	{
 		this.playlist = playlist;
 		this.SoundClips = SoundClips;
+		standby = false;
 	}
 	
 	/**
@@ -54,6 +57,10 @@ class Play extends PlayComponents
 	public synchronized void action()
 	{
 		notify();
+	}
+	public void standby()
+	{
+		standby = true;
 	}
 	/**
 	 * @brief 뮤트기능을 사용하지 않을 때 호출한다.
@@ -81,6 +88,7 @@ class Play extends PlayComponents
 	 */
 	public void multySet(JTable table_Task, LinkedList<LinkedList<Note>> BankList, Clip[][] SoundClips, JCheckBox mute)
 	{
+		standby = false;
 		singleplay = false;
 		this.table_Task = table_Task;
 		this.BankList = BankList;
@@ -90,15 +98,15 @@ class Play extends PlayComponents
 	/**
 	 * @brief 하나의 뱅크만을 재생할 때 사용하는 메소드
 	 */
-	public void single()
+	public boolean single()
 	{
 		try
 		{	
 			itNote = playlist.iterator();
-			ui.getBankListenButton().setEnabled(false);
-			
 			while(itNote.hasNext())
 			{
+				if(standby)
+					return !standby;
 				Note temp = itNote.next();
 				itPlay = temp.fileidx.iterator();
 				while(itPlay.hasNext())
@@ -118,7 +126,7 @@ class Play extends PlayComponents
 		}
 		catch(InterruptedException ie) { ie.printStackTrace(); }
 		
-		ui.getBankListenButton().setEnabled(true);
+		return !standby;
 	}
 	public void removeNoise()
 	{
@@ -152,22 +160,22 @@ class Play extends PlayComponents
 			}
 			catch(InterruptedException ie) { ie.printStackTrace(); }
 			
-			
 			if(singleplay)
 				single();
 				
 			else
 			{
 				int bankidx = 0;
+				boolean isStop = true;
 				JComboBox selectBank;
-				for(int i=1; i<table_Task.getModel().getColumnCount(); i++)
+				for(int i=1; i<table_Task.getModel().getColumnCount()&&isStop; i++)
 				{
 					selectBank = (JComboBox)table_Task.getValueAt(0, i);
 					bankidx = selectBank.getSelectedIndex();
 					if(bankidx!=0)
 					{
 						setBank(BankList.get(bankidx), SoundClips);
-						single();
+						isStop = single();
 					}
 				}
 			}

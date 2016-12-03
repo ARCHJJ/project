@@ -112,17 +112,8 @@ abstract class OrpheusComponents {
 	//! 코드듣기버튼. 미리 만들어져 있는 코드를 들어본다.
 	protected JButton btn_ChordListen;
 	
-	//! 피아노솔로버튼. 피아노작업대기줄만 재생한다.
-	protected JButton btn_PianoSolo;
-	
-	//! 드럼솔로버튼. 드럼작업대기줄만 재생한다.
-	protected JButton btn_DrumSolo;
-	
-	//! 기타솔로버튼. 기타작업대기줄만 재생한다.
-	protected JButton btn_GuitarSolo;
-
-	//! 베이스솔로버튼. 베이스작업대기줄만 재생한다.
-	protected JButton btn_BaseSolo;
+	//! 솔로버튼. 선택한 작업대기줄만 재생한다.
+	protected JButton[] btn_Solo;
 	
 	//! 키보드연주버튼. 키보드 연주를 가능하게 한다. 
 	protected JButton btn_KeyboardPlay;
@@ -184,9 +175,6 @@ abstract class OrpheusComponents {
 	//! 솔로듣기를 위한 객체
 	protected Play[] taskPlay;
 	
-	//! 듣기버튼들의 중복클릭을 방지하기 위해 여러개의 버튼을 비활성화 시키기 위해 ArrayList에 저장
-	protected ArrayList<JButton> ListenButtons;
-	
 	//! 메트로놈을 위한 객체
 	protected Metronome metronome;
 	
@@ -205,6 +193,13 @@ abstract class OrpheusComponents {
 	//! 저장여부를 묻는 창을 띄우는 조건으로 사용될 변수
 	protected boolean isSave;
 	
+	//! 버튼의 중복클릭을 판단하기 위한 boolean[]
+	protected boolean[] stop;
+	
+	//! 듣기버튼들의 중복클릭을 방지하기 위해 여러개의 버튼을 비활성화 시키기 위해 ArrayList에 저장
+	//protected ArrayList<JButton> ListenButtons;
+	
+	//! 버튼에 이미지를 삽입하기 위한 icon[]
 	private ImageIcon[] icon;
 	/**
 	 * @brief 생성자
@@ -279,6 +274,7 @@ abstract class OrpheusComponents {
 		keyboardPlay = new PlayToKeyboard(files);
 		keyboardPlay.setVisible(false);
 		Code = new InputGuitarCode(files.getGuitarCode());
+		DrumRhythm = new InputDrumRhythm();
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STB = new BeatField[4];
@@ -287,11 +283,12 @@ abstract class OrpheusComponents {
 		Mute = new JCheckBox[4];
 		table_Task = new JTable[4];
 		scrollPane_Task = new JScrollPane[4];
-		
+		btn_Solo = new JButton[4];
 		//0 : table_Kind, 1 : table_Beat, 2: table_Field
 		table_Field = new JTable[3];
 		scrollPane_Field = new JScrollPane[3];
 		String[] instruments = {"피아노", "드럼", "기타", "베이스"};
+		
 		for(int i=0, TaskY=469, MuteY = 497; i<4; i++)
 		{
 			if(i<3)
@@ -321,12 +318,18 @@ abstract class OrpheusComponents {
 			
 			STT[i].setCellOption(table_Task[i]);
 			
+			btn_Solo[i] = new JButton(instruments[i]+"솔로");
+			btn_Solo[i].setBackground(SystemColor.window);
+			btn_Solo[i].setFont(PureGothic12);
+			btn_Solo[i].setBounds(681, TaskY, 97, 23);
+			
 			Mute[i] = new JCheckBox(instruments[i]+"뮤트");
 			Mute[i].setBackground(SystemColor.window);
 			Mute[i].setFont(PureGothic12);
 			Mute[i].setBounds(681, MuteY, 97, 23);
 			
 			contentPane.add(scrollPane_Task[i]);
+			contentPane.add(btn_Solo[i]);
 			contentPane.add(Mute[i]);
 			
 			TaskY+=64;
@@ -404,7 +407,7 @@ abstract class OrpheusComponents {
 		btn_KeyboardPlay = new JButton("키보드연주");
 		btn_KeyboardPlay.setBackground(bgcolor);
 		btn_KeyboardPlay.setFont(HumanRoundHeadLine12);
-		btn_KeyboardPlay.setBounds(578,737,100,33);
+		btn_KeyboardPlay.setBounds(578, 737, 100, 33);
 		contentPane.add(btn_KeyboardPlay);
 
 		btn_BankSave = new JButton("뱅크 저장");
@@ -443,30 +446,6 @@ abstract class OrpheusComponents {
 		btn_ChordInsert.setBounds(577, 120, 100, 25);
 		contentPane.add(btn_ChordInsert);
 		
-		btn_PianoSolo = new JButton("피아노솔로");
-		btn_PianoSolo.setBackground(SystemColor.window);
-		btn_PianoSolo.setFont(PureGothic12);
-		btn_PianoSolo.setBounds(681, 470, 97, 23);
-		contentPane.add(btn_PianoSolo);
-		
-		btn_DrumSolo = new JButton("드럼솔로");
-		btn_DrumSolo.setBackground(SystemColor.window);
-		btn_DrumSolo.setFont(PureGothic12);
-		btn_DrumSolo.setBounds(681, 533, 97, 23);
-		contentPane.add(btn_DrumSolo);
-		
-		btn_GuitarSolo = new JButton("기타솔로");
-		btn_GuitarSolo.setBackground(SystemColor.window);
-		btn_GuitarSolo.setFont(PureGothic12);
-		btn_GuitarSolo.setBounds(681, 600, 97, 23);
-		contentPane.add(btn_GuitarSolo);
-		
-		btn_BaseSolo = new JButton("베이스솔로");
-		btn_BaseSolo.setBackground(SystemColor.window);
-		btn_BaseSolo.setFont(PureGothic12);
-		btn_BaseSolo.setBounds(681, 663, 97, 23);
-		contentPane.add(btn_BaseSolo);
-		
 		btn_SaveScore = new JButton("파일 저장");
 		btn_SaveScore.setBackground(SystemColor.window);
 		btn_SaveScore.setFont(PureGothic12);
@@ -479,14 +458,22 @@ abstract class OrpheusComponents {
 		btn_OpenScore.setBounds(681, 252, 97, 23);
 		contentPane.add(btn_OpenScore);
 		
-		ListenButtons = new ArrayList<JButton>(8);
-		ListenButtons.add(btn_BankListen);
-		ListenButtons.add(btn_RhythmListen);
-		ListenButtons.add(btn_ChordListen);
-		ListenButtons.add(btn_start);
-		ListenButtons.add(btn_PianoSolo);
-		ListenButtons.add(btn_DrumSolo);
-		ListenButtons.add(btn_GuitarSolo);
-		ListenButtons.add(btn_BaseSolo);
+		stop = new boolean[6];
+		//stop[0] = 피아노솔로
+		//stop[1] = 드럼솔로
+		//stop[2] = 기타솔로
+		//stop[3] = 베이스솔로
+		//stop[4] = 뱅크듣기
+		//stop[5] = 연주시작
+		
+//		ListenButtons = new ArrayList<JButton>(8);
+//		ListenButtons.add(btn_BankListen);
+//		ListenButtons.add(btn_RhythmListen);
+//		ListenButtons.add(btn_ChordListen);
+//		ListenButtons.add(btn_start);
+//		ListenButtons.add(btn_PianoSolo);
+//		ListenButtons.add(btn_DrumSolo);
+//		ListenButtons.add(btn_GuitarSolo);
+//		ListenButtons.add(btn_BaseSolo);
 	}
 }

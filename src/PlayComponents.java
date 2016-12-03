@@ -50,4 +50,7 @@ abstract class PlayComponents implements Runnable {
 	
 	//! 뱅크듣기와 솔로듣기||연주시작을 구분하는 변수
 	protected boolean singleplay;
+	
+	//! 재생 정지
+	protected boolean standby;
 }
