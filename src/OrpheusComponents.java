@@ -2,7 +2,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.Toolkit;
-import java.util.ArrayList;
 
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
@@ -14,8 +13,6 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.SwingConstants;
 @SuppressWarnings({ "unchecked", "rawtypes" })
@@ -195,9 +192,6 @@ abstract class OrpheusComponents {
 	
 	//! 버튼의 중복클릭을 판단하기 위한 boolean[]
 	protected boolean[] stop;
-	
-	//! 듣기버튼들의 중복클릭을 방지하기 위해 여러개의 버튼을 비활성화 시키기 위해 ArrayList에 저장
-	//protected ArrayList<JButton> ListenButtons;
 	
 	//! 버튼에 이미지를 삽입하기 위한 icon[]
 	private ImageIcon[] icon;
@@ -465,15 +459,5 @@ abstract class OrpheusComponents {
 		//stop[3] = 베이스솔로
 		//stop[4] = 뱅크듣기
 		//stop[5] = 연주시작
-		
-//		ListenButtons = new ArrayList<JButton>(8);
-//		ListenButtons.add(btn_BankListen);
-//		ListenButtons.add(btn_RhythmListen);
-//		ListenButtons.add(btn_ChordListen);
-//		ListenButtons.add(btn_start);
-//		ListenButtons.add(btn_PianoSolo);
-//		ListenButtons.add(btn_DrumSolo);
-//		ListenButtons.add(btn_GuitarSolo);
-//		ListenButtons.add(btn_BaseSolo);
 	}
 }

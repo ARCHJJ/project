@@ -2,7 +2,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.io.FileNotFoundException;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
@@ -46,7 +45,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			//btn_Solo[i].addActionListener(this);
 		}
 		
-		metronome = new Metronome(this);
+		metronome = new Metronome();
 		metronome.setDaemon(true);
 		metronome.ThreadStart();
 		
@@ -379,7 +378,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			
 			if(max < table_Task[i].getColumnCount())
 				max = table_Task[i].getColumnCount();
-			System.out.println(max);
 		}
 		
 		if(metronome_Check.isSelected())
@@ -462,10 +460,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 * 솔로듣기, 연주시작을 눌렀을 때 중복클릭을 방지하기 위해 해당 클래스에서 btn_BankListen을 Enable(false)시킨다. 
 	 * @return btn_BankListen
 	 */
-	public JButton getBankListenButton()
-	{
-		return btn_BankListen;
-	}
 	
 	@Override
 	public void windowClosing(WindowEvent arg0) {
@@ -504,6 +498,5 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	@Override
 	public void windowIconified(WindowEvent arg0) {}
 	@Override
-	public void windowOpened(WindowEvent arg0) {
-	}
+	public void windowOpened(WindowEvent arg0) {}
 }

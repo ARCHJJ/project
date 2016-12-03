@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -45,12 +44,9 @@ abstract class PlayComponents implements Runnable {
 	//! 재생할 뱅크 번호
 	protected int idx;
 	
-	//! 메인 UI
-	protected Orpheus ui;
-	
 	//! 뱅크듣기와 솔로듣기||연주시작을 구분하는 변수
 	protected boolean singleplay;
 	
-	//! 재생 정지
+	//! 정지기능을 위한 변수
 	protected boolean standby;
 }

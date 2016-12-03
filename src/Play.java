@@ -12,12 +12,10 @@ class Play extends PlayComponents
 {
 	/**
 	 * @brief 생성자. 스레드를 생성한다.
-	 * @param Orpheus ui
 	 */
 	
 	public Play()
 	{
-		//this.ui = ui;
 		thread = new Thread(this);
 		noise = new LinkedList<Clip>();
 		standby = false;
@@ -42,6 +40,7 @@ class Play extends PlayComponents
 	{
 		thread.start();
 	}
+	
 	/**
 	 * @brief 보조스레드를 설정한다.
 	 * @param boolean bulb : 보조스레드 동작여부의 인자로 사용된다.
@@ -58,10 +57,15 @@ class Play extends PlayComponents
 	{
 		notify();
 	}
+	
+	/**
+	 * @brief 재생을 정지한다.
+	 */
 	public void standby()
 	{
 		standby = true;
 	}
+	
 	/**
 	 * @brief 뮤트기능을 사용하지 않을 때 호출한다.
 	 */
@@ -106,7 +110,7 @@ class Play extends PlayComponents
 			while(itNote.hasNext())
 			{
 				if(standby)
-					return !standby;
+					return false;
 				Note temp = itNote.next();
 				itPlay = temp.fileidx.iterator();
 				while(itPlay.hasNext())
