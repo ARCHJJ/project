@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import javax.sound.sampled.Clip;
+//import javax.sound.sampled.Clip;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
@@ -93,13 +93,15 @@ public class SaveScore {
 						Note temp = itNote.next();
 						
 						out.write(Integer.toString(temp.rest));
+						out.write("$");
 						
 						itSave = temp.fileidx.iterator();
 						
+						
 						while(itSave.hasNext())
 						{
-							out.write("$");
 							out.write(Integer.toString(itSave.next()));
+							out.write("$");
 						}
 						out.newLine();
 					}
@@ -110,7 +112,8 @@ public class SaveScore {
 			{
 		    	out.write(BankKind[i]+"Taskbar=");
 				out.write(Integer.toString(table_Task[i].getModel().getColumnCount()-2)); 
-			    
+				out.write("$");
+				
 			    for(int j = 1; j < table_Task[i].getModel().getColumnCount()-1 ; j++)
 				{
 			    	selectBank = (JComboBox)table_Task[i].getModel().getValueAt(0, j);
