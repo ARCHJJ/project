@@ -189,6 +189,9 @@ abstract class OrpheusComponents {
 	//! 총 뱅크 갯수
 	protected int totalBankCount;
 	
+	//! 예외처리 BPM
+	protected IntegerDocument IdBPM;
+	
 	//! 저장여부를 묻는 창을 띄우는 조건으로 사용될 변수
 	protected boolean isSave;
 	
@@ -254,9 +257,13 @@ abstract class OrpheusComponents {
 		lbl_SelectBPM.setBounds(576, 45, 57, 25);
 		contentPane.add(lbl_SelectBPM);
 		
-		BPMSet = new JTextField("100");
+		IdBPM = new IntegerDocument();
+		
+		BPMSet = new JTextField();
 		BPMSet.setFont(PureGothic12);
 		BPMSet.setBounds(627, 48, 50, 23);
+		BPMSet.setDocument(IdBPM);
+		BPMSet.setText("100");
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("메트로놈");

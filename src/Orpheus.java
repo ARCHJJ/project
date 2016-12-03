@@ -25,7 +25,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public Orpheus(MainGate mainGate) {
 		this.mainGate = mainGate;
-		
+
 		bankPlay = new Play();
 		bankPlay.MuteDisable();
 		bankPlay.singleSet();
