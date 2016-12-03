@@ -3,6 +3,8 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -42,9 +44,22 @@ public class OpenScore {
 	public void open_Score(JComboBox BeatSet, JTextField BPMSet, SettingToField STF[], TaskField STT[], JTable table_Task[])
 	{
 		
+		final JFileChooser fc = new JFileChooser();   
+		
+	    File file;
+	    
+	    if (fc.showOpenDialog(null) == JFileChooser.APPROVE_OPTION)
+	    	file = fc.getSelectedFile();
+	    
+	    else  
+	    {
+	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+		
 		try
 		{
-			in = new BufferedReader(new FileReader("out.save"));
+			in = new BufferedReader(new FileReader(file));
 			
 			for(int i = 0; i < 2 ; i++)
 			{

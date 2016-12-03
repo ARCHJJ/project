@@ -4,6 +4,8 @@ import java.util.LinkedList;
 
 //import javax.sound.sampled.Clip;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
+import javax.swing.JOptionPane;
 import javax.swing.JTable;
 
 /**
@@ -56,10 +58,23 @@ public class SaveScore {
 	 */
 	public void save_Score(SettingToField STF[], JTable table_Task[])
 	{
+		final JFileChooser fc = new JFileChooser();
+		
+	    File file;
+	    
+	    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+	    	file = fc.getSelectedFile();
+	    
+	    else  
+	    {
+	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+		
 		try 
 		{	
 			
-			out = new BufferedWriter(new FileWriter("out.save"));
+			out = new BufferedWriter(new FileWriter(file));
 		      
 		    //System.out.println("동작 확인");
 		    
