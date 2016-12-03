@@ -8,9 +8,6 @@ class Metronome implements Runnable
 	//!	스레드로 동작한다.
 	private Thread thread;
 	
-	//!	메인 UI
-	private Orpheus ui;
-	
 	//!	소리파일을 재생하기 위한 객체
 	private Clip MetronomeClip;
 
@@ -30,9 +27,8 @@ class Metronome implements Runnable
 	 * @brief 생성자. 스레드를 생성한다.
 	 * @param Orpheus ui
 	 */
-	public Metronome(Orpheus ui)
+	public Metronome()
 	{
-		this.ui = ui;
 		thread = new Thread(this);
 	}
 	

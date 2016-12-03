@@ -52,6 +52,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		save = new SaveScore();
 		open = new OpenScore();
 		
+		DrumPlay = new PlayDrumRhythm();
+		
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
@@ -70,6 +72,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_SaveScore.addActionListener(this);
 		btn_OpenScore.addActionListener(this);
 		btn_RhythmInsert.addActionListener(this);
+		btn_RhythmListen.addActionListener(this);
 		btn_Solo[0].addActionListener(this);
 		btn_Solo[1].addActionListener(this);
 		btn_Solo[2].addActionListener(this);
@@ -184,7 +187,23 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		case "리듬 입력":
 			inputrhythm();
 			break;
+		case "리듬 듣기":
+			playrhythm();
+			break;
 		}
+	}
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws NumberFormatException 
+	 * @brief 드럼, 베이스의 리듬을 출력한다.
+	 */
+	public void playrhythm()
+	{
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		
+		DrumPlay.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator, RestTimeSetup.result);
+		DrumPlay.play_Rhythm(files.getSoundClips(1), BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()));
 	}
 	
 	/**
