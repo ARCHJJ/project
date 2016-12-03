@@ -259,7 +259,7 @@ abstract class OrpheusComponents {
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("¸ÞÆ®·Î³ð");
-		metronome_Check.setBounds(12, 804, 97, 23);
+		metronome_Check.setBounds(12, 737, 97, 23);
 		metronome_Check.setBackground(SystemColor.window);
 		metronome_Check.setFont(PureGothic12);
 		contentPane.add(metronome_Check);
