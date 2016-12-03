@@ -15,6 +15,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import javax.swing.ImageIcon;
+import javax.swing.SwingConstants;
 
 @SuppressWarnings({ "unchecked", "rawtypes" })
 /**
@@ -205,7 +206,7 @@ abstract class OrpheusComponents {
 		mainFrame.setForeground(Color.WHITE);
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 20, 840, 880);
+		mainFrame.setBounds(100, 20, 800, 820);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -214,51 +215,53 @@ abstract class OrpheusComponents {
 		contentPane.setLayout(null);
 		
 		//폰트
-		Font HumanRoundHeadLine = new Font("휴먼둥근헤드라인", Font.PLAIN, 12);
-		Font PureGothic = new Font("맑은 고딕", Font.PLAIN, 12);
+		Font HumanRoundHeadLine12 = new Font("휴먼둥근헤드라인", Font.PLAIN, 12);
+		Font HumanRoundHeadLine20 = new Font("휴먼둥근헤드라인", Font.BOLD, 18);
+		Font PureGothic12 = new Font("맑은 고딕", Font.PLAIN, 12);
+		Font PureGothic14 = new Font("맑은 고딕", Font.BOLD, 14);
 		Color bgcolor = new Color(255, 255, 255);
 		Color fgcolor = new Color(0, 0, 0);
 		lbl_SelectBeatSet = new JLabel("박자 : ");
-		lbl_SelectBeatSet.setFont(PureGothic);
-		lbl_SelectBeatSet.setBounds(605, 14, 57, 15);
+		lbl_SelectBeatSet.setFont(PureGothic14);
+		lbl_SelectBeatSet.setBounds(577, 20, 54, 23);
 		contentPane.add(lbl_SelectBeatSet);
 
 		BeatSet = new JComboBox(BeatList);
-		BeatSet.setFont(PureGothic);
+		BeatSet.setFont(PureGothic12);
 		BeatSet.setSelectedItem("4/4");
-		BeatSet.setBounds(644, 10, 55, 23);
+		BeatSet.setBounds(627, 23, 50, 20);
 		contentPane.add(BeatSet);		
 
 		BankChoice = new JComboBox();
-		BankChoice.setBounds(12, 152, 100, 23);
+		BankChoice.setBounds(12, 83, 100, 25);
 		contentPane.add(BankChoice);
 		
 		RhythmChoice = new JComboBox(RhythmList);
-		RhythmChoice.setBounds(234, 152, 100, 23);
+		RhythmChoice.setBounds(238, 83, 100, 25);
 		contentPane.add(RhythmChoice);
 		
 		RootChord = new JComboBox(RootChordList);
-		RootChord.setBounds(480, 152, 100, 23);
+		RootChord.setBounds(464, 83, 100, 25);
 		contentPane.add(RootChord);
 
 		ChildChord = new JComboBox(ChildChordList);
-		ChildChord.setBounds(480, 189, 100, 23);
+		ChildChord.setBounds(464, 120, 100, 25);
 		contentPane.add(ChildChord);
 	
 		lbl_SelectBPM = new JLabel("BPM : ");
-		lbl_SelectBPM.setFont(PureGothic);
-		lbl_SelectBPM.setBounds(711, 14, 57, 15);
+		lbl_SelectBPM.setFont(PureGothic14);
+		lbl_SelectBPM.setBounds(576, 45, 57, 25);
 		contentPane.add(lbl_SelectBPM);
 		
 		BPMSet = new JTextField("100");
-		BPMSet.setFont(PureGothic);
-		BPMSet.setBounds(752, 10, 60, 23);
+		BPMSet.setFont(PureGothic12);
+		BPMSet.setBounds(627, 48, 50, 23);
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("메트로놈");
 		metronome_Check.setBounds(12, 804, 97, 23);
 		metronome_Check.setBackground(SystemColor.window);
-		metronome_Check.setFont(PureGothic);
+		metronome_Check.setFont(PureGothic12);
 		contentPane.add(metronome_Check);
 		
 		//FileOpen
@@ -286,7 +289,7 @@ abstract class OrpheusComponents {
 				table_Field[i] = new JTable();
 				table_Field[i].setBackground(Color.WHITE);
 				table_Field[i].setForeground(fgcolor);
-				table_Field[i].setFont(PureGothic);
+				table_Field[i].setFont(PureGothic12);
 				table_Field[i].setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 				
 				scrollPane_Field[i] = new JScrollPane(table_Field[i]);
@@ -299,19 +302,19 @@ abstract class OrpheusComponents {
 			STT[i] = new TaskField(instruments[i]);			
 						
 			table_Task[i] = new JTable(STT[i].getModel());
-			table_Task[i].setFont(PureGothic);
+			table_Task[i].setFont(PureGothic12);
 			table_Task[i].setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			
 			scrollPane_Task[i] = new JScrollPane(table_Task[i]);
 			scrollPane_Task[i].getViewport().setBackground(Color.WHITE);
-			scrollPane_Task[i].setBounds(12, TaskY, 703, 65);
+			scrollPane_Task[i].setBounds(12, TaskY, 666, 65);
 			
 			STT[i].setCellOption(table_Task[i]);
 			
 			Mute[i] = new JCheckBox(instruments[i]+"뮤트");
 			Mute[i].setBackground(SystemColor.window);
-			Mute[i].setFont(PureGothic);
-			Mute[i].setBounds(718, MuteY, 97, 23);
+			Mute[i].setFont(PureGothic12);
+			Mute[i].setBounds(681, MuteY, 97, 23);
 			
 			contentPane.add(scrollPane_Task[i]);
 			contentPane.add(Mute[i]);
@@ -320,8 +323,8 @@ abstract class OrpheusComponents {
 			MuteY+=64;
 		}
 		scrollPane_Field[0].setBounds(12, 220, 63, 251);
-		scrollPane_Field[1].setBounds(12, 155, 703, 65);
-		scrollPane_Field[2].setBounds(75, 220, 640, 251);
+		scrollPane_Field[1].setBounds(12, 155, 666, 65);
+		scrollPane_Field[2].setBounds(75, 220, 603, 251);
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STF = new SettingToField[4];
@@ -336,126 +339,127 @@ abstract class OrpheusComponents {
 		Bank[2] = new SaveCmbBoxBank(STF[2]);
 		Bank[3] = new SaveCmbBoxBank(STF[3]);
 		
-		icon=new ImageIcon[4];
+		icon = new ImageIcon[4];
 		for(int i=0; i<4; i++)
-			icon[i] = new ImageIcon("image\\button"+Integer.toString(i+1)+".png");
+			icon[i] = new ImageIcon("image\\button"+Integer.toString(i+1)+".jpg");
 
-		lbl_SelectInstrument = new JLabel("악기선택");
-		lbl_SelectInstrument.setFont(HumanRoundHeadLine);
-		lbl_SelectInstrument.setBounds(12, 12, 57, 15);
+		lbl_SelectInstrument = new JLabel("악기선택 :");
+		lbl_SelectInstrument.setHorizontalAlignment(SwingConstants.CENTER);
+		lbl_SelectInstrument.setFont(HumanRoundHeadLine20);
+		lbl_SelectInstrument.setBounds(12, 24, 100, 50);
 		contentPane.add(lbl_SelectInstrument);
 		
 		btn_SelectToPiano = new JButton(icon[0]);
 		btn_SelectToPiano.setText("피아노");
 		btn_SelectToPiano.setBackground(Color.WHITE);
-		btn_SelectToPiano.setFont(PureGothic);
+		btn_SelectToPiano.setFont(PureGothic12);
 		btn_SelectToPiano.setForeground(Color.BLACK);
-		btn_SelectToPiano.setBounds(12, 40, 200, 100);
+		btn_SelectToPiano.setBounds(125, 20, 100, 50);
 		contentPane.add(btn_SelectToPiano);
 		
 		btn_SelectToDrum = new JButton(icon[1]);
 		btn_SelectToDrum.setText("드럼");
 		btn_SelectToDrum.setBackground(Color.WHITE);
-		btn_SelectToDrum.setFont(PureGothic);
-		btn_SelectToDrum.setBounds(212, 40, 200, 100);
+		btn_SelectToDrum.setFont(PureGothic12);
+		btn_SelectToDrum.setBounds(238, 20, 100, 50);
 		contentPane.add(btn_SelectToDrum);
 		
 		btn_SelectToGuitar = new JButton(icon[2]);
 		btn_SelectToGuitar.setText("기타");
 		btn_SelectToGuitar.setBackground(Color.WHITE);
-		btn_SelectToGuitar.setFont(PureGothic);
-		btn_SelectToGuitar.setBounds(412, 40, 200, 100);
+		btn_SelectToGuitar.setFont(PureGothic12);
+		btn_SelectToGuitar.setBounds(351, 20, 100, 50);
 		contentPane.add(btn_SelectToGuitar);
 		
 		btn_SelectToBase = new JButton(icon[3]);
 		btn_SelectToBase.setText("베이스");
 		btn_SelectToBase.setBackground(Color.WHITE);
-		btn_SelectToBase.setFont(PureGothic);
-		btn_SelectToBase.setBounds(612, 40, 200, 100);
+		btn_SelectToBase.setFont(PureGothic12);
+		btn_SelectToBase.setBounds(464, 20, 100, 50);
 		contentPane.add(btn_SelectToBase);
 		
 		btn_start = new JButton("연주시작");
 		btn_start.setBackground(bgcolor);
-		btn_start.setFont(HumanRoundHeadLine);
-		btn_start.setBounds(393, 804, 99, 33);
+		btn_start.setFont(HumanRoundHeadLine12);
+		btn_start.setBounds(356, 737, 99, 33);
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("지우기");
 		btn_erase.setBackground(bgcolor);
-		btn_erase.setFont(HumanRoundHeadLine);
-		btn_erase.setBounds(504, 804, 99, 33);
+		btn_erase.setFont(HumanRoundHeadLine12);
+		btn_erase.setBounds(467, 737, 99, 33);
 		contentPane.add(btn_erase);
 	
 		btn_KeyboardPlay = new JButton("키보드연주");
 		btn_KeyboardPlay.setBackground(bgcolor);
-		btn_KeyboardPlay.setFont(HumanRoundHeadLine);
-		btn_KeyboardPlay.setBounds(615,804,100,33);
+		btn_KeyboardPlay.setFont(HumanRoundHeadLine12);
+		btn_KeyboardPlay.setBounds(578,737,100,33);
 		contentPane.add(btn_KeyboardPlay);
 
 		btn_BankSave = new JButton("뱅크 저장");
 		btn_BankSave.setBackground(Color.WHITE);
-		btn_BankSave.setFont(PureGothic);
-		btn_BankSave.setBounds(124, 150, 100, 25);
+		btn_BankSave.setFont(PureGothic12);
+		btn_BankSave.setBounds(125, 83, 100, 25);
 		contentPane.add(btn_BankSave);
 		
 		btn_BankListen = new JButton("뱅크 듣기");
 		btn_BankListen.setBackground(Color.WHITE);
-		btn_BankListen.setFont(PureGothic);
-		btn_BankListen.setBounds(123, 187, 100, 25);
+		btn_BankListen.setFont(PureGothic12);
+		btn_BankListen.setBounds(125, 120, 100, 25);
 		contentPane.add(btn_BankListen);
 		
 		btn_RhythmListen = new JButton("리듬 듣기");
 		btn_RhythmListen.setBackground(Color.WHITE);
-		btn_RhythmListen.setFont(PureGothic);
-		btn_RhythmListen.setBounds(345, 151, 120, 25);
+		btn_RhythmListen.setFont(PureGothic12);
+		btn_RhythmListen.setBounds(351, 83, 100, 25);
 		contentPane.add(btn_RhythmListen);
 		
 		btn_RhythmInsert = new JButton("리듬 입력");
 		btn_RhythmInsert.setBackground(Color.WHITE);
-		btn_RhythmInsert.setFont(PureGothic);
-		btn_RhythmInsert.setBounds(345, 188, 120, 25);
+		btn_RhythmInsert.setFont(PureGothic12);
+		btn_RhythmInsert.setBounds(351, 120, 100, 25);
 		contentPane.add(btn_RhythmInsert);
 		
 		btn_ChordListen = new JButton("코드 듣기");
 		btn_ChordListen.setBackground(Color.WHITE);
-		btn_ChordListen.setFont(PureGothic);
-		btn_ChordListen.setBounds(595, 151, 120, 25);
+		btn_ChordListen.setFont(PureGothic12);
+		btn_ChordListen.setBounds(577, 83, 100, 25);
 		contentPane.add(btn_ChordListen);
 		
 		btn_ChordInsert = new JButton("코드 입력");
 		btn_ChordInsert.setBackground(Color.WHITE);
-		btn_ChordInsert.setFont(PureGothic);
-		btn_ChordInsert.setBounds(595, 188, 120, 25);
+		btn_ChordInsert.setFont(PureGothic12);
+		btn_ChordInsert.setBounds(577, 120, 100, 25);
 		contentPane.add(btn_ChordInsert);
 		
 		btn_PianoSolo = new JButton("피아노솔로");
 		btn_PianoSolo.setBackground(SystemColor.window);
-		btn_PianoSolo.setFont(PureGothic);
-		btn_PianoSolo.setBounds(718, 537, 97, 23);
+		btn_PianoSolo.setFont(PureGothic12);
+		btn_PianoSolo.setBounds(681, 470, 97, 23);
 		contentPane.add(btn_PianoSolo);
 		
 		btn_DrumSolo = new JButton("드럼솔로");
 		btn_DrumSolo.setBackground(SystemColor.window);
-		btn_DrumSolo.setFont(PureGothic);
-		btn_DrumSolo.setBounds(718, 600, 97, 23);
+		btn_DrumSolo.setFont(PureGothic12);
+		btn_DrumSolo.setBounds(681, 533, 97, 23);
 		contentPane.add(btn_DrumSolo);
 		
 		btn_GuitarSolo = new JButton("기타솔로");
 		btn_GuitarSolo.setBackground(SystemColor.window);
-		btn_GuitarSolo.setFont(PureGothic);
-		btn_GuitarSolo.setBounds(718, 667, 97, 23);
+		btn_GuitarSolo.setFont(PureGothic12);
+		btn_GuitarSolo.setBounds(681, 600, 97, 23);
 		contentPane.add(btn_GuitarSolo);
 		
 		btn_BaseSolo = new JButton("베이스솔로");
 		btn_BaseSolo.setBackground(SystemColor.window);
-		btn_BaseSolo.setFont(PureGothic);
-		btn_BaseSolo.setBounds(718, 730, 97, 23);
+		btn_BaseSolo.setFont(PureGothic12);
+		btn_BaseSolo.setBounds(681, 663, 97, 23);
 		contentPane.add(btn_BaseSolo);
 		
 		btn_SaveScore = new JButton("파일 저장");
 		btn_SaveScore.setBackground(SystemColor.window);
-		btn_SaveScore.setFont(PureGothic);
-		btn_SaveScore.setBounds(718, 222, 97, 23);
+		btn_SaveScore.setFont(PureGothic12);
+		btn_SaveScore.setBounds(681, 222, 97, 23);
 		contentPane.add(btn_SaveScore);
 		
 		ListenButtons = new ArrayList<JButton>(8);
