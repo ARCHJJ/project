@@ -351,7 +351,7 @@ abstract class OrpheusComponents {
 		
 		btn_SelectToPiano = new JButton(icon[0]);
 		btn_SelectToPiano.setText("피아노");
-		btn_SelectToPiano.setBackground(Color.WHITE);
+		btn_SelectToPiano.setContentAreaFilled(false);
 		btn_SelectToPiano.setFont(PureGothic12);
 		btn_SelectToPiano.setForeground(Color.BLACK);
 		btn_SelectToPiano.setBounds(125, 20, 100, 50);
@@ -359,21 +359,21 @@ abstract class OrpheusComponents {
 		
 		btn_SelectToDrum = new JButton(icon[1]);
 		btn_SelectToDrum.setText("드럼");
-		btn_SelectToDrum.setBackground(Color.WHITE);
+		btn_SelectToDrum.setContentAreaFilled(false);
 		btn_SelectToDrum.setFont(PureGothic12);
 		btn_SelectToDrum.setBounds(238, 20, 100, 50);
 		contentPane.add(btn_SelectToDrum);
 		
 		btn_SelectToGuitar = new JButton(icon[2]);
 		btn_SelectToGuitar.setText("기타");
-		btn_SelectToGuitar.setBackground(Color.WHITE);
+		btn_SelectToGuitar.setContentAreaFilled(false);
 		btn_SelectToGuitar.setFont(PureGothic12);
 		btn_SelectToGuitar.setBounds(351, 20, 100, 50);
 		contentPane.add(btn_SelectToGuitar);
 		
 		btn_SelectToBase = new JButton(icon[3]);
 		btn_SelectToBase.setText("베이스");
-		btn_SelectToBase.setBackground(Color.WHITE);
+		btn_SelectToBase.setContentAreaFilled(false);
 		btn_SelectToBase.setFont(PureGothic12);
 		btn_SelectToBase.setBounds(464, 20, 100, 50);
 		contentPane.add(btn_SelectToBase);
