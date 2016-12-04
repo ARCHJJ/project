@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 @SuppressWarnings({ "unchecked" })
@@ -57,12 +58,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		metronome = new Metronome();
 		metronome.setDaemon(true);
 		metronome.ThreadStart();
-		
-		save = new SaveScore();
-		open = new OpenScore();
-		
-		DrumPlay = new PlayDrumRhythm();
-		
+
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
@@ -202,31 +198,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	}
 	
 	/**
-	 * @throws InterruptedException 
-	 * @throws NumberFormatException 
-	 * @brief 드럼, 베이스의 리듬을 출력한다.
-	 */
-	public void playrhythm()
-	{
-		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		
-		DrumPlay.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator, RestTimeSetup.result);
-
-		bankPlay.setBank(DrumPlay.play_Rhythm(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem())), files.getSoundClips(1));
-		bankPlay.action();
-	}
-	
-	/**
-	 * @brief 드럼, 베이스의 리듬을 입력한다.
-	 */
-	public void inputrhythm()
-	{
-		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
-		
-		DrumRhythm.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator);
-		DrumRhythm.inputDrum(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()), STF[1], STB[1], table_Field[2]);	
-	}
-	/**
 	 * @brief table_Field를 악기에 따라 다르게 세팅한다.
 	 * @param int idx : 0번부터 3번까지 차례대로 피아노, 드럼, 기타, 베이스
 	 */
@@ -248,7 +219,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			RootChord.setEnabled(false);
 			ChildChord.setEnabled(false);
 			
-			RhythmChoice.setEnabled(false);
+			RhythmChoice1.setEnabled(false);
+			RhythmChoice2.setEnabled(false);
 			btn_RhythmInsert.setEnabled(false);
 			btn_RhythmListen.setEnabled(false);
 			
@@ -260,25 +232,46 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			RootChord.setEnabled(true);
 			ChildChord.setEnabled(true);
 			
-			RhythmChoice.setEnabled(false);
+			RhythmChoice1.setEnabled(false);
+			RhythmChoice2.setEnabled(false);
 			btn_RhythmInsert.setEnabled(false);
 			btn_RhythmListen.setEnabled(false);
 			
 			btn_ChordInsert.setEnabled(true);
 			btn_ChordListen.setEnabled(true);
+
 		break;
 	
 		case 1:
-		case 3:
+
 			RootChord.setEnabled(false);
 			ChildChord.setEnabled(false);
 			
-			RhythmChoice.setEnabled(true);
+			RhythmChoice1.setEnabled(true);
+			RhythmChoice2.setEnabled(false);
 			btn_RhythmInsert.setEnabled(true);
 			btn_RhythmListen.setEnabled(true);
 			
 			btn_ChordInsert.setEnabled(false);
 			btn_ChordListen.setEnabled(false);
+			
+			break;
+			
+		case 3:
+			
+
+			RootChord.setEnabled(false);
+			ChildChord.setEnabled(false);
+			
+			RhythmChoice2.setEnabled(true);
+			RhythmChoice1.setEnabled(false);
+			btn_RhythmInsert.setEnabled(true);
+			btn_RhythmListen.setEnabled(true);
+			
+			btn_ChordInsert.setEnabled(false);
+			btn_ChordListen.setEnabled(false);
+			
+			break;
 		}
 		
 		IDX = idx;
@@ -464,6 +457,53 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 				clip.setFramePosition(0);
 				clip.start();
 			}
+		}
+	}
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws NumberFormatException 
+	 * @brief 드럼, 베이스의 리듬을 출력한다.
+	 */
+	public void playrhythm()
+	{
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		
+		if(IDX == 1)
+		{
+			DrumPlay.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator, RestTimeSetup.result);
+	
+			bankPlay.setBank(DrumPlay.play_Rhythm(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice1.getSelectedItem())), files.getSoundClips(1));
+			bankPlay.action();
+		}
+		
+		else
+		{
+			BassPlay.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()), RestTimeSetup.result);
+			
+			bankPlay.setBank(BassPlay.play_Rhythm(RhythmChoice2.getSelectedIndex()), files.getSoundClips(3));
+			bankPlay.action();
+		}
+	}
+	
+	/**
+	 * @brief 드럼, 베이스의 리듬을 입력한다.
+	 */
+	public void inputrhythm()
+	{
+		
+		if(IDX == 1)
+		{
+			RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+			
+			DrumRhythm.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator);
+			DrumRhythm.inputDrum(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice1.getSelectedItem()), STF[1], STB[1], table_Field[2]);
+		}
+		
+		else
+		{
+			BassRhythm.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()));
+			BassRhythm.inputBass(RhythmChoice2.getSelectedIndex(), STF[3], STB[3], table_Field[2]);
 		}
 	}
 	

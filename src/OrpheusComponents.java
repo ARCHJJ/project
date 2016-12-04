@@ -47,7 +47,10 @@ abstract class OrpheusComponents {
 	protected JComboBox BankChoice;
 	
 	//! 리듬을 선택하는 콤보박스
-	protected JComboBox RhythmChoice;
+	protected JComboBox RhythmChoice1;
+	
+	//! 리듬을 선택하는 콤보박스
+	protected JComboBox RhythmChoice2;
 	
 	//! 근음을 선택하는 콤보박스
 	protected JComboBox RootChord;
@@ -140,7 +143,10 @@ abstract class OrpheusComponents {
 	protected String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
 
 	//! RhythmChoice를 구성하는 String 배열
-	protected String[] RhythmList = {"1", "2", "4"};
+	protected String[] RhythmList1 = {"1", "2", "4"};
+	
+	//! RhythmChoice를 구성하는 String 배열
+	protected String[] RhythmList2 = {"1", "2", "3", "4"};
 	
 	//! RootChord를 구성하는 String 배열
 	protected String[] RootChordList = {"C", "D", "E", "F", "G", "A", "B"};
@@ -163,10 +169,17 @@ abstract class OrpheusComponents {
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	protected InputGuitarCode Code;
 	
-	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
+	//! 미리 만들어진 드럼리듬을 테이블에 삽입하기 위한 클래스의 객체
 	protected InputDrumRhythm DrumRhythm;
 	
+	//! 미리 만들어진 드럼리듬을 재생하기 위한 객체
 	protected PlayDrumRhythm DrumPlay;
+	
+	//! 미리 만들어진 드럼리듬을 테이블에 삽입하기 위한 클래스의 객체
+	protected InputBassRhythm BassRhythm;
+	
+	//! 미리 만들어진 드럼리듬을 실행하기 위한 클래스의 객체
+	protected PlayBassRhythm BassPlay;
 	
 	//! 뱅크미리듣기를 위한 객체
 	protected Play bankPlay;
@@ -241,9 +254,13 @@ abstract class OrpheusComponents {
 		BankChoice.setBounds(12, 83, 100, 25);
 		contentPane.add(BankChoice);
 		
-		RhythmChoice = new JComboBox(RhythmList);
-		RhythmChoice.setBounds(238, 83, 100, 25);
-		contentPane.add(RhythmChoice);
+		RhythmChoice1 = new JComboBox(RhythmList1);
+		RhythmChoice1.setBounds(238, 83, 100, 25);
+		contentPane.add(RhythmChoice1);
+		
+		RhythmChoice2 = new JComboBox(RhythmList2);
+		RhythmChoice2.setBounds(238, 120, 100, 25);
+		contentPane.add(RhythmChoice2);
 		
 		RootChord = new JComboBox(RootChordList);
 		RootChord.setBounds(464, 83, 100, 25);
@@ -279,6 +296,13 @@ abstract class OrpheusComponents {
 		keyboardPlay.setVisible(false);
 		Code = new InputGuitarCode(files.getGuitarCode());
 		DrumRhythm = new InputDrumRhythm();
+		DrumPlay = new PlayDrumRhythm();
+		
+		BassRhythm =  new InputBassRhythm();
+		BassPlay = new PlayBassRhythm();
+		
+		save = new SaveScore();
+		open = new OpenScore();
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STB = new BeatField[4];
