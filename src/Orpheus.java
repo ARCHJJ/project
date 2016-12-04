@@ -479,10 +479,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		
 		else
 		{
-			BassPlay.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()), RestTimeSetup.result);
-			
-			bankPlay.setBank(BassPlay.play_Rhythm(RhythmChoice2.getSelectedIndex()), files.getSoundClips(3));
-			bankPlay.action();
+			if(BeatSet.getSelectedIndex() > 3)
+				JOptionPane.showMessageDialog(null, "지원하지 않는 박자입니다.");
+			else
+			{
+				BassPlay.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()), RestTimeSetup.result);
+				
+				bankPlay.setBank(BassPlay.play_Rhythm(RhythmChoice2.getSelectedIndex()), files.getSoundClips(3));
+				bankPlay.action();
+			}
 		}
 	}
 	
@@ -502,8 +507,13 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		
 		else
 		{
-			BassRhythm.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()));
-			BassRhythm.inputBass(RhythmChoice2.getSelectedIndex(), STF[3], STB[3], table_Field[2]);
+			if(BeatSet.getSelectedIndex() > 3)
+				JOptionPane.showMessageDialog(null, "지원하지 않는 박자입니다.");
+			else
+			{
+				BassRhythm.setRhythm(files.getBassRhythm(BeatSet.getSelectedIndex()));
+				BassRhythm.inputBass(RhythmChoice2.getSelectedIndex(), STF[3], STB[3], table_Field[2]);
+			}
 		}
 	}
 	
