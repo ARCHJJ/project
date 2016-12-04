@@ -13,10 +13,18 @@ import javax.swing.JOptionPane;
  */
 public class Orpheus extends OrpheusComponents implements ActionListener, WindowListener{
 
-	private boolean isBeginner;
-	private int totalBankCount_before;
-	private String[] tmp;
+	//! 초보자용과 숙련자용을 선택하는 화면
 	private MainGate mainGate;
+	
+	//! 사용자가 초보자용을 선택했는지 숙련자용을 선택했는지 판단하는 변수, true일 때 초보자용, false 일 때 숙련자용이다.
+	private boolean isBeginner;
+	
+	//! 저장하기 버튼을 누른 시점에 총 뱅크 개수
+	private int totalBankCount_before;
+	
+	//! 버튼 이름들을 저장하기 위한 String[]
+	private String[] btnNames;
+	
 	/**
 	 * @brief 생성자
 	 * 뱅크듣기, 작업대기줄 솔로듣기, 연주시작과 UI의 스레드를 설정한다.
@@ -26,19 +34,19 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	public Orpheus(MainGate mainGate) {
 		this.mainGate = mainGate;
 		
-		bankPlay = new Play();
+		bankPlay = new Play(btn_BankListen, swtch[4]);
 		bankPlay.MuteDisable();
 		bankPlay.singleSet();
 		bankPlay.setDaemon(true);
 		bankPlay.ThreadStart();
 		
 		taskPlay = new Play[4];
-		tmp = new String[8];
+		btnNames = new String[8];
 		for(int i=0; i<4; i++)	
 		{
-			tmp[i] = btn_Solo[i].getText();
-			tmp[i+4] = "정 지("+(i+1)+")";
-			taskPlay[i] = new Play();
+			btnNames[i] = btn_Solo[i].getText();
+			btnNames[i+4] = "정 지("+(i+1)+")";
+			taskPlay[i] = new Play(btn_Solo[i], swtch[i]);
 			taskPlay[i].setDaemon(true);
 			taskPlay[i].ThreadStart();
 			
@@ -104,7 +112,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		JButton source = (JButton)e.getSource();
-		
 		switch(source.getText())
 		{
 		case "피아노" :
@@ -313,21 +320,22 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void ListenBank()
 	{
-		if(stop[4])
+		if(swtch[4].getSwtch())
 		{
-			stop[4] = false;
+			swtch[4].setFalse();
 			btn_BankListen.setText("뱅크 듣기");
 			bankPlay.standby();
 			return;
 		}
-		stop[4] = true;
-		btn_BankListen.setText("정  지");
+		
 		int BankNum = BankChoice.getSelectedIndex();
-		if(BankNum!=0)
-		{
-			bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundClips(IDX));
-			bankPlay.action();
-		}
+		if(BankNum == 0)
+			return;
+		
+		swtch[4].setTrue();
+		btn_BankListen.setText("정  지");
+		bankPlay.setBank(STF[IDX].BankList.get(BankNum), files.getSoundClips(IDX));
+		bankPlay.action();
 	}
 	
 	/**
@@ -337,15 +345,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void ListenSolo(int idx)
 	{
-		if(stop[idx])
+		if(swtch[idx].getSwtch())
 		{
-			stop[idx] = false;
-			btn_Solo[idx].setText(tmp[idx]);
+			swtch[idx].setFalse();
+			btn_Solo[idx].setText(btnNames[idx]);
 			taskPlay[idx].standby();
 			return;
 		}
-		stop[idx] = true;
-		btn_Solo[idx].setText(tmp[idx+4]);
+		swtch[idx].setTrue();
+		btn_Solo[idx].setText(btnNames[idx+4]);
 		taskPlay[idx].multySet(table_Task[idx], STF[idx].BankList, files.getSoundClips(idx), Mute[idx]);
 		taskPlay[idx].action();
 	}
@@ -356,9 +364,9 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void musicQ()
 	{
-		if(stop[5])
+		if(swtch[5].getSwtch())
 		{
-			stop[5] = false;
+			swtch[5].setFalse();
 			btn_start.setText("연주시작");
 			
 			bankPlay.standby();
@@ -367,25 +375,29 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			
 			return;
 		}
-		stop[5] = true;
+		swtch[5].setTrue();
 		btn_start.setText("연주정지");
 		int max = 0;
-		
+		int longest = 0;
 		//연주시작 메소드
 		for(int i=0; i<4; i++)
 		{
 			taskPlay[i].multySet(table_Task[i], STF[i].BankList, files.getSoundClips(i), Mute[i]);
 			
 			if(max < table_Task[i].getColumnCount())
+			{
 				max = table_Task[i].getColumnCount();
+				longest = i;
+			}
+				
 		}
 		
 		if(metronome_Check.isSelected())
 		{
-			metronome.metronomeSet(files.getMetronomeClips(), RestTimeSetup.result, RestTimeSetup.time_signature_denominator, RestTimeSetup.time_signature_numerator, max-2);
+			metronome.metronomeSet(files.getMetronomeClips(), max-2);
 			metronome.action();
 		}
-
+		taskPlay[longest].setLongestTask(btn_start, swtch[5]);
 		for(int i=0; i<4; i++)
 			taskPlay[i].action();
 	}
@@ -451,8 +463,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void openScore()
 	{
-			open.open_Score(BeatSet, BPMSet, STF, STT, table_Task);
-			RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		open.open_Score(BeatSet, BPMSet, STF, STT, table_Task);
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 	}
 	
 	/**
@@ -484,6 +496,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		setField(0);
 		isSave = false;
 		totalBankCount = totalBankCount_before = 0;
+		BankChoice.removeAllItems();
 		mainFrame.setVisible(false);
 		mainGate.setVisible(true);
 	}

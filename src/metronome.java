@@ -8,9 +8,6 @@ class Metronome implements Runnable
 	//!	스레드로 동작한다.
 	private Thread thread;
 	
-	//!	메인 UI
-	private Orpheus ui;
-	
 	//!	소리파일을 재생하기 위한 객체
 	private Clip MetronomeClip;
 
@@ -28,11 +25,9 @@ class Metronome implements Runnable
 	
 	/**
 	 * @brief 생성자. 스레드를 생성한다.
-	 * @param Orpheus ui
 	 */
-	public Metronome(Orpheus ui)
+	public Metronome()
 	{
-		this.ui = ui;
 		thread = new Thread(this);
 	}
 	
@@ -68,15 +63,17 @@ class Metronome implements Runnable
 	 * @param File metronome_Sound					: 재생할 소리가 저장되어 있는 File
 	 * @param int max								: 작업대기줄의 가장 긴 뱅크 길이
 	 */
-	public void metronomeSet(Clip metronome_Sound, int result, int time_signature_denominator, int time_signature_numerator, int max)
+	public void metronomeSet(Clip metronome_Sound, int max)
 	{
 		MetronomeClip = metronome_Sound;
 		
-		time = (result*(32/time_signature_denominator));
-		
+		time = (RestTimeSetup.result * (32/RestTimeSetup.time_signature_denominator));
+		time_signature = RestTimeSetup.time_signature_numerator; 
 		music_score = max;
 		
-		time_signature = time_signature_numerator;
+//		time = (result*(32/time_signature_denominator));
+//		music_score = max;
+//		time_signature = time_signature_numerator;
 	}
 
 	/**

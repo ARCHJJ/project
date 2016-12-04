@@ -190,11 +190,12 @@ abstract class OrpheusComponents {
 	//! 저장여부를 묻는 창을 띄우는 조건으로 사용될 변수
 	protected boolean isSave;
 	
-	//! 버튼의 중복클릭을 판단하기 위한 boolean[]
-	protected boolean[] stop;
+	//! 버튼의 중복클릭을 판단하기 위한 클래스
+	protected Swtch[] swtch;
 	
 	//! 버튼에 이미지를 삽입하기 위한 icon[]
 	private ImageIcon[] icon;
+	
 	/**
 	 * @brief 생성자
 	 * 사용할 컴포넌트를 할당하고 위치를 설정한다. 
@@ -278,8 +279,7 @@ abstract class OrpheusComponents {
 		table_Task = new JTable[4];
 		scrollPane_Task = new JScrollPane[4];
 		btn_Solo = new JButton[4];
-		//0 : table_Kind, 1 : table_Beat, 2: table_Field
-		table_Field = new JTable[3];
+		table_Field = new JTable[3]; //0 : table_Kind, 1 : table_Beat, 2: table_Field
 		scrollPane_Field = new JScrollPane[3];
 		String[] instruments = {"피아노", "드럼", "기타", "베이스"};
 		
@@ -452,12 +452,14 @@ abstract class OrpheusComponents {
 		btn_OpenScore.setBounds(681, 252, 97, 23);
 		contentPane.add(btn_OpenScore);
 		
-		stop = new boolean[6];
-		//stop[0] = 피아노솔로
-		//stop[1] = 드럼솔로
-		//stop[2] = 기타솔로
-		//stop[3] = 베이스솔로
-		//stop[4] = 뱅크듣기
-		//stop[5] = 연주시작
+		swtch = new Swtch[6];
+		for(int i=0; i<6; i++)
+			swtch[i] = new Swtch();
+		//swtch[0] = 피아노솔로
+		//swtch[1] = 드럼솔로
+		//swtch[2] = 기타솔로
+		//swtch[3] = 베이스솔로
+		//swtch[4] = 뱅크듣기
+		//swtch[5] = 연주시작
 	}
 }

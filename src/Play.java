@@ -1,5 +1,6 @@
 import java.util.LinkedList;
 import javax.sound.sampled.Clip;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
@@ -13,14 +14,16 @@ class Play extends PlayComponents
 	/**
 	 * @brief 생성자. 스레드를 생성한다.
 	 */
-	
-	public Play()
+	public Play(JButton btn_play, Swtch swtch_play)
 	{
 		thread = new Thread(this);
 		noise = new LinkedList<Clip>();
+		
 		standby = false;
+		this.swtch_play = swtch_play;
+		this.btn_play = btn_play;
+		btnName = btn_play.getText();
 	}
-	
 	/**
 	 * @brief 재생할 뱅크를 세팅한다.
 	 * @param LinkedList<Note> playlist	: 음과 쉬는시간이 저장되어 있는 LinkedList
@@ -81,6 +84,12 @@ class Play extends PlayComponents
 	public void singleSet()
 	{
 		singleplay = true;
+	}
+	
+	public void setLongestTask(JButton btn_musicQ, Swtch swtch_musicQ)
+	{
+		this.btn_musicQ = btn_musicQ;
+		this.swtch_musicQ = swtch_musicQ;
 	}
 	
 	/**
@@ -161,28 +170,34 @@ class Play extends PlayComponents
 				{
 					wait();
 				}
-			}
-			catch(InterruptedException ie) { ie.printStackTrace(); }
 			
-			if(singleplay)
-				single();
-				
-			else
-			{
-				int bankidx = 0;
-				boolean isStop = true;
-				JComboBox selectBank;
-				for(int i=1; i<table_Task.getModel().getColumnCount()&&isStop; i++)
+				if(singleplay)
+					single();
+					
+				else
 				{
-					selectBank = (JComboBox)table_Task.getValueAt(0, i);
-					bankidx = selectBank.getSelectedIndex();
-					if(bankidx!=0)
+					int bankidx = 0;
+					boolean isStop = true;
+					JComboBox selectBank;
+					for(int i=1; i<table_Task.getModel().getColumnCount()&&isStop; i++)
 					{
-						setBank(BankList.get(bankidx), SoundClips);
-						isStop = single();
+						selectBank = (JComboBox)table_Task.getValueAt(0, i);
+						bankidx = selectBank.getSelectedIndex();
+						if(bankidx!=0)
+						{
+							setBank(BankList.get(bankidx), SoundClips);
+							isStop = single();
+						}
 					}
 				}
+				btn_play.setText(btnName);
+				swtch_play.setFalse();
+				
+				btn_musicQ.setText("연주시작");
+				swtch_musicQ.setFalse();
 			}
+			catch(NullPointerException ne) { continue; } 
+			catch(InterruptedException ie) { ie.printStackTrace(); }
 		}
 	}
 }

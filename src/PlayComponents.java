@@ -2,6 +2,7 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import javax.sound.sampled.Clip;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JTable;
 
@@ -34,6 +35,21 @@ abstract class PlayComponents implements Runnable {
 	
 	//! 음소거 여부를 판단하기 위한 JCheckBox
 	protected JCheckBox mute;
+	
+	//! 솔로연주가 끝나면 버튼의 이름을 원래대로 되돌리기 위한 JButton 
+	protected JButton btn_play;
+	
+	//! 연주시작 버튼의 이름을 원래대로 되돌리기 위한 JButton
+	protected JButton btn_musicQ;
+
+	//! 솔로연주가 끝나면 버튼의 이름을 원래대로 되돌리기 위한 클래스
+	protected Swtch swtch_play;
+	
+	//! 솔로연주가 끝나면 버튼의 이름을 원래대로 되돌리기 위한 클래스
+	protected Swtch swtch_musicQ;
+	
+	//! 버튼의 이름을 저장하기 위한 변수
+	protected String btnName;
 	
 	//! 재생할 소리가 저장되어 있는 Clip[][]
 	protected Clip[][] SoundClips;
