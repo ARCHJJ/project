@@ -1,3 +1,5 @@
+import java.util.LinkedList;
+
 import javax.sound.sampled.Clip;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
@@ -33,166 +35,128 @@ public class PlayDrumRhythm {
 	
 	/**
 	 * @brief 테이블에 선택한 리듬을 재생한다.
-	 * @param SettingToField STF	: 드럼의 음이 저장된 객체
 	 * @param int x					: 선택한 박자
 	 * @param int y					: 선택한 리듬
 	 */
-	public void play_Rhythm(Clip Drum_Sound[][], int x, int y) 
+	public LinkedList<Note> play_Rhythm(int x, int y) 
 	{
+		LinkedList<Note> itbank = new LinkedList<Note>();
+		Note itnote = new Note();
+		
 		switch(x)
 		{
 		case 0 :
 		case 1 :
 		case 2 :
 		case 3 :
-			SimpleTimeSignatures(Drum_Sound, y);
+			SimpleTimeSignatures(itbank, y);
 			break;
 		case 5 :
 		case 6 :
 		case 7 :
-			CompoundTimeSignatures(Drum_Sound, x, y);
+			CompoundTimeSignatures(itbank, x, y);
 			break;
 		case 9 :
 		case 10 :
 		case 11 :
-			ComplexTimeSignatures(Drum_Sound, x, y);
+			ComplexTimeSignatures(itbank, x, y);
 			break;
 		}
+		
+		return itbank;
 	}
 	
 	/**
 	 * @brief 단순리듬.
-	 * @param SettingToField STF	: 드럼의 음이 저장된 객체
+	 * @param LinkedList<Note> itbank	: 드럼의 음이 저장될 뱅크
 	 * @param int y					: 선택한 리듬
 	 */
-	public void SimpleTimeSignatures(Clip Drum_Sound[][], int y)
+	public void SimpleTimeSignatures(LinkedList<Note> itbank, int y)
 	{
-		int result = (32/(denominator*y))*thirty_second_note;
 		
-		try
+		int result = (32/(denominator*y))*thirty_second_note;
+
+		for(int i = 0; i < numerator*y; i++)
 		{
-			for(int i = 0; i < numerator*y; i++)
+			Note itnote = new Note();
+			itnote.rest = result;
+			
+			if(i == 0)
 			{
-				if(i == 0)
-				{
-					Drum_Sound[0][0].setFramePosition(0);
-					Drum_Sound[0][0].start();
-				}
-				
-				else if(i%(2*y) == 0)
-				{
-					Drum_Sound[0][2].setFramePosition(0);
-					Drum_Sound[0][2].start();
-
-				}
-				
-				Drum_Sound[0][1].setFramePosition(0);
-				Drum_Sound[0][1].start();
-				
-				Thread.sleep(result-10);
-				
-				Drum_Sound[0][0].stop();
-
-				Drum_Sound[0][2].stop();				
-
-				Drum_Sound[0][1].stop();
-				
-				Thread.sleep(10);
-	
+				itnote.fileidx.add(0);
 			}
+				
+			else if(i%(2*y) == 0)
+			{
+				itnote.fileidx.add(2);
+			}
+			
+			itnote.fileidx.add(1);
+
+			itbank.add(itnote);
 		}
 		
-		catch(InterruptedException ie) { ie.printStackTrace(); }
 	}
 	
 	/**
 	 * @brief 복합리듬.
-	 * @param SettingToField STF	: 드럼의 음이 저장된 객체
+	 * @param LinkedList<Note> itbank	: 드럼의 음이 저장될 뱅크
 	 * @param int y					: 선택한 리듬
 	 */
-	public void CompoundTimeSignatures(Clip Drum_Sound[][], int x, int y)
+	public void CompoundTimeSignatures(LinkedList<Note> itbank, int x, int y)
 	{
 		int result = (32/(denominator*y))*thirty_second_note;
 		
-		try
+		for(int i = 0; i < numerator*y; i++)
 		{
-			for(int i = 0; i < numerator*y; i++)
+			Note itnote = new Note();
+			itnote.rest = result;
+				
+			if(i == 0)
 			{
-				if(i == 0)
-				{
-					Drum_Sound[0][0].setFramePosition(0);
-					Drum_Sound[0][0].start();
-				}
-				
-				else if(i%(3*y) == 0)
-				{
-					Drum_Sound[0][2].setFramePosition(0);
-					Drum_Sound[0][2].start();
-
-				}
-				
-				Drum_Sound[0][1].setFramePosition(0);
-				Drum_Sound[0][1].start();
-				
-				Thread.sleep(result-10);
-				
-				Drum_Sound[0][0].stop();
-
-				Drum_Sound[0][2].stop();				
-
-				Drum_Sound[0][1].stop();
-				
-				Thread.sleep(10);
-	
+				itnote.fileidx.add(0);
 			}
+				
+			else if(i%(3*y) == 0)
+			{
+				itnote.fileidx.add(2);
+			}
+				
+			itnote.fileidx.add(1);
+	
+			itbank.add(itnote);
 		}
-		
-		catch(InterruptedException ie) { ie.printStackTrace(); }
 	}
 	
 	/**
 	 * @brief 혼합리듬.
-	 * @param SettingToField STF	: 드럼의 음이 저장된 객체
+	 * @param LinkedList<Note> itbank	: 드럼의 음이 저장될 뱅크
 	 * @param int y					: 선택한 리듬
 	 */
-	public void ComplexTimeSignatures(Clip Drum_Sound[][], int x, int y)
+	public void ComplexTimeSignatures(LinkedList<Note> itbank, int x, int y)
 	{
 		int result = (32/(denominator*y))*thirty_second_note;
 		
-		try
+		for(int i = 0; i < numerator*y; i++)
 		{
-			for(int i = 0; i < numerator*y; i++)
+			Note itnote = new Note();
+			itnote.rest = result;
+			
+			if(i == 0)
 			{
-				if(i == 0)
-				{
-					Drum_Sound[0][0].setFramePosition(0);
-					Drum_Sound[0][0].start();
-				}
-				
-				else if((i < (numerator*y)-1) && (i%(2*y) == 0))
-				{
-					Drum_Sound[0][2].setFramePosition(0);
-					Drum_Sound[0][2].start();
-
-				}
-				
-				Drum_Sound[0][1].setFramePosition(0);
-				Drum_Sound[0][1].start();
-				
-				Thread.sleep(result-10);
-				
-				Drum_Sound[0][0].stop();
-
-				Drum_Sound[0][2].stop();				
-
-				Drum_Sound[0][1].stop();
-				
-				Thread.sleep(10);
-	
+				itnote.fileidx.add(0);
 			}
+				
+			else if((i < (numerator*y)-1) && (i%(2*y) == 0))
+			{
+				itnote.fileidx.add(2);
+			}
+			
+			itnote.fileidx.add(1);
+			
+			itbank.add(itnote);
 		}
-		
-		catch(InterruptedException ie) { ie.printStackTrace(); }
+
 	}
 
 }

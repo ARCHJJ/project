@@ -205,7 +205,12 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
 		
 		DrumPlay.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator, RestTimeSetup.result);
-		DrumPlay.play_Rhythm(files.getSoundClips(1), BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem()));
+
+		bankPlay.setBank(DrumPlay.play_Rhythm(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem())), files.getSoundClips(1));
+		bankPlay.action();
+		
+		
+		
 	}
 	
 	/**

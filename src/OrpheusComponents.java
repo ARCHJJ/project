@@ -461,12 +461,13 @@ abstract class OrpheusComponents {
 		btn_OpenScore.setBounds(681, 252, 97, 23);
 		contentPane.add(btn_OpenScore);
 		
-		stop = new boolean[6];
+		stop = new boolean[7];
 		//stop[0] = 피아노솔로
 		//stop[1] = 드럼솔로
 		//stop[2] = 기타솔로
 		//stop[3] = 베이스솔로
 		//stop[4] = 뱅크듣기
 		//stop[5] = 연주시작
+		//stop[6] = 리듬 듣기
 	}
 }
