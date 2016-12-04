@@ -104,6 +104,8 @@ class Play extends PlayComponents
 	 */
 	public boolean single()
 	{
+		int rest_tiem;
+		
 		try
 		{	
 			itNote = playlist.iterator();
@@ -124,8 +126,15 @@ class Play extends PlayComponents
 						clip.start();
 					}
 				}
-				Thread.sleep(temp.rest);
+				Thread.sleep(temp.rest-12);
+				
+				rest_tiem = 12;
+				rest_tiem -= noise.size();
+		
 				removeNoise();
+				Thread.sleep(rest_tiem);
+				
+				
 			}
 		}
 		catch(InterruptedException ie) { ie.printStackTrace(); }

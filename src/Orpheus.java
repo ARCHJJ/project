@@ -512,8 +512,27 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			sav = JOptionPane.showConfirmDialog(null, "작업하던 내용을 저장하시겠습니까?", "저장", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(sav == 0)
 			{
-				save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-				save.save_Score(STF, table_Task);
+				final JFileChooser fc = new JFileChooser();   
+				
+			    File file;
+			    
+			    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+			    {
+			    	file = fc.getSelectedFile();
+			    	
+			    	save.setFile(file);
+			    	save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+					save.save_Score(STF, table_Task);
+					isSave = true;
+					totalBankCount_before = totalBankCount;
+					
+					JOptionPane.showMessageDialog(null, "저장완료!");
+			    }
+			    else  
+			    {
+			    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			    	return;
+			    }
 			}
 		}
 		
