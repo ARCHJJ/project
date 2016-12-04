@@ -39,6 +39,19 @@ public class SaveScore {
 	//! Save 파일에 출력하기 위한 문자 배열
 	protected String[] BankKind = {"Keyboard", "Drum", "Guitar", "Base"};
 	
+	//! 저장할 파일을 만들기 위한 객체
+	protected File file;
+		
+	
+	/**
+	 * @brief 저장 될 파일을 불러온다.
+	 * @param File file		: 저장될 파일
+	 */
+	public void setFile(File file)
+	{
+		this.file = file;
+	}
+	
 	/**
 	 * @brief 현재 설정된 박자와 속도를 셋팅한다.
 	 * @param String BPMSet		: 설정된 속도
@@ -58,19 +71,6 @@ public class SaveScore {
 	 */
 	public void save_Score(SettingToField STF[], JTable table_Task[])
 	{
-		final JFileChooser fc = new JFileChooser();
-		
-	    File file;
-	    
-	    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
-	    	file = fc.getSelectedFile();
-	    
-	    else  
-	    {
-	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
-	    	return;
-	    }
-		
 		try 
 		{	
 			

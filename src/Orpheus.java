@@ -2,9 +2,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 @SuppressWarnings({ "unchecked" })
 
@@ -457,12 +459,28 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void saveScore()
 	{
-		save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-		save.save_Score(STF, table_Task);
-		isSave = true;
-		totalBankCount_before = totalBankCount;
+		final JFileChooser fc = new JFileChooser();   
 		
-		JOptionPane.showMessageDialog(null, "저장완료!");
+	    File file;
+	    
+	    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+	    {
+	    	file = fc.getSelectedFile();
+	    	
+	    	save.setFile(file);
+	    	save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+			save.save_Score(STF, table_Task);
+			isSave = true;
+			totalBankCount_before = totalBankCount;
+			
+			JOptionPane.showMessageDialog(null, "저장완료!");
+	    }
+	    else  
+	    {
+	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+		
 	}
 	
 	/**
