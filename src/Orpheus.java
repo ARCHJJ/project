@@ -2,9 +2,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.io.File;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 @SuppressWarnings({ "unchecked" })
 
@@ -33,7 +35,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public Orpheus(MainGate mainGate) {
 		this.mainGate = mainGate;
-		
 		bankPlay = new Play(btn_BankListen, swtch[4]);
 		bankPlay.MuteDisable();
 		bankPlay.singleSet();
@@ -60,6 +61,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		save = new SaveScore();
 		open = new OpenScore();
 		
+		DrumPlay = new PlayDrumRhythm();
+		
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
@@ -78,6 +81,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_SaveScore.addActionListener(this);
 		btn_OpenScore.addActionListener(this);
 		btn_RhythmInsert.addActionListener(this);
+		btn_RhythmListen.addActionListener(this);
 		btn_Solo[0].addActionListener(this);
 		btn_Solo[1].addActionListener(this);
 		btn_Solo[2].addActionListener(this);
@@ -191,7 +195,25 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		case "리듬 입력":
 			inputrhythm();
 			break;
+		case "리듬 듣기":
+			playrhythm();
+			break;
 		}
+	}
+	
+	/**
+	 * @throws InterruptedException 
+	 * @throws NumberFormatException 
+	 * @brief 드럼, 베이스의 리듬을 출력한다.
+	 */
+	public void playrhythm()
+	{
+		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		
+		DrumPlay.setBeat(RestTimeSetup.time_signature_numerator, RestTimeSetup.time_signature_denominator, RestTimeSetup.result);
+
+		bankPlay.setBank(DrumPlay.play_Rhythm(BeatSet.getSelectedIndex(), Integer.parseInt((String) RhythmChoice.getSelectedItem())), files.getSoundClips(1));
+		bankPlay.action();
 	}
 	
 	/**
@@ -450,12 +472,28 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void saveScore()
 	{
-		save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-		save.save_Score(STF, table_Task);
-		isSave = true;
-		totalBankCount_before = totalBankCount;
+		final JFileChooser fc = new JFileChooser();   
 		
-		JOptionPane.showMessageDialog(null, "저장완료!");
+	    File file;
+	    
+	    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+	    {
+	    	file = fc.getSelectedFile();
+	    	
+	    	save.setFile(file);
+	    	save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+			save.save_Score(STF, table_Task);
+			isSave = true;
+			totalBankCount_before = totalBankCount;
+			
+			JOptionPane.showMessageDialog(null, "저장완료!");
+	    }
+	    else  
+	    {
+	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+	    	return;
+	    }
+		
 	}
 	
 	/**
@@ -482,8 +520,27 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			sav = JOptionPane.showConfirmDialog(null, "작업하던 내용을 저장하시겠습니까?", "저장", JOptionPane.OK_CANCEL_OPTION, JOptionPane.INFORMATION_MESSAGE);
 			if(sav == 0)
 			{
-				save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
-				save.save_Score(STF, table_Task);
+				final JFileChooser fc = new JFileChooser();   
+				
+			    File file;
+			    
+			    if (fc.showSaveDialog(null) == JFileChooser.APPROVE_OPTION)
+			    {
+			    	file = fc.getSelectedFile();
+			    	
+			    	save.setFile(file);
+			    	save.setBeat(BPMSet.getText(), BeatSet.getSelectedIndex());
+					save.save_Score(STF, table_Task);
+					isSave = true;
+					totalBankCount_before = totalBankCount;
+					
+					JOptionPane.showMessageDialog(null, "저장완료!");
+			    }
+			    else  
+			    {
+			    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
+			    	return;
+			    }
 			}
 		}
 		

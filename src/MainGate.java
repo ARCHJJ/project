@@ -5,6 +5,7 @@ import javax.swing.JFrame;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
@@ -39,6 +40,7 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 	 * 사용할 컴포넌트를 할당하고 위치를 지정한다.
 	 */
 	public MainGate() {
+		setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));
 //		try
 //		{
 //			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
@@ -48,11 +50,10 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 //		}
 //		catch(Exception e) { e.printStackTrace(); }
 		MainProgram = new Orpheus(this);
-		setTitle("난이도를 선택해주세요.");
+		setTitle("Orpheus / 난이도를 선택해주세요.");
 		setPreferredSize(new Dimension(970, 360));
 		setLocation(100,100);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		
 		contentPane = getContentPane();
 		contentPane.setLayout(new GridLayout(1,2));
 		

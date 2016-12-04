@@ -166,6 +166,8 @@ abstract class OrpheusComponents {
 	//! 미리 만들어진 코드를 테이블에 삽입하기 위한 클래스의 객체
 	protected InputDrumRhythm DrumRhythm;
 	
+	protected PlayDrumRhythm DrumPlay;
+	
 	//! 뱅크미리듣기를 위한 객체
 	protected Play bankPlay;
 	
@@ -186,6 +188,9 @@ abstract class OrpheusComponents {
 	
 	//! 총 뱅크 갯수
 	protected int totalBankCount;
+	
+	//! 예외처리 BPM
+	protected IntegerDocument IdBPM;
 	
 	//! 저장여부를 묻는 창을 띄우는 조건으로 사용될 변수
 	protected boolean isSave;
@@ -253,9 +258,13 @@ abstract class OrpheusComponents {
 		lbl_SelectBPM.setBounds(576, 45, 57, 25);
 		contentPane.add(lbl_SelectBPM);
 		
-		BPMSet = new JTextField("100");
+		IdBPM = new IntegerDocument();
+		
+		BPMSet = new JTextField();
 		BPMSet.setFont(PureGothic12);
 		BPMSet.setBounds(627, 48, 50, 23);
+		BPMSet.setDocument(IdBPM);
+		BPMSet.setText("100");
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("메트로놈");
@@ -451,7 +460,7 @@ abstract class OrpheusComponents {
 		btn_OpenScore.setFont(PureGothic12);
 		btn_OpenScore.setBounds(681, 252, 97, 23);
 		contentPane.add(btn_OpenScore);
-		
+
 		swtch = new Swtch[6];
 		for(int i=0; i<6; i++)
 			swtch[i] = new Swtch();
