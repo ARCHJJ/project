@@ -223,7 +223,7 @@ abstract class OrpheusComponents {
 	 */
 	public OrpheusComponents() {
 		mainFrame = new JFrame();
-		mainFrame.setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
+		mainFrame.setTitle("오르페우스 ver.1.0 (by. 디오니소스님)");
 		mainFrame.setForeground(Color.WHITE);
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		mainFrame.setBounds(100, 20, 800, 768);
