@@ -6,6 +6,7 @@ import java.io.File;
 
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
+import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 @SuppressWarnings({ "unchecked" })
@@ -61,7 +62,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		isSave = false;
 		totalBankCount = 0;
 		totalBankCount_before = 0;
-			
+		
+		BeatSet.addActionListener(this);
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
@@ -110,90 +112,98 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		JButton source = (JButton)e.getSource();
-		switch(source.getText())
+		int beatsetIDX = BeatSet.getSelectedIndex();
+		if(beatsetIDX == 4 || beatsetIDX == 8)
+			BeatSet.setSelectedIndex(beatsetIDX+1);
+		
+		try
 		{
-		case "피아노" :
-			setField(0);
-			break;
+			JButton source = (JButton)e.getSource();
+			switch(source.getText())
+			{
+			case "피아노" :
+				setField(0);
+				break;
+				
+			case "드럼" :
+				setField(1);
+				break;
+				
+			case "기타" :
+				setField(2);
+				break;
+				
+			case "베이스" :
+				setField(3);
+				break;
+				
+			case "뱅크 저장":
+				saveBank();
+				break;
 			
-		case "드럼" :
-			setField(1);
-			break;
+			case "뱅크 듣기":
+			case "정  지":
+				ListenBank();
+				break;
 			
-		case "기타" :
-			setField(2);
-			break;
-			
-		case "베이스" :
-			setField(3);
-			break;
-			
-		case "뱅크 저장":
-			saveBank();
-			break;
-		
-		case "뱅크 듣기":
-		case "정  지":
-			ListenBank();
-			break;
-		
-		case "피아노솔로":
-		case "정 지(1)":
-			ListenSolo(0);
-			break;
-			
-		case "드럼솔로":
-		case "정 지(2)":
-			ListenSolo(1);
-			break;
-			
-		case "기타솔로":
-		case "정 지(3)":
-			ListenSolo(2);
-			break;
-			
-		case "베이스솔로":
-		case "정 지(4)":
-			ListenSolo(3);
-			break;
-			
-		case "연주시작":
-		case "연주정지":
-			musicQ();
-			break;
-			
-		case "지우기":
-			init();
-			break;
-			
-		case "코드 입력":
-			inputCode();
-			break;
-			
-		case "코드 듣기":
-			playCode();
-			break;
-			
-		case "키보드연주":
-			keyboardPlay.setVisible(true);
-			break;
-			
-		case "파일 저장":
-			saveScore();
-			break;
-			
-		case "파일 열람":
-			openScore();
-			break;
-			
-		case "리듬 입력":
-			inputrhythm();
-			break;
-		case "리듬 듣기":
-			playrhythm();
-			break;
+			case "피아노솔로":
+			case "정 지(1)":
+				ListenSolo(0);
+				break;
+				
+			case "드럼솔로":
+			case "정 지(2)":
+				ListenSolo(1);
+				break;
+				
+			case "기타솔로":
+			case "정 지(3)":
+				ListenSolo(2);
+				break;
+				
+			case "베이스솔로":
+			case "정 지(4)":
+				ListenSolo(3);
+				break;
+				
+			case "연주시작":
+			case "연주정지":
+				musicQ();
+				break;
+				
+			case "지우기":
+				init();
+				break;
+				
+			case "코드 입력":
+				inputCode();
+				break;
+				
+			case "코드 듣기":
+				playCode();
+				break;
+				
+			case "키보드연주":
+				keyboardPlay.setVisible(true);
+				break;
+				
+			case "파일 저장":
+				saveScore();
+				break;
+				
+			case "파일 열람":
+				openScore();
+				break;
+				
+			case "리듬 입력":
+				inputrhythm();
+				break;
+			case "리듬 듣기":
+				playrhythm();
+				break;
+			}
 		}
+		catch(ClassCastException ce){ return; }
 	}
 	
 	/**
@@ -272,7 +282,6 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			
 			break;
 		}
-		
 		IDX = idx;
 	}
 

@@ -140,7 +140,7 @@ abstract class OrpheusComponents {
 	protected SaveBank[] Bank;
 
 	//! BeatSet을 구성하는 String 배열
-	protected String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "-----", "7/4", "11/4", "5/4"};
+	protected String[] BeatList = {"2/2", "2/4", "3/4", "4/4", "-----", "6/8", "9/8", "12/8", "----- ", "7/4", "11/4", "5/4"};
 
 	//! RhythmChoice를 구성하는 String 배열
 	protected String[] RhythmList1 = {"1", "2", "4"};
@@ -224,7 +224,7 @@ abstract class OrpheusComponents {
 		mainFrame.setForeground(Color.WHITE);
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setBounds(100, 20, 800, 820);
+		mainFrame.setBounds(100, 20, 800, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -285,9 +285,9 @@ abstract class OrpheusComponents {
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("메트로놈");
-		metronome_Check.setBounds(12, 737, 97, 23);
+		metronome_Check.setBounds(681, 22, 97, 23);
 		metronome_Check.setBackground(SystemColor.window);
-		metronome_Check.setFont(PureGothic12);
+		metronome_Check.setFont(PureGothic14);
 		contentPane.add(metronome_Check);
 		
 		//FileOpen
@@ -422,19 +422,19 @@ abstract class OrpheusComponents {
 		btn_start = new JButton("연주시작");
 		btn_start.setBackground(bgcolor);
 		btn_start.setFont(HumanRoundHeadLine12);
-		btn_start.setBounds(356, 737, 99, 33);
+		btn_start.setBounds(681, 244, 97, 33);
 		contentPane.add(btn_start);
 		
 		btn_erase = new JButton("지우기");
 		btn_erase.setBackground(bgcolor);
 		btn_erase.setFont(HumanRoundHeadLine12);
-		btn_erase.setBounds(467, 737, 99, 33);
+		btn_erase.setBounds(681, 304, 97, 33);
 		contentPane.add(btn_erase);
 	
 		btn_KeyboardPlay = new JButton("키보드연주");
 		btn_KeyboardPlay.setBackground(bgcolor);
 		btn_KeyboardPlay.setFont(HumanRoundHeadLine12);
-		btn_KeyboardPlay.setBounds(578, 737, 100, 33);
+		btn_KeyboardPlay.setBounds(681, 364, 97, 33);
 		contentPane.add(btn_KeyboardPlay);
 
 		btn_BankSave = new JButton("뱅크 저장");
@@ -476,13 +476,13 @@ abstract class OrpheusComponents {
 		btn_SaveScore = new JButton("파일 저장");
 		btn_SaveScore.setBackground(SystemColor.window);
 		btn_SaveScore.setFont(PureGothic12);
-		btn_SaveScore.setBounds(681, 222, 97, 23);
+		btn_SaveScore.setBounds(681, 155, 97, 23);
 		contentPane.add(btn_SaveScore);
 		
 		btn_OpenScore = new JButton("파일 열람");
 		btn_OpenScore.setBackground(SystemColor.window);
 		btn_OpenScore.setFont(PureGothic12);
-		btn_OpenScore.setBounds(681, 252, 97, 23);
+		btn_OpenScore.setBounds(681, 188, 97, 23);
 		contentPane.add(btn_OpenScore);
 
 		swtch = new Swtch[6];
