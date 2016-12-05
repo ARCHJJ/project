@@ -28,7 +28,7 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
-//		btn_SelectToBase.addActionListener(this);
+		btn_SelectToBase.addActionListener(this);
 		
 		MakeModel();
 		setModel(0);
@@ -66,7 +66,7 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 				{ {"입력", "A", "W", "S", "E", "D", "F", "T", "H", "U", "J", "I", "K", "L"}
 				 ,{"입력", "A", "S", "D", "F", "H", "J", "K"}
 				 ,{"입력", "A", "S", "D", "F", "H", "J", "K"}
-				 ,{"입력"}
+				 ,{"입력", "A", "S", "D", "F", "H", "J", "K"}
 				};
 		
 		
@@ -74,7 +74,7 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 		ChildField[0] = new Object[][]{{"연주", "도", "도#", "레", "레#", "미", "파", "파#", "솔", "솔#", "라", "라#", "시", "도"}};
 		ChildField[1] = new Object[][]{{"연주", "베이스", "하이헷", "스네어", "라이드", "크래시", "스몰탐", "하이탐"}};
 		ChildField[2] = new Object[][]{{"연주", "M", "m", "7", "M7", "m7", "sus4", "dim"}};
-		ChildField[3] = new Object[][]{{"연주"}};		
+		ChildField[3] = new Object[][]{{"연주", "C", "D", "E", "F", "G", "A", "B"}};		
 	}
 	/**
 	 * @brief 버튼에 따라  table_RootChord, table_ChildChord를 다르게 세팅한다.
@@ -282,31 +282,31 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			return;
 			
 		case 'a':
-			tones = files.getGuitarCode()[guitarRoot][0];
+			tones = files.getCode(2)[guitarRoot][0];
 			lbl_showTone.setText("M");
 			break;
 		case 's':
-			tones = files.getGuitarCode()[guitarRoot][1];
+			tones = files.getCode(2)[guitarRoot][1];
 			lbl_showTone.setText("m");
 			break;
 		case 'd':
-			tones = files.getGuitarCode()[guitarRoot][2];
+			tones = files.getCode(2)[guitarRoot][2];
 			lbl_showTone.setText("7");
 			break;
 		case 'f':
-			tones = files.getGuitarCode()[guitarRoot][3];
+			tones = files.getCode(2)[guitarRoot][3];
 			lbl_showTone.setText("M7");
 			break;
 		case 'h':
-			tones = files.getGuitarCode()[guitarRoot][4];
+			tones = files.getCode(2)[guitarRoot][4];
 			lbl_showTone.setText("m7");
 			break;
 		case 'j':
-			tones = files.getGuitarCode()[guitarRoot][5];
+			tones = files.getCode(2)[guitarRoot][5];
 			lbl_showTone.setText("sus4");
 			break;
 		case 'k':
-			tones = files.getGuitarCode()[guitarRoot][6];
+			tones = files.getCode(2)[guitarRoot][6];
 			lbl_showTone.setText("dim");
 			break;
 		default:
@@ -320,6 +320,57 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 			if(ch!='x')
 			{
 				clip = files.getSoundClips(2)[i][(int)ch-48];
+				clip.setFramePosition(0);
+				clip.start();
+			}
+		}
+	}
+	
+	public void Bass()
+	{
+		String tones;		
+	
+		switch(keyPress)
+		{	
+		case 'a':
+			tones = files.getCode(3)[0][0];
+			lbl_showTone.setText("C");
+			break;
+		case 's':
+			tones = files.getCode(3)[1][0];
+			lbl_showTone.setText("D");
+			break;
+		case 'd':
+			tones = files.getCode(3)[2][0];
+			lbl_showTone.setText("E");
+			break;
+		case 'f':
+			tones = files.getCode(3)[3][0];
+			lbl_showTone.setText("F");
+			break;
+		case 'h':
+			tones = files.getCode(3)[4][0];
+			lbl_showTone.setText("G");
+			break;
+		case 'j':
+			tones = files.getCode(3)[5][0];
+			lbl_showTone.setText("A");
+			break;
+		case 'k':
+			tones = files.getCode(3)[6][0];
+			lbl_showTone.setText("B");
+			break;
+		default:
+			return;
+		}
+		
+		char ch;
+		for(int i=0; i<4; i++)
+		{
+			ch = tones.charAt(i);
+			if(ch!='x')
+			{
+				clip = files.getSoundClips(3)[i][(int)ch-48];
 				clip.setFramePosition(0);
 				clip.start();
 			}
@@ -344,6 +395,9 @@ class PlayToKeyboard extends PlayToKeyboardComponents implements ActionListener,
 		case 2:
 			Guitar();
 			lbl_showOctave.setText(guitarOctave[guitarRoot]);
+			break;
+		case 3:
+			Bass();
 			break;
 		}
 	}

@@ -91,6 +91,9 @@ class FileOpen {
 	//!기타 코드
 	private String[][] GuitarCode;
 	
+	//!베이스 코드
+	private String[][] BassCode;
+	
 	//!베이스 리듬
 	private String[][] BassRhythm0;
 	
@@ -186,6 +189,16 @@ class FileOpen {
 			, {"x02220", "002210", "002020", "002120", "002010", "002230", "x01212"}
 			, {"224442", "224432", "x21202", "224342", "224232", "224452", "123131"}
 			};
+			
+		BassCode = new String[][] {
+			  {"x35x"}
+			, {"x57x"}
+			, {"x79x"}
+			, {"xx35"}
+			, {"xx57"}
+			, {"57xx"}
+			, {"79xx"}
+		};
 			
 		BassRhythm0 = new String[][] {
 			{"0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "0", "$"},
@@ -351,12 +364,20 @@ class FileOpen {
 	}
 	
 	/**
-	 * @brief 기타코드를 리턴해주는 메소드
+	 * @brief 코드를 리턴해주는 메소드
+	 * @param int type 				: 어떤 코드인지 분류
 	 * return String[][] GuitarCode : 기타 코드 리턴
 	 */
-	public String[][] getGuitarCode()
+	public String[][] getCode(int type)
 	{
-		return GuitarCode;
+		switch(type)
+		{
+		case 2:
+			return GuitarCode;
+		case 3:
+			return BassCode;
+		}
+		return null;
 	}
 	
 	/**

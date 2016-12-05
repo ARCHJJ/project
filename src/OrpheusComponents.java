@@ -294,7 +294,7 @@ abstract class OrpheusComponents {
 		files = new FileOpen();
 		keyboardPlay = new PlayToKeyboard(files);
 		keyboardPlay.setVisible(false);
-		Code = new InputGuitarCode(files.getGuitarCode());
+		Code = new InputGuitarCode(files.getCode(2));
 		DrumRhythm = new InputDrumRhythm();
 		DrumPlay = new PlayDrumRhythm();
 		

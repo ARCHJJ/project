@@ -457,7 +457,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	public void playCode()
 	{
 		Clip clip;
-		String code = files.getGuitarCode()[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
+		String code = files.getCode(2)[RootChord.getSelectedIndex()][ChildChord.getSelectedIndex()];
 		char ch;
 		
 		for(int i=0; i<6; i++)
