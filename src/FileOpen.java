@@ -1,4 +1,5 @@
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 import javax.sound.sampled.AudioInputStream;
@@ -6,6 +7,7 @@ import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
 import javax.sound.sampled.LineUnavailableException;
 import javax.sound.sampled.UnsupportedAudioFileException;
+import javax.swing.JOptionPane;
 
 /**
  * @brief 저장된 음악파일을 오픈해준다.
@@ -287,6 +289,10 @@ class FileOpen {
 			MetronomeAIS = AudioSystem.getAudioInputStream(MetronomeFile);
 			MetronomeClip = AudioSystem.getClip();
 			MetronomeClip.open(MetronomeAIS);
+		}
+		catch(FileNotFoundException fe) {
+			JOptionPane.showMessageDialog(null, "DATAFILE NOT FOUND!", "ERROR", JOptionPane.ERROR_MESSAGE);
+			System.exit(1);
 		}
 		catch(UnsupportedAudioFileException ue) { ue.printStackTrace(); }
 		catch(LineUnavailableException le) { le.printStackTrace(); }
