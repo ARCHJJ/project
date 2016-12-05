@@ -64,6 +64,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		totalBankCount_before = 0;
 		
 		BeatSet.addActionListener(this);
+		BPMSet.addActionListener(this);
 		btn_SelectToPiano.addActionListener(this);
 		btn_SelectToDrum.addActionListener(this);
 		btn_SelectToGuitar.addActionListener(this);
@@ -113,9 +114,13 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		int beatsetIDX = BeatSet.getSelectedIndex();
+		
 		if(beatsetIDX == 4 || beatsetIDX == 8)
 			BeatSet.setSelectedIndex(beatsetIDX+1);
 		
+		if(Integer.parseInt(BPMSet.getText()) > 200){BPMSet.setText("200");}
+		else if(Integer.parseInt(BPMSet.getText()) < 60) {BPMSet.setText("60");}
+				
 		try
 		{
 			JButton source = (JButton)e.getSource();
