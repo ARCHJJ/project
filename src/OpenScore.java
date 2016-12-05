@@ -130,6 +130,9 @@ public class OpenScore {
 					//STT[i].addColumn(1);table_Task
 				}
 				
+				for(int j=0; j<4; j++)
+					STT[j].setCellOption(table_Task[j]);
+				
 			}
 			
 			for(int i = 0; i < 4 ; i++)
