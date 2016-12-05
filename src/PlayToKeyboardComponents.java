@@ -104,44 +104,44 @@ abstract class PlayToKeyboardComponents {
 		contentPane = new JPanel();
 		mainFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
-		mainFrame.setBounds(935, 20, 462, 200);
+		mainFrame.setBounds(935, 20, 510, 200);
 		mainFrame.setTitle("오르페우스의 리라");
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		
 		table_RootChord = new JTable();
 		table_RootChord.setEnabled(false);
 		scrollPane_RootChord = new JScrollPane(table_RootChord);
-		scrollPane_RootChord.setBounds(12, 83, 432, 41);
+		scrollPane_RootChord.setBounds(12, 88, 477, 47);
 		contentPane.add(scrollPane_RootChord);
 		
 		table_ChildChord = new JTable();
 		table_ChildChord.setEnabled(false);
 		scrollPane_ChildChord = new JScrollPane(table_ChildChord);
-		scrollPane_ChildChord.setBounds(12, 35, 432, 41);
+		scrollPane_ChildChord.setBounds(12, 35, 477, 47);
 		contentPane.add(scrollPane_ChildChord);
 		
 		btn_SelectToPiano = new JButton("피아노");
-		btn_SelectToPiano.setBounds(12, 5, 99, 25);
+		btn_SelectToPiano.setBounds(12, 5, 110, 25);
 		contentPane.add(btn_SelectToPiano);
 		
 		btn_SelectToDrum = new JButton("드럼");
-		btn_SelectToDrum.setBounds(123, 5, 99, 25);
+		btn_SelectToDrum.setBounds(134, 5, 110, 25);
 		contentPane.add(btn_SelectToDrum);
 		
 		btn_SelectToGuitar = new JButton("기타");
-		btn_SelectToGuitar.setBounds(234, 5, 99, 25);
+		btn_SelectToGuitar.setBounds(256, 5, 110, 25);
 		contentPane.add(btn_SelectToGuitar);
 		
 		btn_SelectToBase = new JButton("베이스");
-		btn_SelectToBase.setBounds(345, 5, 99, 25);
+		btn_SelectToBase.setBounds(378, 5, 110, 25);
 		contentPane.add(btn_SelectToBase);
 				
 		lbl_showOctave = new JLabel("");
-		lbl_showOctave.setBounds(12, 134, 57, 15);
+		lbl_showOctave.setBounds(12, 142, 57, 15);
 		contentPane.add(lbl_showOctave);
 		
 		lbl_showTone = new JLabel("");
-		lbl_showTone.setBounds(123, 134, 57, 15);
+		lbl_showTone.setBounds(123, 142, 57, 15);
 		contentPane.add(lbl_showTone);
 	}
 }

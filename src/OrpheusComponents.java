@@ -226,12 +226,10 @@ abstract class OrpheusComponents {
 		mainFrame.setTitle("\uD504\uB85C\uC81D\uD2B8 \uC624\uB974\uD398\uC6B0\uC2A4 ver.1.0 (by. \uB514\uC624\uB2C8\uC18C\uC2A4\uB2D8\u2606)");
 		mainFrame.setForeground(Color.WHITE);
 		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
-		//mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setBounds(100, 20, 800, 768);
 		contentPane = new JPanel();
 		contentPane.setBackground(new Color(255, 255, 255));
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-		//setContentPane(new JLabel(new ImageIcon(ImageIO.read(getClass().getResource("/Images/about.png")))));
 		mainFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
@@ -242,15 +240,15 @@ abstract class OrpheusComponents {
 		Font PureGothic14 = new Font("맑은 고딕", Font.BOLD, 14);
 		Color bgcolor = new Color(255, 255, 255);
 		Color fgcolor = new Color(0, 0, 0);
-		lbl_SelectBeatSet = new JLabel("박자 : ");
+		lbl_SelectBeatSet = new JLabel("박자  : ");
 		lbl_SelectBeatSet.setFont(PureGothic14);
-		lbl_SelectBeatSet.setBounds(577, 20, 54, 23);
+		lbl_SelectBeatSet.setBounds(575, 20, 54, 23);
 		contentPane.add(lbl_SelectBeatSet);
 
 		BeatSet = new JComboBox(BeatList);
 		BeatSet.setFont(PureGothic12);
 		BeatSet.setSelectedItem("4/4");
-		BeatSet.setBounds(627, 23, 50, 20);
+		BeatSet.setBounds(625, 23, 53, 20);
 		contentPane.add(BeatSet);		
 
 		BankChoice = new JComboBox();
@@ -288,7 +286,7 @@ abstract class OrpheusComponents {
 		contentPane.add(BPMSet);
 		
 		metronome_Check = new JCheckBox("메트로놈");
-		metronome_Check.setBounds(681, 22, 97, 23);
+		metronome_Check.setBounds(681, 219, 97, 23);
 		metronome_Check.setBackground(SystemColor.window);
 		metronome_Check.setFont(PureGothic14);
 		contentPane.add(metronome_Check);
@@ -319,7 +317,7 @@ abstract class OrpheusComponents {
 		scrollPane_Field = new JScrollPane[3];
 		String[] instruments = {"피아노", "드럼", "기타", "베이스"};
 		
-		for(int i=0, TaskY=469, MuteY = 497; i<4; i++)
+		for(int i=0, TaskY=468, MuteY = 496; i<4; i++)
 		{
 			if(i<3)
 			{
@@ -362,13 +360,13 @@ abstract class OrpheusComponents {
 			contentPane.add(scrollPane_Task[i]);
 			contentPane.add(btn_Solo[i]);
 			contentPane.add(Mute[i]);
-			
-			TaskY+=64;
-			MuteY+=64;
+		
+			TaskY+=62;
+			MuteY+=62;
 		}
-		scrollPane_Field[0].setBounds(12, 220, 63, 251);
+		scrollPane_Field[0].setBounds(12, 216, 66, 255);
 		scrollPane_Field[1].setBounds(12, 155, 666, 65);
-		scrollPane_Field[2].setBounds(75, 220, 603, 251);
+		scrollPane_Field[2].setBounds(75, 216, 603, 255);
 		
 		//0번부터 3번까지 차례로 피아노, 드럼, 기타, 베이스
 		STF = new SettingToField[4];
@@ -426,25 +424,25 @@ abstract class OrpheusComponents {
 		btn_start = new JButton("연주시작");
 		btn_start.setBackground(bgcolor);
 		btn_start.setFont(HumanRoundHeadLine12);
-		btn_start.setBounds(681, 244, 97, 33);
+		btn_start.setBounds(681, 249, 97, 33);
 		contentPane.add(btn_start);
 		
 		btn_init = new JButton("초기화");
 		btn_init.setBackground(bgcolor);
 		btn_init.setFont(HumanRoundHeadLine12);
-		btn_init.setBounds(681, 294, 97, 33);
+		btn_init.setBounds(681, 299, 97, 33);
 		contentPane.add(btn_init);
 	
 		btn_erase = new JButton("열지우기");
 		btn_erase.setBackground(bgcolor);
 		btn_erase.setFont(HumanRoundHeadLine12);
-		btn_erase.setBounds(681, 344, 97, 33);
+		btn_erase.setBounds(681, 349, 97, 33);
 		contentPane.add(btn_erase);
 		
 		btn_KeyboardPlay = new JButton("키보드연주");
 		btn_KeyboardPlay.setBackground(bgcolor);
 		btn_KeyboardPlay.setFont(HumanRoundHeadLine12);
-		btn_KeyboardPlay.setBounds(681, 394, 97, 33);
+		btn_KeyboardPlay.setBounds(681, 399, 97, 33);
 		contentPane.add(btn_KeyboardPlay);
 
 		btn_BankSave = new JButton("뱅크 저장");

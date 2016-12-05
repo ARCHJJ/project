@@ -12,9 +12,6 @@ import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
 
-//import javax.swing.SwingUtilities;
-//import javax.swing.UIManager;
-//import javax.swing.UnsupportedLookAndFeelException;
 @SuppressWarnings("serial")
 /**
  * @brief 초보자용과 숙련자용을 선택하는 GUI 인터페이스가 정의되는 곳이다.
@@ -44,14 +41,7 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));
 		try
 		{
-			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			//UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
-			//UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-			//UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
-			//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-			//UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
 			SwingUtilities.updateComponentTreeUI(this);
 		}
 		catch(Exception e) { e.printStackTrace(); }
