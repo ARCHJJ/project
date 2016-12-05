@@ -23,12 +23,15 @@ class TaskField extends SettingToField{
 	//! 콤보박스에 들어갈 데이터가 추가될 경우 LinkedList<String>에 저장한 후 배열화 시킨다.
 	private LinkedList<String> items;
 	
+	//! 악기 이름
+	private String instrument;
 	/**
 	 * @brief 생성자. 초기상태를 설정해준다.
 	 * @param String instrument : 악기이름을 설정해준다.
 	 */
 	public TaskField(String instrument)
 	{
+		this.instrument = instrument;
 		items = new LinkedList<String>();
 		items.add("");
 		itemList = items.toArray();
@@ -83,10 +86,25 @@ class TaskField extends SettingToField{
 	public void removeColumn() {}
 	
 	/**
-	 * @brief 부모클래스의 abstract 메소드. TaskField 클래스에서는 사용하지 않는다.
+	 * @brief 현재 테이블을 초기화하는 메소드 
 	 */
 	@Override
-	public void Init() {}
+	public void Init() {
+		items.clear();
+		items.add("");
+		BankList.removeAllItems();
+		BankList.addItem("");
+		
+		bulb.clear();
+		bulb.add(true);
+		colCnt = 1;
+
+		header = new String[]{"악기", "1"};
+		field = new Object[1][2];
+		field[0][0] = instrument;
+		field[0][1] = BankList;
+		tablemodel.setDataVector(field, header);
+	}
 	
 	/**
 	 * @brief 뱅크저장을 통해 새로운 뱅크가 추가되면 콤보박스에 데이터를 추가시키는 메소드

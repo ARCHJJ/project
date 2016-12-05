@@ -343,6 +343,7 @@ abstract class OrpheusComponents {
 			table_Task[i].setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
 			
 			scrollPane_Task[i] = new JScrollPane(table_Task[i]);
+			//scrollPane_Task[i].getHorizontalScrollBar().setValue(scrollPane_Task[i].getHorizontalScrollBar().getMaximum());
 			scrollPane_Task[i].getViewport().setBackground(Color.WHITE);
 			scrollPane_Task[i].setBounds(12, TaskY, 666, 65);
 			

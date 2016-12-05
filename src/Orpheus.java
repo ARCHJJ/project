@@ -526,7 +526,8 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void inputrhythm()
 	{
-		
+		STF[IDX].Init();
+		STB[IDX].Init();
 		if(IDX == 1)
 		{
 			RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
@@ -581,8 +582,15 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 	 */
 	public void openScore()
 	{
-		open.open_Score(BeatSet, BPMSet, STF, STT, table_Task);
+		isSave = false;
+		totalBankCount = totalBankCount_before = 0;
+		BankChoice.removeAllItems();
+		
+		open.open_Score(BeatSet, BPMSet, STB, STF, STT, table_Task);
+
 		RestTimeSetup.getRestTime(BPMSet.getText(), (String)BeatSet.getSelectedItem());
+		
+		setField(0);
 	}
 	
 	/**

@@ -42,7 +42,7 @@ public class OpenScore {
 	 * @param TaskField STT[]		: 작업표시줄의 상태를 가지는 필드
 	 * @param JTable table_Task[]	: 작업표시줄이 들어갈 테이블
 	 */
-	public void open_Score(JComboBox BeatSet, JTextField BPMSet, SettingToField STF[], TaskField STT[], JTable table_Task[])
+	public void open_Score(JComboBox BeatSet, JTextField BPMSet, BeatField STB[], SettingToField STF[], TaskField STT[], JTable table_Task[])
 	{
 		
 		final JFileChooser fc = new JFileChooser();   
@@ -57,6 +57,14 @@ public class OpenScore {
 	    	JOptionPane.showMessageDialog(null, "파일을 선택하세요.", "오류", JOptionPane.ERROR_MESSAGE);
 	    	return;
 	    }
+	    
+		for(int i=0; i<4; i++)
+		{
+			STF[i].BankListClear();
+			STT[i].Init();
+			STF[i].Init();
+			STB[i].Init();
+		}
 		
 		try
 		{

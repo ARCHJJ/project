@@ -147,7 +147,7 @@ class BeatField extends SettingToField{
 		field[0][0] = "¡àºÐÀ½Ç¥";
 		field[0][1] = beatList;
 		beatList.setSelectedIndex(2);
-		tablemodel.setDataVector(field, new String[]{" ", "1"});
+		tablemodel.setDataVector(field, header);
 	}
 	
 	/**
