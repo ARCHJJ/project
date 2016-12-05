@@ -1,3 +1,5 @@
+import java.awt.Toolkit;
+
 import javax.sound.sampled.Clip;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -103,6 +105,8 @@ abstract class PlayToKeyboardComponents {
 		mainFrame.setContentPane(contentPane);
 		contentPane.setLayout(null);
 		mainFrame.setBounds(935, 20, 462, 200);
+		mainFrame.setTitle("오르페우스의 리라");
+		mainFrame.setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));//icon
 		
 		table_RootChord = new JTable();
 		table_RootChord.setEnabled(false);
