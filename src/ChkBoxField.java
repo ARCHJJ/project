@@ -91,13 +91,4 @@ class ChkBoxField extends SettingToField{
 		
 		tablemodel.setDataVector(field, header);
 	}
-	
-	/**
-	 * @brief 악기종류를 리턴 하는 메소드
-	 * @return int kinds : 악기종류 리턴
-	 */
-	public int getKinds()
-	{
-		return kinds;
-	}
 }

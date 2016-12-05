@@ -79,7 +79,10 @@ abstract class OrpheusComponents {
 	//! 연주시작버튼. 작업대기줄에서 설정한 뱅크를 차례로 재생한다.
 	protected JButton btn_start;
 	
-	//! 지우기버튼. table_Field의 내용을 모두 지운다.
+	//! 초기화 버튼. table_Field의 내용을 모두 지운다. 
+	protected JButton btn_init;
+	
+	//! 지우기버튼. table_Field의 열을 하나 지운다.
 	protected JButton btn_erase;
 	
 	//! 피아노선택버튼. table_Field을 피아노로 셋팅한다.
@@ -425,16 +428,22 @@ abstract class OrpheusComponents {
 		btn_start.setBounds(681, 244, 97, 33);
 		contentPane.add(btn_start);
 		
-		btn_erase = new JButton("지우기");
+		btn_init = new JButton("초기화");
+		btn_init.setBackground(bgcolor);
+		btn_init.setFont(HumanRoundHeadLine12);
+		btn_init.setBounds(681, 294, 97, 33);
+		contentPane.add(btn_init);
+	
+		btn_erase = new JButton("열지우기");
 		btn_erase.setBackground(bgcolor);
 		btn_erase.setFont(HumanRoundHeadLine12);
-		btn_erase.setBounds(681, 304, 97, 33);
+		btn_erase.setBounds(681, 344, 97, 33);
 		contentPane.add(btn_erase);
-	
+		
 		btn_KeyboardPlay = new JButton("키보드연주");
 		btn_KeyboardPlay.setBackground(bgcolor);
 		btn_KeyboardPlay.setFont(HumanRoundHeadLine12);
-		btn_KeyboardPlay.setBounds(681, 364, 97, 33);
+		btn_KeyboardPlay.setBounds(681, 394, 97, 33);
 		contentPane.add(btn_KeyboardPlay);
 
 		btn_BankSave = new JButton("뱅크 저장");

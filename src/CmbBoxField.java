@@ -67,7 +67,7 @@ class CmbBoxField extends SettingToField {
 			BeatField.setCellOption(table_Beat);
 		}
 	}
-
+	
 	/**
 	 * @brief 열을 추가하고 나서 다시 렌더러와 에디터를 적용시켜 주는 메소드
 	 * @param JTable Desk : 렌더러와 에디터가 적용될 JTable

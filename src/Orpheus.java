@@ -70,6 +70,7 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 		btn_SelectToBase.addActionListener(this);
 		btn_start.addActionListener(this);
 		btn_erase.addActionListener(this);
+		btn_init.addActionListener(this);
 		btn_KeyboardPlay.addActionListener(this);
 		btn_BankSave.addActionListener(this);
 		btn_BankListen.addActionListener(this);
@@ -175,8 +176,12 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 				musicQ();
 				break;
 				
-			case "지우기":
+			case "초기화":
 				init();
+				break;
+			
+			case "열지우기":
+				removeColumn();
 				break;
 				
 			case "코드 입력":
@@ -429,6 +434,19 @@ public class Orpheus extends OrpheusComponents implements ActionListener, Window
 			taskPlay[i].action();
 	}
 
+	/**
+	 * @brief 현재 보고 있는 table_Field[1], table_Field[2]를 컬럼을 한줄 지우는 메소드.
+	 */
+	public void removeColumn()
+	{
+
+		STB[IDX].removeColumn();
+		STF[IDX].removeColumn();
+		
+		STB[IDX].setCellOption(table_Field[1]);
+		STF[IDX].setCellOption(table_Field[2]);
+	}
+	
 	/**
 	 * @brief 현재 보고 있는 table_Field[1], table_Field[2]를 지우고 초기상태로 되돌린다.
 	 */

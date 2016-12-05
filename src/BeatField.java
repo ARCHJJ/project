@@ -67,6 +67,19 @@ class BeatField extends SettingToField{
 	}
 	
 	/**
+	 * @brief 컬럼을 한줄 지우는 메소드
+	 */
+	public void removeColumn()
+	{
+		if(colCnt == 1)
+			return;
+		
+		bulb.set(colCnt-2, true);
+		tablemodel.setColumnCount(colCnt);
+		colCnt--;
+	}
+	
+	/**
 	 * @brief 열을 추가하고 나서 다시 렌더러와 에디터를 적용시켜 주는 메소드
 	 * @param JTable Desk : 렌더러와 에디터가 적용될 JTable
 	 */

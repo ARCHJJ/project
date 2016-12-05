@@ -18,6 +18,7 @@ abstract class SettingToField extends Setting{
 	
 	//! JTable의 열 
 	protected int colCnt = 1;
+	
 	/**
 	 * @brief 필드부분을 초기세팅해주는 생성자
 	 */
@@ -27,6 +28,7 @@ abstract class SettingToField extends Setting{
 		bulb = new LinkedList<Boolean>();
 		bulb.add(true);
 	}
+	
 	/**
 	 * @brief BankList 를 초기화 하는 메소드
 	 */
@@ -34,15 +36,34 @@ abstract class SettingToField extends Setting{
 	{
 		BankList.clear();
 		BankList.add(null);
-//		bulb.clear();
-//		bulb.add(true);
+	}
+
+	/**
+	 * @brief 악기종류를 리턴 하는 메소드
+	 * @return int kinds : 악기종류 리턴
+	 */
+	public int getKinds()
+	{
+		return kinds;
+	}
+
+	/**
+	 * @brief 컬럼을 한줄 지우는 메소드
+	 */
+	public void removeColumn()
+	{
+		if(colCnt == 1)
+			return;
+		colCnt--;
+		bulb.set(colCnt-1, true);
+		tablemodel.setColumnCount(colCnt);
 	}
 	/**
 	 * @brief 컬럼 추가
 	 * @param int idx 컬럼 인덱스
 	 */
 	abstract void addColumn(int idx);
-	
+
 	/**
 	 * @brief 셀 옵션을 설정하는 메소드
 	 * @param JTable Desk 작업표시줄의 라인
@@ -54,9 +75,4 @@ abstract class SettingToField extends Setting{
 	 */
 	abstract void Init();
 	
-	/**
-	 * @brief 악기종류 얻는 메소드
-	 */
-	abstract int getKinds();
-
 }

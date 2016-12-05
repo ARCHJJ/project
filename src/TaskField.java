@@ -80,18 +80,13 @@ class TaskField extends SettingToField{
 	 * @brief 부모클래스의 abstract 메소드. TaskField 클래스에서는 사용하지 않는다.
 	 */
 	@Override
-	public void Init() {
-				
-	}
+	public void removeColumn() {}
 	
 	/**
 	 * @brief 부모클래스의 abstract 메소드. TaskField 클래스에서는 사용하지 않는다.
-	 * @return -1 : 사용하지 않기 때문에 -1을 리턴한다.
 	 */
 	@Override
-	public int getKinds() {
-		return -1;
-	}
+	public void Init() {}
 	
 	/**
 	 * @brief 뱅크저장을 통해 새로운 뱅크가 추가되면 콤보박스에 데이터를 추가시키는 메소드
@@ -117,4 +112,5 @@ class TaskField extends SettingToField{
 	{
 		return itemList;
 	}
+
 }
