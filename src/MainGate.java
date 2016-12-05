@@ -44,14 +44,14 @@ public class MainGate extends JFrame implements ActionListener, MouseListener{
 		setIconImage(Toolkit.getDefaultToolkit().getImage("images.png"));
 		try
 		{
-			//UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
-			//UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
-			//UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
-			//UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
+			UIManager.setLookAndFeel("javax.swing.plaf.nimbus.NimbusLookAndFeel");
+			////UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+			////UIManager.setLookAndFeel("javax.swing.plaf.metal.MetalLookAndFeel");
+			////UIManager.setLookAndFeel("ch.randelshofer.quaqua.QuaquaLookAndFeel");
 			//UIManager.setLookAndFeel("com.birosoft.liquid.LiquidLookAndFeel");
-			//UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
-			//UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
-			//UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
+			////UIManager.setLookAndFeel("net.infonode.gui.laf.InfoNodeLookAndFeel");
+			////UIManager.setLookAndFeel("com.jtattoo.plaf.smart.SmartLookAndFeel");
+			////UIManager.setLookAndFeel("com.jtattoo.plaf.mcwin.McWinLookAndFeel");
 			SwingUtilities.updateComponentTreeUI(this);
 		}
 		catch(Exception e) { e.printStackTrace(); }
