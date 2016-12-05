@@ -1,6 +1,8 @@
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
+@SuppressWarnings("rawtypes")
+
 /**
  * @brief 드럼에 선택된 리듬을 입력하는 클래스이다. 
  */

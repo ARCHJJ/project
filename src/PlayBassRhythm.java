@@ -1,7 +1,5 @@
 import java.util.LinkedList;
 
-import javax.swing.JComboBox;
-
 public class PlayBassRhythm {
 	
 	//! 박자에 대한 정보가 들어있는 객체
@@ -29,8 +27,6 @@ public class PlayBassRhythm {
 	public LinkedList<Note> play_Rhythm(int y) 
 	{
 		LinkedList<Note> itbank = new LinkedList<Note>();
-		
-		int num;
 			
 		for(int i=0; '$' != Bassrhytm[y][i].charAt(0); i++)
 		{

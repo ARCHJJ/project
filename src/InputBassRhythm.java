@@ -1,7 +1,7 @@
-import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JTable;
 
+@SuppressWarnings("rawtypes")
 public class InputBassRhythm {
 
 		//! 테이블에 박자를 넣기위한 객체

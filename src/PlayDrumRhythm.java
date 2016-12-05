@@ -1,8 +1,5 @@
 import java.util.LinkedList;
 
-import javax.sound.sampled.Clip;
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
 /**
  * @brief 드럼에 선택된 리듬을 재생하는 클래스이다. 
  */
@@ -41,8 +38,7 @@ public class PlayDrumRhythm {
 	public LinkedList<Note> play_Rhythm(int x, int y) 
 	{
 		LinkedList<Note> itbank = new LinkedList<Note>();
-		Note itnote = new Note();
-		
+
 		switch(x)
 		{
 		case 0 :

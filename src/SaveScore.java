@@ -2,12 +2,9 @@ import java.io.*;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-//import javax.sound.sampled.Clip;
 import javax.swing.JComboBox;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
 import javax.swing.JTable;
-
+@SuppressWarnings("rawtypes")
 /**
  * @brief 진행 내용을 파일로 저장하는 클래스이다. 
  */
@@ -69,6 +66,7 @@ public class SaveScore {
 	 * @param SettingToField STF[]		: 설정된 뱅크가 담겨있는 SettingToField
 	 * @param JTable table_Task[]		: 작업대기줄의 상태를 가지고있는 JTable 
 	 */
+
 	public void save_Score(SettingToField STF[], JTable table_Task[])
 	{
 		try 

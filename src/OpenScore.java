@@ -8,6 +8,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
+@SuppressWarnings("rawtypes")
 /**
  * @brief 저장된 내용을 불러오는 클래스이다. 
  */

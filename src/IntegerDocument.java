@@ -3,6 +3,7 @@ import javax.swing.text.*;
 /**
  * @brief BPM의 예외처리를 위한 클래스이다.
  */
+@SuppressWarnings("serial")
 public class IntegerDocument extends PlainDocument 
 {
 	//! 현재 반환될 값
@@ -102,7 +103,7 @@ public class IntegerDocument extends PlainDocument
          
          else 
          {
-         return 0;
+        	 return 0;
          }
      }
 }
